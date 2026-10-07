@@ -41,6 +41,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
         // 'testGuard' => [
         //     'driver' => 'session',
@@ -76,10 +81,9 @@ return [
             'driver' => 'eloquent',
             'model' => usermodel::class,
         ],
-
-        'users' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => usermodel::class,
+            'model' => Admin::class,
         ],
     ],
 

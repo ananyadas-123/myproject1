@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TechnicianController;
 use App\Http\Controllers\UserController;
@@ -128,4 +129,25 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/products/{product}', [ProductController::class, 'show'])
         ->name('products.show');
+});
+
+
+Route::prefix('admin')->group(function () {
+
+    Route::get('/login', [AdminController::class, 'login'])
+        ->name('admin.login');
+
+    Route::post('/login', [AdminController::class, 'loginCheck'])
+        ->name('admin.login.check');
+
+    Route::post('/logout', [AdminController::class, 'logout'])
+        ->name('admin.logout');
+
+    Route::middleware('auth:admin')->group(function () {
+
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+    });
 });
