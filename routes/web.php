@@ -76,6 +76,12 @@ Route::middleware('auth')->group(function () {
 
     })->name('logout');
 
+    Route::get('/profile', [UserController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::put('/profile', [UserController::class, 'update'])
+        ->name('profile.update');
+
     Route::get('/products', [ProductController::class, 'index'])
         ->name('products.index');
 

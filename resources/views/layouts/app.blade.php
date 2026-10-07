@@ -746,13 +746,10 @@
         </div>
 
 
-        <a href="#"
-           class="sidebar-link">
-
+        <a href="{{ route('profile.edit') }}"
+            class="sidebar-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
             <i class="bi bi-person-circle"></i>
-
             <span>My Profile</span>
-
         </a>
 
 
