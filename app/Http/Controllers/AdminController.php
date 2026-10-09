@@ -6,6 +6,10 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\usermodel;
+use App\Models\Product;
+use App\Models\Technician;
+use App\Models\RepairRequest;
 
 class AdminController extends Controller
 {
@@ -49,5 +53,20 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
+    }
+
+    public function dashboard()
+    {
+        $totalUsers = usermodel::count();
+        $totalProducts = Product::count();
+        $totalTechnicians = Technician::count();
+        $totalRepairRequests = RepairRequest::count();
+
+        return view('admin.dashboard', compact(
+            'totalUsers',
+            'totalProducts',
+            'totalTechnicians',
+            'totalRepairRequests'
+        ));
     }
 }
