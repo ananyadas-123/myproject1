@@ -134,6 +134,9 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->group(function () {
 
+    Route::get('/users', [AdminController::class, 'users'])
+        ->name('admin.users.index');
+
     Route::get('/login', [AdminController::class, 'login'])
         ->name('admin.login');
 

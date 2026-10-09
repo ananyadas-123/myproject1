@@ -69,4 +69,29 @@ class AdminController extends Controller
             'totalRepairRequests'
         ));
     }
+
+    public function users(Request $request)
+    {
+        $search = $request->input('search');
+
+        $users = usermodel::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        $totalUsers = usermodel::count();
+
+        return view('admin.users.index', compact(
+            'users',
+            'search',
+            'totalUsers'
+        ));
+    }
 }

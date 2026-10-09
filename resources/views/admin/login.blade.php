@@ -132,7 +132,7 @@
             height: auto;
             margin-bottom: 38px;
 
-            filter: brightness(0) invert(1);
+            
         }
 
         .admin-badge {
@@ -475,10 +475,11 @@
             <div class="brand-content">
 
                 <img
-                    src="{{ asset('images/logo.png') }}"
-                    alt="ProductLife Logo"
-                    class="brand-logo"
-                >
+                src="{{ asset('images/logo.png') }}"
+                alt="ProductLife Logo"
+                class="brand-logo"
+                onerror="this.style.display='none';"
+            >
 
                 <div class="admin-badge">
                     <i class="bi bi-shield-lock-fill"></i>

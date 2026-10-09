@@ -389,7 +389,8 @@
 
     <section class="quick-grid">
 
-        <a href="#users" class="quick-link" id="users">
+        {{-- User Management --}}
+        <a href="{{ route('admin.users.index') }}" class="quick-link">
             <i class="bi bi-people"></i>
             <div>
                 <strong>User Management</strong>
@@ -397,7 +398,8 @@
             </div>
         </a>
 
-        <a href="#products" class="quick-link" id="products">
+        {{-- Product Management --}}
+        <a href="#products" class="quick-link">
             <i class="bi bi-box-seam"></i>
             <div>
                 <strong>Product Management</strong>
@@ -405,7 +407,8 @@
             </div>
         </a>
 
-        <a href="#technicians" class="quick-link" id="technicians">
+        {{-- Technician Management --}}
+        <a href="#technicians" class="quick-link">
             <i class="bi bi-person-gear"></i>
             <div>
                 <strong>Technician Management</strong>
@@ -413,7 +416,8 @@
             </div>
         </a>
 
-        <a href="#repairs" class="quick-link" id="repairs">
+        {{-- Repair Requests --}}
+        <a href="#repairs" class="quick-link">
             <i class="bi bi-wrench-adjustable-circle"></i>
             <div>
                 <strong>Repair Requests</strong>
@@ -421,7 +425,8 @@
             </div>
         </a>
 
-        <a href="#warranty" class="quick-link" id="warranty">
+        {{-- Warranty Management --}}
+        <a href="#warranty" class="quick-link">
             <i class="bi bi-patch-check"></i>
             <div>
                 <strong>Warranty Management</strong>
@@ -429,10 +434,11 @@
             </div>
         </a>
 
-        <a href="#reports" class="quick-link" id="reports">
+        {{-- Reports & Analytics --}}
+        <a href="#reports" class="quick-link">
             <i class="bi bi-graph-up-arrow"></i>
             <div>
-                <strong>Reports & Analytics</strong>
+                <strong>Reports &amp; Analytics</strong>
                 <small>Lifecycle and service insights</small>
             </div>
         </a>
