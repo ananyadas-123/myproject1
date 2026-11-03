@@ -94,4 +94,71 @@ class AdminController extends Controller
             'totalUsers'
         ));
     }
+
+        
+    public function showUser($user)
+    {
+        $user = \App\Models\usermodel::with('products')
+            ->findOrFail($user);
+
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function destroyUser($user)
+    {
+        $user = \App\Models\usermodel::findOrFail($user);
+
+        // Do not delete users with linked products.
+        if ($user->products()->exists()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(
+                    'error',
+                    'This user has linked products. Handle those products before deleting the account.'
+                );
+        }
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User deleted successfully.');
+    }
+
+    
+ 
+    public function products(\Illuminate\Http\Request $request)
+    {
+        $search = trim($request->input('search', ''));
+
+        $products = Product::with('user')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('brand', 'like', "%{$search}%")
+                    ->orWhere('model', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%")
+                    ->orWhere('serial_number', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        $totalProducts = Product::count();
+
+        return view('admin.products.index', compact(
+            'products',
+            'search',
+            'totalProducts'
+        ));
+    }
+
+    public function showProduct($product)
+    {
+        $product = Product::with('user')
+            ->findOrFail($product);
+
+        return view('admin.products.show', compact('product'));
+    }
+
 }

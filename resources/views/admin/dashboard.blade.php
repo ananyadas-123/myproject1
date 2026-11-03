@@ -297,7 +297,8 @@
         Users Management
     </a>
 
-    <a href="#products" class="menu-link">
+        
+    <a href="{{ route('admin.products.index') }}" class="menu-link">
         <i class="bi bi-box-seam"></i>
         Products Management
     </a>
@@ -399,7 +400,7 @@
         </a>
 
         {{-- Product Management --}}
-        <a href="#products" class="quick-link">
+        <a href="{{ route('admin.products.index') }}" class="quick-link">
             <i class="bi bi-box-seam"></i>
             <div>
                 <strong>Product Management</strong>
