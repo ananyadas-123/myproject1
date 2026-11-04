@@ -49,4 +49,24 @@ class WarrantyController extends Controller
             ->route('products.passport', $product)
             ->with('success', 'Warranty information saved successfully!');
     }
+
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $warranties = Product::with('warranty')
+            ->where('user_id', Auth::id())
+            ->whereHas('warranty')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('brand', 'like', "%{$search}%")
+                    ->orWhere('model', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('warranties.index', compact('warranties', 'search'));
+    }
 }

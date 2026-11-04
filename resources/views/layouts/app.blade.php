@@ -678,13 +678,10 @@
 
         <!-- Warranty -->
 
-        <a href="{{ route('products.index') }}"
-           class="sidebar-link">
-
+        <a href="{{ route('warranties.index') }}"
+            class="sidebar-link {{ request()->routeIs('warranties.*') ? 'active' : '' }}">
             <i class="bi bi-shield-check"></i>
-
             <span>Warranty</span>
-
         </a>
 
 
@@ -832,32 +829,92 @@
 
             <!-- USER -->
 
-            <div class="topbar-user">
+            {{-- USER PROFILE DROPDOWN --}}
 
-                <div class="user-avatar">
+            <div class="dropdown">
 
-                    {{ strtoupper(
-                        substr(Auth::user()->name, 0, 1)
-                    ) }}
+                <button class="topbar-user dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
 
-                </div>
+                    {{-- USER IMAGE --}}
 
+                    @if(Auth::user()->image)
 
-                <div class="user-info">
+                        <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                            alt="Profile Image"
+                            class="user-avatar">
 
-                    <div class="user-name">
+                    @else
 
-                        {{ Auth::user()->name }}
+                        <div class="user-avatar">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+
+                    @endif
+
+                    {{-- USER INFO --}}
+
+                    <div class="user-info">
+
+                        <div class="user-name">
+                            {{ Auth::user()->name }}
+                        </div>
+
+                        <div class="user-role">
+                            Product Owner
+                        </div>
 
                     </div>
 
-                    <div class="user-role">
+                </button>
 
-                        Product Owner
+                {{-- DROPDOWN MENU --}}
 
-                    </div>
+                <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
 
-                </div>
+                    <li>
+                        <a class="dropdown-item"
+                        href="{{ route('profile.edit') }}">
+
+                            <i class="bi bi-person-circle me-2"></i>
+                            My Profile
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                        href="{{ route('profile.edit') }}">
+
+                            <i class="bi bi-pencil-square me-2"></i>
+                            Edit Profile
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+
+                            @csrf
+
+                            <button type="submit"
+                                    class="dropdown-item text-danger">
+
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                Logout
+
+                            </button>
+
+                        </form>
+                    </li>
+
+                </ul>
 
             </div>
 

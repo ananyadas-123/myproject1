@@ -161,4 +161,15 @@ class AdminController extends Controller
         return view('admin.products.show', compact('product'));
     }
 
+    public function destroyProduct($product)
+    {
+        $product = Product::findOrFail($product);
+
+        $product->delete();
+
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product deleted successfully!');
+    }
+
 }

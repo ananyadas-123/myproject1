@@ -14,6 +14,7 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\RepairRequestController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -121,6 +122,9 @@ Route::middleware('auth')->group(function () {
         WarrantyController::class,
         'store',
     ])->name('warranties.store');
+
+    Route::get('/warranties', [WarrantyController::class, 'index'])
+        ->name('warranties.index');
 
 
     // Maintenance

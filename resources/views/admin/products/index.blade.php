@@ -22,6 +22,12 @@
     <div class="card border-0 shadow-sm rounded-4">
         <div class="card-body p-4">
 
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
             <form method="GET"
                   action="{{ route('admin.products.index') }}"
                   class="mb-4">
@@ -88,6 +94,19 @@
                                         View Details
                                     </a>
                                 </td>
+
+                                <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                    method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Are you sure you want to delete this product?');">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </form>
                             </tr>
                         @empty
                             <tr>
