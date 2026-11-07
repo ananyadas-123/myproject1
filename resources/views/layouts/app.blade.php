@@ -687,24 +687,20 @@
 
         <!-- Maintenance -->
 
-        <a href="{{ route('products.index') }}"
-           class="sidebar-link">
-
+        <a href="{{ route('maintenances.index') }}"
+        class="sidebar-link {{ request()->routeIs('maintenances.*') ? 'active' : '' }}">
             <i class="bi bi-calendar2-check"></i>
-
             <span>Maintenance</span>
-
         </a>
 
 
         <!-- Repair -->
+        <a href="{{ route('repair.history') }}"
+        class="sidebar-link {{ request()->routeIs('repair.history') ? 'active' : '' }}">
 
-        <a href="{{ route('products.index') }}"
-           class="sidebar-link">
+            <i class="bi bi-clock-history"></i>
 
-            <i class="bi bi-tools"></i>
-
-            <span>Repair Requests</span>
+            <span>Repair History</span>
 
         </a>
 

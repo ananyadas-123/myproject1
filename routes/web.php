@@ -145,6 +145,32 @@ Route::middleware('auth')->group(function () {
     )->name('maintenances.complete');
 
 
+    // Maintenance Management
+    Route::get('/maintenances', [
+        MaintenanceController::class,
+        'index',
+    ])->name('maintenances.index');
+
+    Route::get('/maintenances/{maintenance}/edit', [
+        MaintenanceController::class,
+        'edit',
+    ])->name('maintenances.edit');
+
+    Route::put('/maintenances/{maintenance}', [
+        MaintenanceController::class,
+        'update',
+    ])->name('maintenances.update');
+
+    Route::patch('/maintenances/{maintenance}/mark-complete', [
+        MaintenanceController::class,
+        'markComplete',
+    ])->name('maintenances.markComplete');
+
+    Route::delete('/maintenances/{maintenance}', [
+        MaintenanceController::class,
+        'destroy',
+    ])->name('maintenances.destroy');
+
     // Repair Requests & Technicians
 
     Route::get('/products/{product}/repair/create', [
@@ -166,6 +192,9 @@ Route::middleware('auth')->group(function () {
         '/repair-requests/{repairRequest}/assign-technician',
         [TechnicianController::class, 'assign']
     )->name('technicians.assign');
+
+    Route::get('/repair-history', [RepairRequestController::class, 'history'])
+        ->name('repair.history');
 
 
     // Product Lifecycle

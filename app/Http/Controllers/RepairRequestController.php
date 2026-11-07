@@ -42,4 +42,18 @@ class RepairRequestController extends Controller
             ->route('products.passport', $product)
             ->with('success', 'Repair request submitted successfully!');
     }
+
+    public function history()
+    {
+        $repairRequests = \App\Models\RepairRequest::with([
+            'product',
+            'technician',
+            'quotes.technician'
+        ])
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->paginate(10);
+
+        return view('repair_requests.history', compact('repairRequests'));
+    }
 }
