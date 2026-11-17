@@ -216,6 +216,7 @@
         transition: .2s ease;
     }
 
+
     .btn-view {
         background: #f0fdf4;
         color: #15803d;
@@ -236,6 +237,29 @@
     .btn-lifecycle:hover {
         background: #12583e;
         color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .btn-repair {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 11px 10px;
+        border-radius: 11px;
+        font-size: 11px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: .2s ease;
+        background: #fff7ed;
+        color: #c2410c;
+        border: 1px solid #fed7aa;
+    }
+
+    .btn-repair:hover {
+        background: #ffedd5;
+        color: #9a3412;
         transform: translateY(-1px);
     }
 
@@ -448,6 +472,14 @@
                             >
                                 <i class="bi bi-diagram-3"></i>
                                 Lifecycle
+                            </a>
+
+                            <a
+                                href="{{ route('repair_requests.create', $product->id) }}"
+                                class="btn-repair"
+                            >
+                                <i class="bi bi-tools"></i>
+                                Request Repair
                             </a>
 
                         </div>

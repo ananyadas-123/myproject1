@@ -32,13 +32,18 @@ class TechnicianController extends Controller
             'technician_id' => 'required|exists:technicians,id',
         ]);
 
+        // Only verified and available technicians can be assigned.
+        $technician = Technician::where('verified', true)
+            ->where('available', true)
+            ->findOrFail($validated['technician_id']);
+
         $repairRequest->update([
-            'technician_id' => $validated['technician_id'],
+            'technician_id' => $technician->id,
             'status' => 'assigned',
         ]);
 
         return redirect()
-            ->route('products.passport', $repairRequest->product_id)
+            ->route('repair.history')
             ->with('success', 'Technician assigned successfully!');
     }
 }
