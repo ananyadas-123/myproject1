@@ -51,6 +51,13 @@
 
     </div>
 
+    @if($repairRequest->status === 'assigned')
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle-fill"></i>
+            A technician has already been assigned to this repair request.
+        </div>
+    @endif
+
 
     {{-- Page Header --}}
     <div class="technician-header">
@@ -220,27 +227,35 @@
 
 
                     {{-- Assign --}}
-                    <form
-                        action="{{ route('technicians.assign', $repairRequest) }}"
-                        method="POST"
-                    >
-                        @csrf
 
-                        <input
-                            type="hidden"
-                            name="technician_id"
-                            value="{{ $technician->id }}"
+                    @if($repairRequest->status === 'pending')
+                        <form
+                            action="{{ route('technicians.assign', $repairRequest) }}"
+                            method="POST"
                         >
+                            @csrf
 
-                        <button
-                            type="submit"
-                            class="assign-btn"
-                        >
-                            <i class="bi bi-person-check"></i>
-                            Assign Technician
+                            <input
+                                type="hidden"
+                                name="technician_id"
+                                value="{{ $technician->id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="assign-btn"
+                            >
+                                <i class="bi bi-person-check"></i>
+                                Assign Technician
+                            </button>
+
+                        </form>
+                    @else
+                        <button type="button" class="assign-btn" disabled>
+                            <i class="bi bi-check-circle"></i>
+                            Already Assigned
                         </button>
-
-                    </form>
+                    @endif
 
                 </div>
 
