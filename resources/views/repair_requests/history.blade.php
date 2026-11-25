@@ -101,6 +101,16 @@
                 </div>
 
             </div>
+            {{-- CHOOSE TECHNICIAN BUTTON --}}
+            @if($repair->status === 'pending')
+                <div class="mt-3">
+                    <a href="{{ route('technicians.index', $repair) }}"
+                    class="btn btn-primary">
+                        <i class="bi bi-person-check"></i>
+                        Choose Technician
+                    </a>
+                </div>
+            @endif
 
             <div class="repair-description">
                 <strong>Problem Description</strong>

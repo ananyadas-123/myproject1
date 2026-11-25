@@ -56,4 +56,21 @@ class RepairRequestController extends Controller
 
         return view('repair_requests.history', compact('repairRequests'));
     }
+
+    public function updateStatus(Request $request, RepairRequest $repairRequest)
+    {
+        abort_unless($repairRequest->user_id === Auth::id(), 403);
+
+        $validated = $request->validate([
+            'status' => 'required|in:assigned,in_progress,completed',
+        ]);
+
+        $repairRequest->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()
+            ->route('repair.history')
+            ->with('success', 'Repair status updated successfully!');
+    }
 }

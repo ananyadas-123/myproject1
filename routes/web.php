@@ -196,6 +196,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/repair-history', [RepairRequestController::class, 'history'])
         ->name('repair.history');
 
+    // Repair Status Tracking
+
+    Route::patch(
+        '/repair-requests/{repairRequest}/status',
+        [TechnicianController::class, 'updateStatus']
+    )->name('technicians.updateStatus');
+
 
     // Product Lifecycle
 
