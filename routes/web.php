@@ -246,6 +246,26 @@ Route::prefix('admin')
 
         Route::middleware('auth:admin')->group(function () {
 
+            // Technician Management
+
+            Route::get('/technicians', [AdminController::class, 'technicians'])
+                ->name('technicians.index');
+
+            Route::get('/technicians/create', [AdminController::class, 'createTechnician'])
+                ->name('technicians.create');
+
+            Route::post('/technicians', [AdminController::class, 'storeTechnician'])
+                ->name('technicians.store');
+
+            Route::get('/technicians/{technician}/edit', [AdminController::class, 'editTechnician'])
+                ->name('technicians.edit');
+
+            Route::put('/technicians/{technician}', [AdminController::class, 'updateTechnician'])
+                ->name('technicians.update');
+
+            Route::delete('/technicians/{technician}', [AdminController::class, 'destroyTechnician'])
+                ->name('technicians.destroy');
+
             // Dashboard
 
             Route::get('/dashboard', [AdminController::class, 'dashboard'])
@@ -279,6 +299,16 @@ Route::prefix('admin')
                 ->whereNumber('product')
                 ->name('products.destroy');
 
+            
+            // Admin Repair Request Management
+            Route::get('/repairs', [AdminController::class, 'repairRequests'])
+                ->name('repairs.index');
+
+            Route::patch('/repairs/{repairRequest}/status', [AdminController::class, 'updateRepairStatus'])
+                ->name('repairs.updateStatus');
+
+            Route::get('/repairs/{repairRequest}', [AdminController::class, 'showRepairRequest'])
+                ->name('repairs.show');
 
             // Admin Logout
 

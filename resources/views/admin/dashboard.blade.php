@@ -1,353 +1,348 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Dashboard - ProductLife</title>
+@extends('admin.layouts.app')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+@section('title', 'Dashboard')
+@section('page-heading', 'Admin Dashboard')
+@section('page-subtitle', 'Monitor your ProductLife ecosystem.')
 
-    <style>
-        * { box-sizing: border-box; }
+@push('styles')
+<style>
+/* ================================
+   DASHBOARD PREMIUM DESIGN
+================================ */
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
+.welcome {
+    position: relative;
+    overflow: hidden;
+    padding: 35px;
+    border-radius: 22px;
+    color: #ffffff;
+    background: linear-gradient(115deg, #312e81 0%, #4f46e5 48%, #7c3aed 100%);
+    margin-bottom: 32px;
+    box-shadow: 0 12px 30px rgba(79, 70, 229, .22);
+}
 
-        .sidebar {
-            position: fixed;
-            inset: 0 auto 0 0;
-            width: 250px;
-            padding: 28px 18px;
-            background: #123f30;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            z-index: 10;
-        }
+.welcome::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.09);
+    right: 5%;
+    top: -115px;
+}
 
-        .brand {
-            font-size: 23px;
-            font-weight: 800;
-            padding: 8px 12px 30px;
-        }
+.welcome::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    right: 24%;
+    bottom: -100px;
+}
 
-        .brand span { color: #86efac; }
+.welcome h2 {
+    position: relative;
+    z-index: 1;
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -.6px;
+}
 
-        .menu-label {
-            margin: 12px 12px;
-            color: #a8c8ba;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+.welcome p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    max-width: 650px;
+    color: #e0e7ff;
+    font-size: 13px;
+    line-height: 1.9;
+}
 
-        .menu-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 13px 14px;
-            margin-bottom: 6px;
-            border-radius: 11px;
-            color: #e0eee7;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-        }
+/* Section headings */
 
-        .menu-link.active,
-        .menu-link:hover {
-            background: #23654d;
-            color: #ffffff;
-        }
+.section-title {
+    position: relative;
+    margin: 0 0 19px;
+    padding-left: 14px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #172554;
+}
 
-        .menu-link i { font-size: 18px; }
+.section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    height: 19px;
+    width: 4px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #4f46e5, #a855f7);
+}
 
-        .sidebar-bottom {
-            margin-top: auto;
-        }
+/* ================================
+   STATISTICS CARDS
+================================ */
 
-        .main {
-            margin-left: 250px;
-            padding: 30px;
-        }
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 19px;
+    margin-bottom: 34px;
+}
 
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 28px;
-        }
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 175px;
+    padding: 23px;
+    border-radius: 18px;
+    color: #ffffff;
+    border: 0;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, .10);
+    transition: all .28s ease;
+}
 
-        .topbar h1 {
-            margin: 0 0 7px;
-            font-size: 27px;
-            font-weight: 800;
-        }
+.stat-card:nth-child(1) {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+}
 
-        .muted {
-            color: #78859a;
-            font-size: 13px;
-        }
+.stat-card:nth-child(2) {
+    background: linear-gradient(135deg, #059669, #0d9488);
+}
 
-        .admin-pill {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 10px 15px;
-            border-radius: 14px;
-            box-shadow: 0 4px 18px #17203308;
-            font-size: 13px;
-            font-weight: 700;
-        }
+.stat-card:nth-child(3) {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
 
-        .admin-avatar {
-            display: grid;
-            place-items: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: #dcfce7;
-            color: #166534;
-            font-size: 19px;
-        }
+.stat-card:nth-child(4) {
+    background: linear-gradient(135deg, #ea580c, #f59e0b);
+}
 
-        .welcome {
-            padding: 30px;
-            border-radius: 20px;
-            color: white;
-            background: linear-gradient(120deg, #176b4d, #21845d);
-            margin-bottom: 28px;
-        }
+.stat-card::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    right: -45px;
+    bottom: -65px;
+    background: rgba(255,255,255,.12);
+    transition: transform .3s ease;
+}
 
-        .welcome h2 {
-            font-size: 25px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+.stat-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 28px rgba(15, 23, 42, .16);
+}
 
-        .welcome p {
-            margin: 0;
-            max-width: 620px;
-            color: #e0f2e9;
-            font-size: 14px;
-            line-height: 1.8;
-        }
+.stat-card:hover::after {
+    transform: scale(1.35);
+}
 
-        .section-title {
-            margin: 0 0 18px;
-            font-size: 18px;
-            font-weight: 800;
-        }
+.stat-icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 47px;
+    height: 47px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.19);
+    border: 1px solid rgba(255,255,255,.20);
+    color: #ffffff;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 18px;
-            margin-bottom: 30px;
-        }
+.stat-card h3 {
+    position: relative;
+    z-index: 1;
+    font-size: 30px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    color: #ffffff;
+    letter-spacing: -.7px;
+}
 
-        .stat-card {
-            background: white;
-            border: 1px solid #edf0f5;
-            border-radius: 17px;
-            padding: 22px;
-            box-shadow: 0 5px 20px #17203305;
-        }
+.stat-card p {
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,.88);
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+}
 
-        .stat-icon {
-            display: grid;
-            place-items: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 13px;
-            background: #dcfce7;
-            color: #15803d;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
+/* ================================
+   MANAGEMENT SHORTCUTS
+================================ */
 
-        .stat-card h3 {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0 0 7px;
-        }
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
 
-        .stat-card p {
-            color: #78859a;
-            font-size: 12px;
-            margin: 0;
-        }
+.quick-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 100px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #172033;
+    overflow: hidden;
+    transition: all .25s ease;
+    box-shadow: 0 5px 17px rgba(15, 23, 42, .045);
+}
 
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
+.quick-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #06b6d4);
+    transition: width .3s ease;
+}
 
-        .quick-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 21px;
-            background: white;
-            border: 1px solid #edf0f5;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #172033;
-            transition: .2s;
-        }
+.quick-link:hover {
+    transform: translateY(-5px);
+    border-color: #c7d2fe;
+    box-shadow: 0 12px 25px rgba(79, 70, 229, .11);
+    color: #172033;
+}
 
-        .quick-link:hover {
-            transform: translateY(-3px);
-            border-color: #86efac;
-        }
+.quick-link:hover::after {
+    width: 100%;
+}
 
-        .quick-link i {
-            display: grid;
-            place-items: center;
-            width: 44px;
-            height: 44px;
-            flex-shrink: 0;
-            background: #ecfdf5;
-            color: #15803d;
-            border-radius: 12px;
-            font-size: 20px;
-        }
+.quick-link i {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    font-size: 21px;
+    transition: transform .25s ease;
+}
 
-        .quick-link strong {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
+.quick-link:hover i {
+    transform: scale(1.1) rotate(-4deg);
+}
 
-        .quick-link small {
-            color: #78859a;
-            font-size: 11px;
-        }
+/* Individual shortcut colors */
 
-        .footer-note {
-            margin-top: 30px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 11px;
-        }
+.quick-link:nth-child(1) i {
+    background: #dbeafe;
+    color: #2563eb;
+}
 
-        @media (max-width: 1100px) {
-            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
+.quick-link:nth-child(2) i {
+    background: #d1fae5;
+    color: #059669;
+}
 
-        @media (max-width: 700px) {
-            .sidebar {
-                position: static;
-                width: 100%;
-                padding: 15px;
-            }
+.quick-link:nth-child(3) i {
+    background: #ede9fe;
+    color: #7c3aed;
+}
 
-            .brand { padding-bottom: 12px; }
-            .menu-label { margin-top: 8px; }
-            .sidebar-bottom { margin-top: 10px; }
+.quick-link:nth-child(4) i {
+    background: #ffedd5;
+    color: #ea580c;
+}
 
-            .main {
-                margin-left: 0;
-                padding: 20px 15px;
-            }
+.quick-link:nth-child(5) i {
+    background: #fce7f3;
+    color: #db2777;
+}
 
-            .topbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
+.quick-link:nth-child(6) i {
+    background: #cffafe;
+    color: #0891b2;
+}
 
-            .stats,
-            .quick-grid {
-                grid-template-columns: 1fr;
-            }
+.quick-link strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #172554;
+    margin-bottom: 6px;
+}
 
-            .welcome { padding: 23px; }
-            .topbar h1 { font-size: 23px; }
-        }
-    </style>
-</head>
-<body>
+.quick-link small {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.6;
+}
 
-<aside class="sidebar">
-    <div class="brand">
-        Product<span>Life.</span>
-    </div>
+/* ================================
+   RESPONSIVE
+================================ */
 
-    <div class="menu-label">Main Menu</div>
+@media (max-width: 1100px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
-    <a href="{{ route('admin.dashboard') }}" class="menu-link active">
-        <i class="bi bi-grid-1x2-fill"></i>
-        Dashboard
-    </a>
+    .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
-    <a href="#users" class="menu-link">
-        <i class="bi bi-people"></i>
-        Users Management
-    </a>
+@media (max-width: 700px) {
+    .stats,
+    .quick-grid {
+        grid-template-columns: 1fr;
+    }
 
-        
-    <a href="{{ route('admin.products.index') }}" class="menu-link">
-        <i class="bi bi-box-seam"></i>
-        Products Management
-    </a>
+    .welcome {
+        padding: 25px 22px;
+        border-radius: 17px;
+    }
 
-    <a href="#technicians" class="menu-link">
-        <i class="bi bi-tools"></i>
-        Technicians
-    </a>
+    .welcome h2 {
+        font-size: 21px;
+    }
 
-    <a href="#repairs" class="menu-link">
-        <i class="bi bi-wrench-adjustable-circle"></i>
-        Repair Requests
-    </a>
+    .stat-card {
+        min-height: 155px;
+    }
 
-    <div class="sidebar-bottom">
-        <div class="menu-label">Account</div>
+    .quick-link {
+        padding: 17px;
+    }
+}
 
-        <form action="{{ route('admin.logout') }}" method="POST">
-            @csrf
-            <button type="submit"
-                    class="menu-link w-100 border-0 text-start"
-                    style="background:transparent">
-                <i class="bi bi-box-arrow-left"></i>
-                Logout
-            </button>
-        </form>
-    </div>
-</aside>
+@media (max-width: 420px) {
+    .welcome h2 {
+        font-size: 19px;
+    }
 
-<main class="main">
+    .stat-card h3 {
+        font-size: 27px;
+    }
+}
+</style>
+@endpush
 
-    <header class="topbar">
-        <div>
-            <h1>Admin Dashboard</h1>
-            <div class="muted">Monitor your ProductLife ecosystem.</div>
-        </div>
+@section('content')
 
-        <div class="admin-pill">
-            <div class="admin-avatar">
-                <i class="bi bi-shield-check"></i>
-            </div>
-
-            <div>
-                <div>{{ auth('admin')->user()->name }}</div>
-                <div class="muted" style="font-size:11px">Administrator</div>
-            </div>
-        </div>
-    </header>
-
+    {{-- Welcome Banner --}}
     <section class="welcome">
         <h2>Welcome back, {{ auth('admin')->user()->name }} 👋</h2>
         <p>
@@ -356,6 +351,7 @@
         </p>
     </section>
 
+    {{-- System Overview --}}
     <h2 class="section-title">System Overview</h2>
 
     <section class="stats">
@@ -386,6 +382,7 @@
 
     </section>
 
+    {{-- Management Shortcuts --}}
     <h2 class="section-title">Management Shortcuts</h2>
 
     <section class="quick-grid">
@@ -409,20 +406,20 @@
         </a>
 
         {{-- Technician Management --}}
-        <a href="#technicians" class="quick-link">
+        <a href="{{ route('admin.technicians.index') }}" class="quick-link">
             <i class="bi bi-person-gear"></i>
             <div>
                 <strong>Technician Management</strong>
-                <small>Technician verification and availability</small>
+                <small>Add, edit and verify technicians</small>
             </div>
         </a>
 
         {{-- Repair Requests --}}
-        <a href="#repairs" class="quick-link">
+        <a href="{{ route('admin.repairs.index') }}" class="quick-link">
             <i class="bi bi-wrench-adjustable-circle"></i>
             <div>
                 <strong>Repair Requests</strong>
-                <small>Review repair service requests</small>
+                <small>Review and update repair service requests</small>
             </div>
         </a>
 
@@ -446,11 +443,4 @@
 
     </section>
 
-    <div class="footer-note">
-        ProductLife Admin Panel · Complete Product Lifecycle & Repair Ecosystem
-    </div>
-
-</main>
-
-</body>
-</html>
+@endsection

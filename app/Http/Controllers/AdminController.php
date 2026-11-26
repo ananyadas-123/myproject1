@@ -10,6 +10,7 @@ use App\Models\usermodel;
 use App\Models\Product;
 use App\Models\Technician;
 use App\Models\RepairRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -170,6 +171,181 @@ class AdminController extends Controller
         return redirect()
             ->route('admin.products.index')
             ->with('success', 'Product deleted successfully!');
+    }
+
+    // ================================
+    // Technician Management
+    // ================================
+
+    public function technicians(Request $request)
+    {
+        $search = trim($request->input('search', ''));
+
+        $technicians = Technician::when($search !== '', function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('specialization', 'like', "%{$search}%");
+            });
+        })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.technicians.index', compact(
+            'technicians',
+            'search'
+        ));
+    }
+
+    public function createTechnician()
+    {
+        return view('admin.technicians.create');
+    }
+
+    public function storeTechnician(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:technicians,email',
+            'phone' => 'required|string|max:30',
+            'address' => 'nullable|string|max:1000',
+            'specialization' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:100',
+            'service_charge' => 'nullable|numeric|min:0',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request->file('profile_image')
+                ->store('technicians/images', 'public');
+        }
+
+        // New technicians require admin verification.
+        $validated['verified'] = false;
+        $validated['available'] = true;
+
+        Technician::create($validated);
+
+        return redirect()
+            ->route('admin.technicians.index')
+            ->with('success', 'Technician added successfully. Please verify the technician.');
+    }
+
+    public function editTechnician(Technician $technician)
+    {
+        return view('admin.technicians.edit', compact('technician'));
+    }
+
+    public function updateTechnician(Request $request, Technician $technician)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:technicians,email,' . $technician->id,
+            'phone' => 'required|string|max:30',
+            'address' => 'nullable|string|max:1000',
+            'specialization' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:100',
+            'service_charge' => 'nullable|numeric|min:0',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'verified' => 'nullable|boolean',
+            'available' => 'nullable|boolean',
+        ]);
+
+        if ($request->hasFile('profile_image')) {
+            if ($technician->profile_image) {
+                Storage::disk('public')->delete($technician->profile_image);
+            }
+
+            $validated['profile_image'] = $request->file('profile_image')
+                ->store('technicians/images', 'public');
+        }
+
+        $validated['verified'] = $request->boolean('verified');
+        $validated['available'] = $request->boolean('available');
+
+        $technician->update($validated);
+
+        return redirect()
+            ->route('admin.technicians.index')
+            ->with('success', 'Technician updated successfully!');
+    }
+
+    public function destroyTechnician(Technician $technician)
+    {
+        if ($technician->repairRequests()->exists()) {
+            return redirect()
+                ->route('admin.technicians.index')
+                ->with('error', 'This technician has repair requests and cannot be deleted.');
+        }
+
+        if ($technician->profile_image) {
+            Storage::disk('public')->delete($technician->profile_image);
+        }
+
+        $technician->delete();
+
+        return redirect()
+            ->route('admin.technicians.index')
+            ->with('success', 'Technician deleted successfully!');
+    }
+
+
+    // ================================
+    // Repair Request Management
+    // ================================
+
+    public function repairRequests(Request $request)
+    {
+        $search = trim($request->input('search', ''));
+
+        $repairRequests = RepairRequest::with([
+            'user', 'product', 'technician'
+        ])
+        ->when($search !== '', function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('problem_title', 'like', "%{$search}%")
+                ->orWhere('status', 'like', "%{$search}%")
+                ->orWhereHas('user', function ($userQuery) use ($search) {
+                    $userQuery->where('name', 'like', "%{$search}%");
+                });
+            });
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+        return view('admin.repairs.index', compact(
+            'repairRequests', 'search'
+        ));
+    }
+
+    public function updateRepairStatus(Request $request, RepairRequest $repairRequest)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,assigned,quoted,confirmed,in_progress,completed,cancelled',
+        ]);
+
+        $repairRequest->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()
+            ->route('admin.repairs.index')
+            ->with('success', 'Repair status updated successfully!');
+    }
+
+    public function showRepairRequest(RepairRequest $repairRequest)
+    {
+        $repairRequest->load([
+            'user',
+            'product',
+            'technician',
+            'quotes.technician'
+        ]);
+
+        return view('admin.repairs.show', compact('repairRequest'));
     }
 
 }

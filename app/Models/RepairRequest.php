@@ -41,4 +41,9 @@ class RepairRequest extends Model
     {
         return $this->hasMany(RepairQuote::class, 'repair_request_id');
     }
+
+    public function repairRequests()
+    {
+        return $this->hasMany(RepairRequest::class, 'technician_id');
+    }
 }
