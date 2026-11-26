@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('page_title', 'Product Details')
@@ -10,14 +11,12 @@
     {{-- Breadcrumb --}}
     <div class="breadcrumb-area">
         <a href="{{ route('products.index') }}">
+            <i class="bi bi-grid"></i>
             My Products
         </a>
-
         <i class="bi bi-chevron-right"></i>
-
         <span>Product Details</span>
     </div>
-
 
     {{-- Main Product Card --}}
     <div class="product-card">
@@ -32,29 +31,26 @@
                 </div>
 
                 <div>
+                    <span class="product-overline">PRODUCT INFORMATION</span>
+
                     <h1>
                         {{ $product->brand }} {{ $product->model }}
                     </h1>
 
                     <div class="product-category">
-                        <i class="bi bi-tag"></i>
+                        <i class="bi bi-tag-fill"></i>
                         {{ $product->category }}
                     </div>
                 </div>
 
             </div>
 
-
             <div class="status-badge">
-
                 <span class="status-dot"></span>
-
                 {{ ucfirst($product->status) }}
-
             </div>
 
         </div>
-
 
         {{-- Product Content --}}
         <div class="product-content">
@@ -65,6 +61,11 @@
                 <div class="col-lg-5">
 
                     <div class="image-panel">
+
+                        <div class="image-label">
+                            <i class="bi bi-image"></i>
+                            PRODUCT PREVIEW
+                        </div>
 
                         @if($product->image)
 
@@ -77,36 +78,53 @@
                         @else
 
                             <div class="no-image">
+                                <div class="no-image-icon">
+                                    <i class="bi bi-box-seam"></i>
+                                </div>
 
-                                <i class="bi bi-box-seam"></i>
+                                <strong>No Product Image</strong>
 
                                 <span>
                                     No product image available
                                 </span>
-
                             </div>
 
                         @endif
+
+                        <div class="image-bottom-tag">
+                            <i class="bi bi-patch-check-fill"></i>
+                            Product Registered
+                        </div>
 
                     </div>
 
                 </div>
 
-
                 {{-- Product Information --}}
                 <div class="col-lg-7">
+
+                    <div class="info-heading">
+                        <div>
+                            <span>OVERVIEW</span>
+                            <h3>Product Specifications</h3>
+                        </div>
+
+                        <div class="info-heading-icon">
+                            <i class="bi bi-card-list"></i>
+                        </div>
+                    </div>
 
                     <div class="info-grid">
 
                         {{-- Serial --}}
-                        <div class="info-box full">
+                        <div class="info-box full serial-box">
 
                             <div class="info-top">
-                                <i class="bi bi-upc-scan info-icon"></i>
+                                <div class="info-icon serial-icon">
+                                    <i class="bi bi-upc-scan"></i>
+                                </div>
 
-                                <span class="label">
-                                    Serial Number
-                                </span>
+                                <span class="label">Serial Number</span>
                             </div>
 
                             <div class="value serial-value">
@@ -115,16 +133,15 @@
 
                         </div>
 
-
                         {{-- Brand --}}
-                        <div class="info-box">
+                        <div class="info-box brand-box">
 
                             <div class="info-top">
-                                <i class="bi bi-award info-icon"></i>
+                                <div class="info-icon brand-icon">
+                                    <i class="bi bi-award"></i>
+                                </div>
 
-                                <span class="label">
-                                    Brand
-                                </span>
+                                <span class="label">Brand</span>
                             </div>
 
                             <div class="value">
@@ -133,16 +150,15 @@
 
                         </div>
 
-
                         {{-- Model --}}
-                        <div class="info-box">
+                        <div class="info-box model-box">
 
                             <div class="info-top">
-                                <i class="bi bi-cpu info-icon"></i>
+                                <div class="info-icon model-icon">
+                                    <i class="bi bi-cpu"></i>
+                                </div>
 
-                                <span class="label">
-                                    Model
-                                </span>
+                                <span class="label">Model</span>
                             </div>
 
                             <div class="value">
@@ -151,16 +167,15 @@
 
                         </div>
 
-
                         {{-- Condition --}}
-                        <div class="info-box">
+                        <div class="info-box condition-box">
 
                             <div class="info-top">
-                                <i class="bi bi-shield-check info-icon"></i>
+                                <div class="info-icon condition-icon">
+                                    <i class="bi bi-shield-check"></i>
+                                </div>
 
-                                <span class="label">
-                                    Condition
-                                </span>
+                                <span class="label">Condition</span>
                             </div>
 
                             <div class="value">
@@ -169,58 +184,46 @@
 
                         </div>
 
-
                         {{-- Purchase Date --}}
-                        <div class="info-box">
+                        <div class="info-box date-box">
 
                             <div class="info-top">
-                                <i class="bi bi-calendar3 info-icon"></i>
+                                <div class="info-icon date-icon">
+                                    <i class="bi bi-calendar3"></i>
+                                </div>
 
-                                <span class="label">
-                                    Purchase Date
-                                </span>
+                                <span class="label">Purchase Date</span>
                             </div>
 
                             <div class="value">
 
                                 @if($product->purchase_date)
-
                                     {{ \Carbon\Carbon::parse($product->purchase_date)->format('d M Y') }}
-
                                 @else
-
                                     Not provided
-
                                 @endif
 
                             </div>
 
                         </div>
 
-
                         {{-- Purchase Price --}}
-                        <div class="info-box full">
+                        <div class="info-box full price-box">
 
                             <div class="info-top">
-                                <i class="bi bi-currency-rupee info-icon"></i>
+                                <div class="info-icon price-icon">
+                                    <i class="bi bi-currency-rupee"></i>
+                                </div>
 
-                                <span class="label">
-                                    Purchase Price
-                                </span>
+                                <span class="label">Purchase Price</span>
                             </div>
 
                             <div class="value price-value">
 
                                 @if($product->purchase_price)
-
                                     ₹{{ number_format($product->purchase_price, 2) }}
-
                                 @else
-
-                                    <span class="not-provided">
-                                        Not provided
-                                    </span>
-
+                                    <span class="not-provided">Not provided</span>
                                 @endif
 
                             </div>
@@ -234,7 +237,6 @@
             </div>
 
         </div>
-
 
         {{-- Lifecycle Actions --}}
         <div class="action-area">
@@ -256,7 +258,6 @@
 
             </div>
 
-
             <div class="action-buttons">
 
                 <a
@@ -267,7 +268,6 @@
                     Product Lifecycle
                 </a>
 
-
                 <a
                     href="{{ route('products.passport', $product) }}"
                     class="passport-btn"
@@ -275,7 +275,6 @@
                     <i class="bi bi-journal-richtext"></i>
                     Digital Passport
                 </a>
-
 
                 <a
                     href="{{ route('products.index') }}"
@@ -291,20 +290,18 @@
 
     </div>
 
-
     {{-- Quick Lifecycle Overview --}}
     <div class="quick-section">
 
         <div class="section-heading">
 
-            <div>
+            <div class="section-heading-content">
                 <span class="section-eyebrow">
+                    <i class="bi bi-stars"></i>
                     PRODUCT JOURNEY
                 </span>
 
-                <h2>
-                    Manage every stage in one place
-                </h2>
+                <h2>Manage every stage in one place</h2>
 
                 <p>
                     Continue managing this product from purchase
@@ -312,111 +309,131 @@
                 </p>
             </div>
 
-        </div>
+            <div class="section-heading-icon">
+                <i class="bi bi-boxes"></i>
+            </div>
 
+        </div>
 
         <div class="quick-grid">
 
             {{-- Passport --}}
             <a
                 href="{{ route('products.passport', $product) }}"
-                class="quick-card"
+                class="quick-card passport-card"
             >
 
-                <div class="quick-icon green">
-                    <i class="bi bi-person-vcard"></i>
+                <div class="quick-card-top">
+                    <div class="quick-icon green">
+                        <i class="bi bi-person-vcard"></i>
+                    </div>
+
+                    <i class="bi bi-arrow-up-right quick-arrow"></i>
                 </div>
 
                 <div class="quick-content">
-
                     <h3>Digital Passport</h3>
 
                     <p>
                         View the product's digital identity,
                         records and lifecycle information.
                     </p>
-
                 </div>
 
-                <i class="bi bi-arrow-up-right quick-arrow"></i>
+                <div class="quick-card-footer">
+                    <span>Explore Passport</span>
+                    <i class="bi bi-arrow-right"></i>
+                </div>
 
             </a>
-
 
             {{-- Warranty --}}
             <a
                 href="{{ route('warranties.create', $product) }}"
-                class="quick-card"
+                class="quick-card warranty-card"
             >
 
-                <div class="quick-icon blue">
-                    <i class="bi bi-shield-check"></i>
+                <div class="quick-card-top">
+                    <div class="quick-icon blue">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+
+                    <i class="bi bi-arrow-up-right quick-arrow"></i>
                 </div>
 
                 <div class="quick-content">
-
                     <h3>Warranty</h3>
 
                     <p>
                         Add and manage warranty information
                         for this product.
                     </p>
-
                 </div>
 
-                <i class="bi bi-arrow-up-right quick-arrow"></i>
+                <div class="quick-card-footer">
+                    <span>Manage Warranty</span>
+                    <i class="bi bi-arrow-right"></i>
+                </div>
 
             </a>
-
 
             {{-- Maintenance --}}
             <a
                 href="{{ route('maintenances.create', $product) }}"
-                class="quick-card"
+                class="quick-card maintenance-card"
             >
 
-                <div class="quick-icon orange">
-                    <i class="bi bi-tools"></i>
+                <div class="quick-card-top">
+                    <div class="quick-icon orange">
+                        <i class="bi bi-tools"></i>
+                    </div>
+
+                    <i class="bi bi-arrow-up-right quick-arrow"></i>
                 </div>
 
                 <div class="quick-content">
-
                     <h3>Maintenance</h3>
 
                     <p>
                         Record maintenance activities and
                         keep your product healthy.
                     </p>
-
                 </div>
 
-                <i class="bi bi-arrow-up-right quick-arrow"></i>
+                <div class="quick-card-footer">
+                    <span>Record Maintenance</span>
+                    <i class="bi bi-arrow-right"></i>
+                </div>
 
             </a>
-
 
             {{-- Repair --}}
             <a
                 href="{{ route('repair_requests.create', $product) }}"
-                class="quick-card"
+                class="quick-card repair-card"
             >
 
-                <div class="quick-icon red">
-                    <i class="bi bi-wrench-adjustable-circle"></i>
+                <div class="quick-card-top">
+                    <div class="quick-icon red">
+                        <i class="bi bi-wrench-adjustable-circle"></i>
+                    </div>
+
+                    <i class="bi bi-arrow-up-right quick-arrow"></i>
                 </div>
 
                 <div class="quick-content">
-
                     <h3>Repair Request</h3>
 
                     <p>
                         Create a repair request and continue
                         the technician workflow.
                     </p>
-
                 </div>
 
-                <i class="bi bi-arrow-up-right quick-arrow"></i>
+                <div class="quick-card-footer">
+                    <span>Request Repair</span>
+                    <i class="bi bi-arrow-right"></i>
+                </div>
 
             </a>
 
@@ -433,191 +450,218 @@
 
 <style>
 
+/* =========================================
+   PRODUCT DETAILS - MAIN
+========================================= */
 
-/* MAIN PAGE */
 .product-details-page {
     max-width: 1180px;
     margin: 0 auto;
-    color: #172b23;
+    color: #172033;
 }
 
 /* BREADCRUMB */
+
 .product-details-page .breadcrumb-area {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 11px;
+    margin-bottom: 23px;
     color: #64748b;
     font-size: 12px;
-    font-weight: 650;
+    font-weight: 700;
 }
 
 .product-details-page .breadcrumb-area a {
-    color: #07845b;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #5b43d6;
     text-decoration: none;
-    font-weight: 800;
+    font-weight: 850;
     transition: .2s ease;
 }
 
 .product-details-page .breadcrumb-area a:hover {
-    color: #064e3b;
+    color: #3730a3;
 }
 
-.product-details-page .breadcrumb-area i {
+.product-details-page .breadcrumb-area > i {
     color: #94a3b8;
     font-size: 10px;
 }
 
 .product-details-page .breadcrumb-area span {
     color: #334155;
-    font-weight: 750;
+    font-weight: 800;
 }
 
-/* MAIN PRODUCT CARD */
+/* MAIN CARD */
+
 .product-details-page .product-card {
     background: #fff;
-    border: 1px solid #dce9e2;
+    border: 1px solid #dfe5f1;
     border-radius: 23px;
     overflow: hidden;
-    box-shadow: 0 14px 38px rgba(20, 55, 40, .09);
+    box-shadow: 0 15px 40px rgba(30, 41, 75, .09);
 }
 
-/* PRODUCT HEADER */
+/* =========================================
+   PRODUCT HEADER
+========================================= */
+
 .product-details-page .product-header {
     position: relative;
     overflow: hidden;
-    padding: 28px 30px;
-    border-bottom: none;
+    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     background: linear-gradient(
-        120deg,
-        #073b2b 0%,
-        #087f5b 55%,
-        #0e9f91 100%
+        115deg,
+        #111b46 0%,
+        #3730a3 48%,
+        #6545db 78%,
+        #2563eb 100%
     );
 }
 
 .product-details-page .product-header::before {
     content: "";
     position: absolute;
-    width: 220px;
-    height: 220px;
-    right: 130px;
-    top: -145px;
-    border: 32px solid rgba(255,255,255,.09);
+    width: 270px;
+    height: 270px;
+    right: 120px;
+    top: -190px;
+    border: 35px solid rgba(255,255,255,.09);
     border-radius: 50%;
 }
 
 .product-details-page .product-header::after {
     content: "";
     position: absolute;
-    width: 150px;
-    height: 150px;
-    right: -40px;
-    bottom: -105px;
-    background: rgba(255,255,255,.09);
+    width: 190px;
+    height: 190px;
+    right: -55px;
+    bottom: -125px;
+    background: rgba(255,255,255,.08);
     border-radius: 50%;
 }
 
 .product-details-page .product-title-area,
 .product-details-page .status-badge {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .product-details-page .product-title-area {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 17px;
+    min-width: 0;
 }
 
 .product-details-page .product-title-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #a7f3d0, #5eead4);
-    color: #064e3b;
+    width: 59px;
+    height: 59px;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #a5f3fc, #67e8f9);
+    color: #164e63;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 26px;
     flex-shrink: 0;
-    box-shadow: 0 7px 17px rgba(0,0,0,.16);
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+
+.product-details-page .product-overline {
+    display: block;
+    margin-bottom: 5px;
+    color: #c4b5fd;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
 }
 
 .product-details-page .product-title-area h1 {
     margin: 0;
     color: #fff;
     font-size: 27px;
-    font-weight: 850;
+    font-weight: 900;
     letter-spacing: -.6px;
+    line-height: 1.3;
     word-break: break-word;
 }
 
 .product-details-page .product-category {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-    padding: 5px 11px;
+    gap: 7px;
+    margin-top: 9px;
+    padding: 6px 12px;
     border-radius: 30px;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.18);
-    color: #d1fae5;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.2);
+    color: #e0e7ff;
     font-size: 11px;
-    font-weight: 750;
+    font-weight: 800;
 }
 
 .product-details-page .product-category i {
-    color: #a7f3d0;
+    color: #67e8f9;
 }
 
 /* STATUS */
+
 .product-details-page .status-badge {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    padding: 10px 16px;
+    gap: 10px;
+    padding: 11px 17px;
     border-radius: 50px;
     background: #fff;
-    border: 1px solid rgba(255,255,255,.5);
-    color: #087f5b;
-    font-size: 11.5px;
-    font-weight: 850;
+    color: #047857;
+    font-size: 11px;
+    font-weight: 900;
     white-space: nowrap;
-    box-shadow: 0 5px 14px rgba(0,0,0,.1);
+    box-shadow: 0 6px 17px rgba(0,0,0,.14);
 }
 
 .product-details-page .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background: #10b981;
     box-shadow: 0 0 0 4px #d1fae5;
 }
 
-/* PRODUCT CONTENT */
+/* =========================================
+   PRODUCT CONTENT
+========================================= */
+
 .product-details-page .product-content {
     padding: 30px;
 }
 
-/* PRODUCT IMAGE */
+/* IMAGE PANEL */
+
 .product-details-page .image-panel {
-    min-height: 390px;
+    min-height: 410px;
     height: 100%;
-    padding: 25px;
-    border: 1px solid #c7dff4;
+    padding: 28px;
+    border: 1px solid #c7d2fe;
     border-radius: 20px;
     background: linear-gradient(
         145deg,
-        #e0f2fe 0%,
+        #e0e7ff 0%,
         #eff6ff 48%,
         #f5f3ff 100%
     );
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -627,23 +671,40 @@
 .product-details-page .image-panel::before {
     content: "";
     position: absolute;
-    width: 210px;
-    height: 210px;
-    right: -80px;
-    top: -80px;
-    background: rgba(99,102,241,.11);
+    width: 230px;
+    height: 230px;
+    right: -90px;
+    top: -95px;
+    background: rgba(99,102,241,.13);
     border-radius: 50%;
 }
 
 .product-details-page .image-panel::after {
     content: "";
     position: absolute;
-    width: 160px;
-    height: 160px;
-    left: -65px;
-    bottom: -70px;
-    background: rgba(14,165,233,.12);
+    width: 180px;
+    height: 180px;
+    left: -75px;
+    bottom: -80px;
+    background: rgba(6,182,212,.13);
     border-radius: 50%;
+}
+
+.product-details-page .image-label {
+    position: absolute;
+    top: 18px;
+    left: 19px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.9);
+    color: #4338ca;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .8px;
 }
 
 .product-details-page .product-image {
@@ -654,11 +715,30 @@
     position: relative;
     z-index: 2;
     border-radius: 15px;
-    transition: .3s ease;
+    transition: .35s ease;
 }
 
 .product-details-page .image-panel:hover .product-image {
-    transform: scale(1.04);
+    transform: scale(1.045);
+}
+
+.product-details-page .image-bottom-tag {
+    position: absolute;
+    z-index: 3;
+    bottom: 17px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    border: 1px solid #a7f3d0;
+    border-radius: 30px;
+    background: #ecfdf5;
+    color: #047857;
+    font-size: 10px;
+    font-weight: 850;
+    white-space: nowrap;
 }
 
 .product-details-page .no-image {
@@ -667,7 +747,6 @@
     height: 335px;
     border-radius: 17px;
     background: linear-gradient(135deg, #dbeafe, #ede9fe);
-    color: #6366f1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -676,50 +755,97 @@
     z-index: 2;
 }
 
-.product-details-page .no-image i {
-    font-size: 65px;
-    margin-bottom: 14px;
+.product-details-page .no-image-icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 16px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    box-shadow: 0 10px 25px rgba(79,70,229,.25);
+}
+
+.product-details-page .no-image strong {
+    color: #312e81;
+    font-size: 15px;
+    font-weight: 900;
 }
 
 .product-details-page .no-image span {
-    color: #4f46e5;
-    font-size: 12px;
-    font-weight: 750;
+    margin-top: 6px;
+    color: #6366a5;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-/* INFORMATION GRID */
+/* =========================================
+   INFORMATION GRID
+========================================= */
+
+.product-details-page .info-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.product-details-page .info-heading > div:first-child > span {
+    display: block;
+    margin-bottom: 4px;
+    color: #6366f1;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+}
+
+.product-details-page .info-heading h3 {
+    margin: 0;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.product-details-page .info-heading-icon {
+    width: 39px;
+    height: 39px;
+    border-radius: 12px;
+    background: #ede9fe;
+    color: #6d28d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
 .product-details-page .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    height: 100%;
+    gap: 13px;
+    height: calc(100% - 58px);
 }
 
 .product-details-page .info-box {
-    min-height: 95px;
-    padding: 17px;
+    min-height: 94px;
+    padding: 15px;
     border: 1px solid #e2e8f0;
     border-radius: 15px;
     background: #f8fafc;
-    transition: .22s ease;
+    transition: .23s ease;
 }
 
 .product-details-page .info-box:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(31,41,55,.07);
+    box-shadow: 0 9px 19px rgba(31,41,55,.08);
 }
 
 .product-details-page .info-box.full {
     grid-column: span 2;
 }
 
-/* SERIAL NUMBER */
-.product-details-page .info-box.full:first-child {
-    background: linear-gradient(120deg, #ecfdf5, #d1fae5);
-    border-color: #86efac;
-}
-
-/* INFO TOP */
 .product-details-page .info-top {
     display: flex;
     align-items: center;
@@ -728,24 +854,41 @@
 }
 
 .product-details-page .info-icon {
-    font-size: 16px;
-    color: #08916b;
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
 }
 
 .product-details-page .label {
     color: #64748b;
-    font-size: 10px;
-    font-weight: 850;
-    letter-spacing: .7px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .75px;
     text-transform: uppercase;
 }
 
-/* INFO VALUES */
 .product-details-page .value {
     color: #1e293b;
-    font-size: 14px;
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 850;
     word-break: break-word;
+}
+
+/* SERIAL */
+
+.product-details-page .serial-box {
+    background: linear-gradient(120deg, #ecfdf5, #d1fae5);
+    border-color: #86efac;
+}
+
+.product-details-page .serial-icon {
+    background: #a7f3d0;
+    color: #047857;
 }
 
 .product-details-page .serial-value {
@@ -756,72 +899,85 @@
 }
 
 /* BRAND */
-.product-details-page .info-box:nth-child(2) {
+
+.product-details-page .brand-box {
     background: #eff6ff;
     border-color: #bfdbfe;
 }
 
-.product-details-page .info-box:nth-child(2) .info-icon {
+.product-details-page .brand-icon {
+    background: #dbeafe;
     color: #2563eb;
 }
 
 /* MODEL */
-.product-details-page .info-box:nth-child(3) {
+
+.product-details-page .model-box {
     background: #f5f3ff;
     border-color: #ddd6fe;
 }
 
-.product-details-page .info-box:nth-child(3) .info-icon {
+.product-details-page .model-icon {
+    background: #ede9fe;
     color: #7c3aed;
 }
 
 /* CONDITION */
-.product-details-page .info-box:nth-child(4) {
+
+.product-details-page .condition-box {
     background: #ecfdf5;
     border-color: #a7f3d0;
 }
 
-.product-details-page .info-box:nth-child(4) .info-icon {
+.product-details-page .condition-icon {
+    background: #d1fae5;
     color: #059669;
 }
 
-/* PURCHASE DATE */
-.product-details-page .info-box:nth-child(5) {
+/* DATE */
+
+.product-details-page .date-box {
     background: #fff7ed;
     border-color: #fed7aa;
 }
 
-.product-details-page .info-box:nth-child(5) .info-icon {
+.product-details-page .date-icon {
+    background: #ffedd5;
     color: #ea580c;
 }
 
-/* PURCHASE PRICE */
-.product-details-page .info-box:nth-child(6) {
+/* PRICE */
+
+.product-details-page .price-box {
     background: linear-gradient(120deg, #eff6ff, #ecfdf5);
     border-color: #bfdbfe;
 }
 
-.product-details-page .info-box:nth-child(6) .info-icon {
+.product-details-page .price-icon {
+    background: #dbeafe;
     color: #2563eb;
 }
 
 .product-details-page .price-value {
     color: #047857;
     font-size: 19px;
-    font-weight: 900;
+    font-weight: 950;
 }
 
 .product-details-page .not-provided {
-    color: #94a3b8;
+    color: #64748b;
     font-size: 12px;
-    font-weight: 650;
+    font-weight: 700;
 }
 
-/* LIFECYCLE ACTION AREA */
+/* =========================================
+   LIFECYCLE ACTION AREA
+========================================= */
+
 .product-details-page .action-area {
     padding: 23px 30px;
-    border-top: 1px solid #dce9e2;
-    background: linear-gradient(110deg, #f0fdf4, #eff6ff);
+    border-top: 1px solid #e0e7ff;
+    background: linear-gradient(110deg, #eef2ff, #f5f3ff 55%, #ecfeff);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -835,73 +991,75 @@
 }
 
 .product-details-page .action-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 13px;
-    background: linear-gradient(135deg, #059669, #0d9488);
+    width: 47px;
+    height: 47px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 20px;
     flex-shrink: 0;
-    box-shadow: 0 6px 13px rgba(5,150,105,.2);
+    box-shadow: 0 7px 16px rgba(79,70,229,.23);
 }
 
 .product-details-page .action-description strong {
     display: block;
-    color: #064e3b;
+    color: #312e81;
     font-size: 13px;
-    font-weight: 850;
+    font-weight: 900;
 }
 
 .product-details-page .action-description span {
     display: block;
     margin-top: 5px;
-    color: #526b60;
+    color: #52617d;
     font-size: 11px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .product-details-page .action-buttons {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
     flex-shrink: 0;
 }
 
 .product-details-page .lifecycle-btn,
 .product-details-page .passport-btn,
 .product-details-page .back-btn {
-    min-height: 47px;
-    padding: 0 17px;
+    min-height: 45px;
+    padding: 0 15px;
     border-radius: 11px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     text-decoration: none;
-    font-size: 11.5px;
-    font-weight: 800;
+    font-size: 10.5px;
+    font-weight: 900;
     white-space: nowrap;
     transition: .22s ease;
 }
 
 /* LIFECYCLE BUTTON */
+
 .product-details-page .lifecycle-btn {
     color: #fff;
     background: linear-gradient(120deg, #047857, #10b981);
     border: 1px solid #059669;
-    box-shadow: 0 6px 15px rgba(5,150,105,.22);
+    box-shadow: 0 6px 15px rgba(5,150,105,.2);
 }
 
 .product-details-page .lifecycle-btn:hover {
     color: #fff;
-    background: linear-gradient(120deg, #065f46, #059669);
+    background: linear-gradient(120deg, #065f46, #047857);
     transform: translateY(-3px);
 }
 
 /* PASSPORT BUTTON */
+
 .product-details-page .passport-btn {
     color: #fff;
     background: linear-gradient(120deg, #4f46e5, #8b5cf6);
@@ -911,58 +1069,86 @@
 
 .product-details-page .passport-btn:hover {
     color: #fff;
-    background: linear-gradient(120deg, #3730a3, #7c3aed);
+    background: linear-gradient(120deg, #3730a3, #6d28d9);
     transform: translateY(-3px);
 }
 
 /* BACK BUTTON */
+
 .product-details-page .back-btn {
-    color: #475569;
+    color: #334155;
     background: #fff;
     border: 1px solid #cbd5e1;
 }
 
 .product-details-page .back-btn:hover {
-    color: #1e40af;
-    background: #eff6ff;
-    border-color: #93c5fd;
+    color: #3730a3;
+    background: #eef2ff;
+    border-color: #a5b4fc;
 }
 
-/* QUICK LIFECYCLE SECTION */
+/* =========================================
+   QUICK LIFECYCLE SECTION
+========================================= */
+
 .product-details-page .quick-section {
-    margin-top: 31px;
+    margin-top: 32px;
 }
 
 .product-details-page .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
     margin-bottom: 19px;
-    padding-left: 15px;
-    border-left: 5px solid #10b981;
+    padding: 19px 21px;
+    border: 1px solid #e0e7ff;
+    border-left: 5px solid #6366f1;
+    border-radius: 14px;
+    background: linear-gradient(110deg, #eef2ff, #fff 75%);
 }
 
 .product-details-page .section-eyebrow {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     margin-bottom: 7px;
-    color: #059669;
-    font-size: 10px;
-    font-weight: 900;
+    color: #5b43d6;
+    font-size: 9px;
+    font-weight: 950;
     letter-spacing: 1.4px;
 }
 
 .product-details-page .section-heading h2 {
     margin: 0;
-    color: #172b23;
-    font-size: 22px;
-    font-weight: 850;
+    color: #172033;
+    font-size: 21px;
+    font-weight: 950;
+    letter-spacing: -.4px;
 }
 
 .product-details-page .section-heading p {
     margin: 7px 0 0;
     color: #64748b;
-    font-size: 12.5px;
+    font-size: 11.5px;
     line-height: 1.6;
 }
 
-/* QUICK CARDS */
+.product-details-page .section-heading-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #c4b5fd, #818cf8);
+    color: #312e81;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+/* QUICK GRID */
+
 .product-details-page .quick-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -970,40 +1156,45 @@
 }
 
 .product-details-page .quick-card {
-    min-height: 190px;
-    padding: 20px;
-    background: #fff;
+    min-height: 205px;
+    padding: 19px;
     border: 1px solid #e2e8f0;
     border-radius: 17px;
     text-decoration: none;
     position: relative;
     overflow: hidden;
     box-shadow: 0 7px 20px rgba(31,41,55,.055);
-    transition: .25s ease;
+    transition: .27s ease;
 }
 
 .product-details-page .quick-card::after {
     content: "";
     position: absolute;
-    width: 100px;
-    height: 100px;
-    right: -42px;
-    bottom: -48px;
+    width: 115px;
+    height: 115px;
+    right: -50px;
+    bottom: -55px;
     border-radius: 50%;
-    background: rgba(99,102,241,.045);
-    transition: .25s ease;
+    opacity: .55;
+    transition: .3s ease;
 }
 
 .product-details-page .quick-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 14px 28px rgba(31,41,55,.11);
+    box-shadow: 0 15px 30px rgba(31,41,55,.12);
 }
 
 .product-details-page .quick-card:hover::after {
     transform: scale(1.6);
 }
 
-/* QUICK ICON */
+.product-details-page .quick-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
 .product-details-page .quick-icon {
     width: 47px;
     height: 47px;
@@ -1012,100 +1203,160 @@
     align-items: center;
     justify-content: center;
     font-size: 21px;
-    margin-bottom: 16px;
+    transition: .25s ease;
 }
 
-/* GREEN PASSPORT */
+.product-details-page .quick-card:hover .quick-icon {
+    transform: rotate(-5deg) scale(1.08);
+}
+
+.product-details-page .quick-arrow {
+    color: #94a3b8;
+    font-size: 15px;
+    transition: .2s ease;
+}
+
+.product-details-page .quick-card:hover .quick-arrow {
+    transform: translate(3px, -3px);
+}
+
+.product-details-page .quick-content h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 13.5px;
+    font-weight: 950;
+}
+
+.product-details-page .quick-content p {
+    margin: 8px 0 0;
+    color: #52617a;
+    font-size: 10.5px;
+    line-height: 1.7;
+}
+
+.product-details-page .quick-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 11px;
+    border-top: 1px solid rgba(148,163,184,.25);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.product-details-page .quick-card-footer i {
+    font-size: 13px;
+    transition: .2s ease;
+}
+
+.product-details-page .quick-card:hover .quick-card-footer i {
+    transform: translateX(4px);
+}
+
+/* PASSPORT CARD */
+
+.product-details-page .passport-card {
+    background: linear-gradient(145deg, #fff, #ecfdf5);
+    border-color: #a7f3d0;
+}
+
 .product-details-page .quick-icon.green {
     color: #047857;
     background: linear-gradient(135deg, #bbf7d0, #6ee7b7);
 }
 
-.product-details-page .quick-card:nth-child(1) {
-    background: linear-gradient(145deg, #fff, #ecfdf5);
-    border-color: #a7f3d0;
+.product-details-page .passport-card::after {
+    background: rgba(16,185,129,.12);
 }
 
-.product-details-page .quick-card:nth-child(1):hover {
+.product-details-page .passport-card .quick-card-footer {
+    color: #047857;
+}
+
+.product-details-page .passport-card:hover {
     border-color: #10b981;
 }
 
-/* BLUE WARRANTY */
+/* WARRANTY CARD */
+
+.product-details-page .warranty-card {
+    background: linear-gradient(145deg, #fff, #eff6ff);
+    border-color: #bfdbfe;
+}
+
 .product-details-page .quick-icon.blue {
     color: #1d4ed8;
     background: linear-gradient(135deg, #bfdbfe, #60a5fa);
 }
 
-.product-details-page .quick-card:nth-child(2) {
-    background: linear-gradient(145deg, #fff, #eff6ff);
-    border-color: #bfdbfe;
+.product-details-page .warranty-card::after {
+    background: rgba(59,130,246,.12);
 }
 
-.product-details-page .quick-card:nth-child(2):hover {
+.product-details-page .warranty-card .quick-card-footer {
+    color: #1d4ed8;
+}
+
+.product-details-page .warranty-card:hover {
     border-color: #3b82f6;
 }
 
-/* ORANGE MAINTENANCE */
+/* MAINTENANCE CARD */
+
+.product-details-page .maintenance-card {
+    background: linear-gradient(145deg, #fff, #fff7ed);
+    border-color: #fed7aa;
+}
+
 .product-details-page .quick-icon.orange {
     color: #c2410c;
     background: linear-gradient(135deg, #fed7aa, #fb923c);
 }
 
-.product-details-page .quick-card:nth-child(3) {
-    background: linear-gradient(145deg, #fff, #fff7ed);
-    border-color: #fed7aa;
+.product-details-page .maintenance-card::after {
+    background: rgba(249,115,22,.13);
 }
 
-.product-details-page .quick-card:nth-child(3):hover {
+.product-details-page .maintenance-card .quick-card-footer {
+    color: #c2410c;
+}
+
+.product-details-page .maintenance-card:hover {
     border-color: #f97316;
 }
 
-/* RED REPAIR */
+/* REPAIR CARD */
+
+.product-details-page .repair-card {
+    background: linear-gradient(145deg, #fff, #fff1f2);
+    border-color: #fecdd3;
+}
+
 .product-details-page .quick-icon.red {
     color: #be123c;
     background: linear-gradient(135deg, #fecdd3, #fb7185);
 }
 
-.product-details-page .quick-card:nth-child(4) {
-    background: linear-gradient(145deg, #fff, #fff1f2);
-    border-color: #fecdd3;
+.product-details-page .repair-card::after {
+    background: rgba(244,63,94,.12);
 }
 
-.product-details-page .quick-card:nth-child(4):hover {
+.product-details-page .repair-card .quick-card-footer {
+    color: #be123c;
+}
+
+.product-details-page .repair-card:hover {
     border-color: #f43f5e;
 }
 
-/* QUICK CARD TEXT */
-.product-details-page .quick-content h3 {
-    margin: 0;
-    color: #1e293b;
-    font-size: 13.5px;
-    font-weight: 850;
-}
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
 
-.product-details-page .quick-content p {
-    margin: 8px 0 0;
-    color: #64748b;
-    font-size: 11px;
-    line-height: 1.65;
-}
+@media (max-width: 1100px) {
 
-.product-details-page .quick-arrow {
-    position: absolute;
-    top: 20px;
-    right: 19px;
-    color: #94a3b8;
-    font-size: 14px;
-    transition: .2s ease;
-}
-
-.product-details-page .quick-card:hover .quick-arrow {
-    color: #047857;
-    transform: translate(3px, -3px);
-}
-
-/* RESPONSIVE */
-@media (max-width: 1050px) {
     .product-details-page .quick-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1124,9 +1375,11 @@
     .product-details-page .back-btn {
         flex: 1;
     }
+
 }
 
 @media (max-width: 767px) {
+
     .product-details-page .product-header {
         padding: 23px 20px;
         align-items: flex-start;
@@ -1142,7 +1395,7 @@
     }
 
     .product-details-page .image-panel {
-        min-height: 310px;
+        min-height: 340px;
     }
 
     .product-details-page .product-image,
@@ -1156,17 +1409,13 @@
 
     .product-details-page .action-buttons {
         width: 100%;
-        flex-direction: column;
+        flex-wrap: wrap;
     }
 
-    .product-details-page .lifecycle-btn,
-    .product-details-page .passport-btn,
-    .product-details-page .back-btn {
-        width: 100%;
-    }
 }
 
 @media (max-width: 560px) {
+
     .product-details-page .info-grid {
         grid-template-columns: 1fr;
     }
@@ -1180,7 +1429,7 @@
     }
 
     .product-details-page .quick-card {
-        min-height: 155px;
+        min-height: 180px;
     }
 
     .product-details-page .product-title-area h1 {
@@ -1190,8 +1439,29 @@
     .product-details-page .status-badge {
         font-size: 10px;
     }
-}
 
+    .product-details-page .action-buttons {
+        flex-direction: column;
+    }
+
+    .product-details-page .lifecycle-btn,
+    .product-details-page .passport-btn,
+    .product-details-page .back-btn {
+        width: 100%;
+        flex: auto;
+    }
+
+    .product-details-page .section-heading h2 {
+        font-size: 17px;
+    }
+
+    .product-details-page .section-heading-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+}
 
 </style>
 

@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Add Maintenance - ProductLife')
@@ -227,7 +228,9 @@
 
                     <div class="schedule-info">
 
-                        <i class="bi bi-lightbulb"></i>
+                        <div class="schedule-info-icon">
+                            <i class="bi bi-lightbulb-fill"></i>
+                        </div>
 
                         <span>
                             Regular maintenance can help extend product life
@@ -289,7 +292,7 @@
                     <div class="reminder-content">
 
                         <div class="reminder-icon">
-                            <i class="bi bi-bell"></i>
+                            <i class="bi bi-bell-fill"></i>
                         </div>
 
                         <div>
@@ -430,7 +433,7 @@
 
                     <div class="summary-note">
 
-                        <i class="bi bi-info-circle"></i>
+                        <i class="bi bi-info-circle-fill"></i>
 
                         <p>
                             Your maintenance records become part of the
@@ -500,672 +503,796 @@
 
 <style>
 
-    .maintenance-page {
-        max-width: 1180px;
-        margin: 0 auto;
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+.maintenance-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    color: #172033;
+}
+
+/* =========================================
+   PRODUCT HEADER
+========================================= */
+
+.maintenance-page .product-header-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        115deg,
+        #111b46 0%,
+        #3730a3 48%,
+        #6545db 78%,
+        #2563eb 100%
+    );
+    border: 1px solid #4338ca;
+    border-radius: 21px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 12px 30px rgba(55, 48, 163, .17);
+}
+
+.maintenance-page .product-header-card::before {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    right: 130px;
+    top: -150px;
+    border: 27px solid rgba(255,255,255,.08);
+    border-radius: 50%;
+}
+
+.maintenance-page .product-header-card::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -40px;
+    bottom: -100px;
+    background: rgba(255,255,255,.08);
+    border-radius: 50%;
+}
+
+.maintenance-page .product-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #a5f3fc, #67e8f9);
+    color: #164e63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 7px 18px rgba(0,0,0,.16);
+}
+
+.maintenance-page .product-header-info {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+.maintenance-page .section-label {
+    font-size: 9px;
+    font-weight: 900;
+    color: #c4b5fd;
+    letter-spacing: 1.5px;
+}
+
+.maintenance-page .product-header-info h2 {
+    margin: 4px 0 9px;
+    font-size: 23px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -.4px;
+    word-break: break-word;
+}
+
+.maintenance-page .product-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: #e0e7ff;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.maintenance-page .product-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.maintenance-page .product-meta i {
+    color: #67e8f9;
+}
+
+.maintenance-page .maintenance-badge {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    padding: 11px 15px;
+    border-radius: 12px;
+    background: #fff;
+    color: #4338ca;
+    font-size: 10px;
+    font-weight: 900;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+}
+
+.maintenance-page .maintenance-badge i {
+    margin-right: 6px;
+    color: #0891b2;
+}
+
+/* =========================================
+   VALIDATION ERROR
+========================================= */
+
+.maintenance-page .error-card {
+    display: flex;
+    gap: 14px;
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    color: #9a3412;
+    padding: 16px 18px;
+    border-radius: 15px;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 15px rgba(234,88,12,.06);
+}
+
+.maintenance-page .error-icon {
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: #ffedd5;
+    color: #ea580c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.maintenance-page .error-card h6 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.maintenance-page .error-card ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   MAIN GRID
+========================================= */
+
+.maintenance-page .form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(290px, .8fr);
+    gap: 22px;
+    align-items: start;
+}
+
+/* =========================================
+   FORM CARDS
+========================================= */
+
+.maintenance-page .form-card {
+    background: #fff;
+    border: 1px solid #e1e7f0;
+    border-radius: 19px;
+    padding: 24px;
+    margin-bottom: 19px;
+    box-shadow: 0 7px 24px rgba(15,23,42,.045);
+    transition: .22s ease;
+}
+
+.maintenance-page .form-card:hover {
+    box-shadow: 0 11px 27px rgba(31,41,75,.075);
+}
+
+.maintenance-page .card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 23px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef1f6;
+}
+
+.maintenance-page .card-heading h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #172033;
+}
+
+.maintenance-page .card-heading p {
+    margin: 0;
+    color: #84909b;
+    font-size: 10px;
+}
+
+.maintenance-page .heading-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.maintenance-page .heading-icon.green {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.maintenance-page .heading-icon.blue {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.maintenance-page .heading-icon.orange {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+/* =========================================
+   FORM INPUTS
+========================================= */
+
+.maintenance-page .form-label {
+    display: block;
+    color: #334155;
+    font-size: 11px;
+    font-weight: 850;
+    margin-bottom: 8px;
+}
+
+.maintenance-page .form-label span {
+    color: #dc2626;
+}
+
+.maintenance-page .custom-input {
+    min-height: 49px;
+    border: 1px solid #dbe3ed;
+    border-radius: 11px;
+    padding: 11px 14px;
+    font-size: 12px;
+    color: #1e293b;
+    background-color: #fff;
+    box-shadow: none;
+    transition: .22s ease;
+}
+
+.maintenance-page .custom-input::placeholder {
+    color: #a0aabd;
+    font-size: 11px;
+}
+
+.maintenance-page .custom-input:hover {
+    border-color: #a5b4fc;
+}
+
+.maintenance-page .custom-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,.12);
+    outline: none;
+}
+
+.maintenance-page .description-input {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.maintenance-page .input-help {
+    display: block;
+    margin-top: 7px;
+    color: #8793a5;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+/* =========================================
+   DATE INPUTS
+========================================= */
+
+.maintenance-page .input-icon-wrapper {
+    position: relative;
+}
+
+.maintenance-page .input-icon-wrapper > i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4f46e5;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.maintenance-page .custom-input.with-icon {
+    padding-left: 40px;
+}
+
+/* =========================================
+   SCHEDULE INFORMATION
+========================================= */
+
+.maintenance-page .schedule-info {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+    margin-top: 21px;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(110deg, #ecfdf5, #eff6ff);
+    border: 1px solid #bfdbfe;
+    color: #334155;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.maintenance-page .schedule-info-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* =========================================
+   COST INPUT
+========================================= */
+
+.maintenance-page .cost-input-wrapper {
+    position: relative;
+}
+
+.maintenance-page .cost-input-wrapper > span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #047857;
+    font-size: 15px;
+    font-weight: 900;
+    z-index: 2;
+}
+
+.maintenance-page .cost-input-wrapper .custom-input {
+    padding-left: 36px;
+}
+
+/* =========================================
+   REMINDER CARD
+========================================= */
+
+.maintenance-page .reminder-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    background: linear-gradient(125deg, #fff, #f5f3ff);
+    border-color: #ddd6fe;
+}
+
+.maintenance-page .reminder-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.maintenance-page .reminder-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #fed7aa, #fb923c);
+    color: #9a3412;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+}
+
+.maintenance-page .reminder-content h4 {
+    margin: 0 0 5px;
+    color: #312e81;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.maintenance-page .reminder-content p {
+    margin: 0;
+    color: #64748b;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+/* =========================================
+   REMINDER SWITCH
+========================================= */
+
+.maintenance-page .switch {
+    position: relative;
+    width: 49px;
+    height: 27px;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.maintenance-page .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.maintenance-page .slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #cbd5e1;
+    border-radius: 30px;
+    transition: .25s ease;
+}
+
+.maintenance-page .slider:before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .25s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,.15);
+}
+
+.maintenance-page .switch input:checked + .slider {
+    background: #059669;
+}
+
+.maintenance-page .switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.maintenance-page .switch input:focus-visible + .slider {
+    outline: 3px solid rgba(99,102,241,.3);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   SUMMARY CARD
+========================================= */
+
+.maintenance-page .summary-card {
+    background: #fff;
+    border: 1px solid #dfe5f1;
+    border-radius: 19px;
+    padding: 22px;
+    box-shadow: 0 8px 26px rgba(15,23,42,.06);
+    position: sticky;
+    top: 90px;
+}
+
+.maintenance-page .summary-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.maintenance-page .summary-tools {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.maintenance-page .summary-top span {
+    display: block;
+    color: #6366f1;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+}
+
+.maintenance-page .summary-top h4 {
+    margin: 3px 0 0;
+    font-size: 16px;
+    font-weight: 900;
+    color: #172033;
+}
+
+.maintenance-page .summary-divider {
+    height: 1px;
+    background: #e9edf5;
+    margin: 19px 0;
+}
+
+/* SUMMARY PRODUCT */
+
+.maintenance-page .summary-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 19px;
+    padding: 12px;
+    background: linear-gradient(120deg, #eef2ff, #f5f3ff);
+    border: 1px solid #e0e7ff;
+    border-radius: 13px;
+}
+
+.maintenance-page .summary-product img,
+.maintenance-page .summary-placeholder {
+    width: 59px;
+    height: 59px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #c7d2fe;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.maintenance-page .summary-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6366f1;
+    font-size: 22px;
+}
+
+.maintenance-page .summary-product strong {
+    display: block;
+    color: #312e81;
+    font-size: 12px;
+    font-weight: 900;
+    word-break: break-word;
+}
+
+.maintenance-page .summary-product small {
+    display: block;
+    margin-top: 5px;
+    color: #6366a5;
+    font-size: 10px;
+}
+
+/* SUMMARY ITEMS */
+
+.maintenance-page .summary-item {
+    padding: 13px 0;
+    border-top: 1px solid #edf1f6;
+}
+
+.maintenance-page .summary-item span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #64748b;
+    font-size: 10px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.maintenance-page .summary-item span i {
+    color: #6366f1;
+}
+
+.maintenance-page .summary-item strong {
+    color: #1e293b;
+    font-size: 11px;
+    font-weight: 850;
+    word-break: break-word;
+}
+
+.maintenance-page .tracking-active {
+    color: #047857 !important;
+}
+
+/* SUMMARY NOTE */
+
+.maintenance-page .summary-note {
+    display: flex;
+    gap: 10px;
+    margin-top: 13px;
+    padding: 13px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 11px;
+}
+
+.maintenance-page .summary-note > i {
+    color: #2563eb;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.maintenance-page .summary-note p {
+    margin: 0;
+    color: #475569;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PRO TIP
+========================================= */
+
+.maintenance-page .tip-card {
+    margin-top: 17px;
+    background: linear-gradient(120deg, #fff7ed, #fffbeb);
+    border: 1px solid #fed7aa;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    gap: 11px;
+    box-shadow: 0 5px 16px rgba(234,88,12,.045);
+}
+
+.maintenance-page .tip-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #fed7aa;
+    color: #c2410c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.maintenance-page .tip-card strong {
+    display: block;
+    color: #9a3412;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.maintenance-page .tip-card p {
+    margin: 4px 0 0;
+    color: #7c4a2b;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   BOTTOM ACTIONS
+========================================= */
+
+.maintenance-page .bottom-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 5px;
+    padding-bottom: 10px;
+}
+
+.maintenance-page .btn-back,
+.maintenance-page .btn-save {
+    min-height: 49px;
+    padding: 0 20px;
+    border-radius: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 900;
+    transition: .22s ease;
+}
+
+.maintenance-page .btn-back {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+}
+
+.maintenance-page .btn-back:hover {
+    background: #eef2ff;
+    border-color: #a5b4fc;
+    color: #4338ca;
+    transform: translateY(-2px);
+}
+
+.maintenance-page .btn-save {
+    border: 1px solid #047857;
+    background: linear-gradient(120deg, #047857, #10b981);
+    color: #fff;
+    box-shadow: 0 7px 18px rgba(5,150,105,.2);
+    cursor: pointer;
+}
+
+.maintenance-page .btn-save:hover {
+    background: linear-gradient(120deg, #065f46, #047857);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(5,150,105,.25);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .maintenance-page .form-grid {
+        grid-template-columns: 1fr;
     }
 
-
-    /* Product Header */
-
-    .product-header-card {
-        background: linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #effcf6 100%
-        );
-        border: 1px solid #dff3e7;
-        border-radius: 22px;
-        padding: 25px;
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        margin-bottom: 24px;
-        box-shadow: 0 8px 30px rgba(20, 80, 50, .06);
+    .maintenance-page .summary-card {
+        position: static;
     }
 
-    .product-icon {
-        width: 62px;
-        height: 62px;
-        border-radius: 17px;
-        background: #176b4d;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 27px;
-        flex-shrink: 0;
-    }
+}
 
-    .section-label {
-        font-size: 10px;
-        font-weight: 800;
-        color: #65a30d;
-        letter-spacing: 1.4px;
-    }
+@media (max-width: 600px) {
 
-    .product-header-info h2 {
-        margin: 3px 0 8px;
-        font-size: 24px;
-        font-weight: 800;
-        color: #153b2c;
-    }
-
-    .product-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        color: #64748b;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .product-meta span {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .product-meta i {
-        color: #176b4d;
-    }
-
-    .maintenance-badge {
-        margin-left: auto;
-        padding: 10px 14px;
-        border-radius: 12px;
-        background: #dbeafe;
-        color: #1d4ed8;
-        font-size: 11px;
-        font-weight: 800;
-        white-space: nowrap;
-    }
-
-    .maintenance-badge i {
-        margin-right: 5px;
-    }
-
-
-    /* Error */
-
-    .error-card {
-        display: flex;
-        gap: 14px;
-        background: #fff7ed;
-        border: 1px solid #fed7aa;
-        color: #9a3412;
-        padding: 16px 18px;
-        border-radius: 15px;
-        margin-bottom: 22px;
-    }
-
-    .error-icon {
-        font-size: 20px;
-        margin-top: 2px;
-    }
-
-    .error-card h6 {
-        margin: 0 0 5px;
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    .error-card ul {
-        margin: 0;
-        padding-left: 18px;
-        font-size: 12px;
-    }
-
-
-    /* Grid */
-
-    .form-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.7fr) minmax(290px, .8fr);
-        gap: 22px;
-        align-items: start;
-    }
-
-
-    /* Form Cards */
-
-    .form-card {
-        background: #fff;
-        border: 1px solid #e8eef0;
-        border-radius: 20px;
-        padding: 25px;
-        margin-bottom: 20px;
-        box-shadow: 0 7px 25px rgba(15, 23, 42, .045);
-    }
-
-    .card-heading {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        margin-bottom: 23px;
-    }
-
-    .card-heading h4 {
-        margin: 0 0 3px;
-        font-size: 17px;
-        font-weight: 800;
-        color: #163c2d;
-    }
-
-    .card-heading p {
-        margin: 0;
-        color: #84909b;
-        font-size: 11px;
-    }
-
-    .heading-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-    }
-
-    .heading-icon.green {
-        background: #dcfce7;
-        color: #15803d;
-    }
-
-    .heading-icon.blue {
-        background: #dbeafe;
-        color: #2563eb;
-    }
-
-    .heading-icon.orange {
-        background: #ffedd5;
-        color: #ea580c;
-    }
-
-
-    /* Inputs */
-
-    .form-label {
-        display: block;
-        color: #334155;
-        font-size: 11px;
-        font-weight: 800;
-        margin-bottom: 8px;
-    }
-
-    .form-label span {
-        color: #dc2626;
-    }
-
-    .custom-input {
-        min-height: 50px;
-        border: 1px solid #dbe3e8;
-        border-radius: 11px;
-        padding: 11px 14px;
-        font-size: 13px;
-        color: #1e293b;
-        box-shadow: none;
-        transition: .2s ease;
-    }
-
-    .custom-input:focus {
-        border-color: #176b4d;
-        box-shadow: 0 0 0 3px rgba(23, 107, 77, .10);
-    }
-
-    .description-input {
-        min-height: 130px;
-        resize: vertical;
-    }
-
-    .input-help {
-        display: block;
-        margin-top: 7px;
-        color: #94a3b8;
-        font-size: 10px;
-        line-height: 1.5;
-    }
-
-
-    /* Date Inputs */
-
-    .input-icon-wrapper {
-        position: relative;
-    }
-
-    .input-icon-wrapper > i {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #176b4d;
-        z-index: 2;
-        pointer-events: none;
-    }
-
-    .custom-input.with-icon {
-        padding-left: 40px;
-    }
-
-
-    /* Schedule Info */
-
-    .schedule-info {
-        display: flex;
-        gap: 9px;
+    .maintenance-page .product-header-card {
         align-items: flex-start;
-        margin-top: 20px;
-        padding: 13px 14px;
-        border-radius: 11px;
-        background: #f0fdf4;
-        color: #166534;
-        font-size: 10px;
-        line-height: 1.5;
+        flex-wrap: wrap;
+        padding: 19px;
     }
 
-    .schedule-info i {
-        margin-top: 1px;
+    .maintenance-page .product-header-info h2 {
+        font-size: 19px;
     }
 
-
-    /* Cost */
-
-    .cost-input-wrapper {
-        position: relative;
+    .maintenance-page .maintenance-badge {
+        margin-left: 0;
     }
 
-    .cost-input-wrapper > span {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #176b4d;
-        font-size: 14px;
-        font-weight: 800;
-        z-index: 2;
+    .maintenance-page .form-card {
+        padding: 18px;
     }
 
-    .cost-input-wrapper .custom-input {
-        padding-left: 34px;
+    .maintenance-page .card-heading h4 {
+        font-size: 15px;
     }
 
-
-    /* Reminder */
-
-    .reminder-card {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        background: linear-gradient(
-            135deg,
-            #ffffff,
-            #f8fffb
-        );
+    .maintenance-page .reminder-card {
+        align-items: flex-start;
     }
 
-    .reminder-content {
-        display: flex;
-        align-items: center;
-        gap: 14px;
+    .maintenance-page .bottom-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
     }
 
-    .reminder-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 13px;
-        background: #fef3c7;
-        color: #d97706;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        flex-shrink: 0;
+    .maintenance-page .btn-back,
+    .maintenance-page .btn-save {
+        width: 100%;
     }
 
-    .reminder-content h4 {
-        margin: 0 0 4px;
-        color: #163c2d;
-        font-size: 14px;
-        font-weight: 800;
-    }
-
-    .reminder-content p {
-        margin: 0;
-        color: #94a3b8;
-        font-size: 10px;
-        line-height: 1.5;
-    }
-
-
-    /* Toggle */
-
-    .switch {
-        position: relative;
-        width: 49px;
-        height: 27px;
-        flex-shrink: 0;
-    }
-
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        inset: 0;
-        cursor: pointer;
-        background: #cbd5e1;
-        border-radius: 30px;
-        transition: .25s ease;
-    }
-
-    .slider:before {
-        content: "";
-        position: absolute;
-        width: 21px;
-        height: 21px;
-        left: 3px;
-        top: 3px;
-        background: white;
-        border-radius: 50%;
-        transition: .25s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,.15);
-    }
-
-    .switch input:checked + .slider {
-        background: #176b4d;
-    }
-
-    .switch input:checked + .slider:before {
-        transform: translateX(22px);
-    }
-
-
-    /* Summary */
-
-    .summary-card {
-        background: #ffffff;
-        border: 1px solid #e8eef0;
-        border-radius: 20px;
-        padding: 22px;
-        box-shadow: 0 7px 25px rgba(15, 23, 42, .045);
-        position: sticky;
-        top: 90px;
-    }
-
-    .summary-top {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .summary-tools {
-        width: 45px;
-        height: 45px;
-        border-radius: 13px;
-        background: #dbeafe;
-        color: #2563eb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-    }
-
-    .summary-top span {
-        display: block;
-        color: #65a30d;
-        font-size: 9px;
-        font-weight: 800;
-        letter-spacing: 1.2px;
-    }
-
-    .summary-top h4 {
-        margin: 2px 0 0;
-        font-size: 16px;
-        font-weight: 800;
-        color: #163c2d;
-    }
-
-    .summary-divider {
-        height: 1px;
-        background: #edf1f2;
-        margin: 20px 0;
-    }
-
-    .summary-product {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .summary-product img,
-    .summary-placeholder {
-        width: 58px;
-        height: 58px;
-        border-radius: 13px;
-        object-fit: cover;
-        border: 1px solid #e2e8f0;
-        background: #f8fafc;
-    }
-
-    .summary-placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #94a3b8;
-        font-size: 21px;
-    }
-
-    .summary-product strong {
-        display: block;
-        color: #1e293b;
-        font-size: 12px;
-        font-weight: 800;
-    }
-
-    .summary-product small {
-        display: block;
-        margin-top: 4px;
-        color: #94a3b8;
-        font-size: 10px;
-    }
-
-    .summary-item {
-        padding: 13px 0;
-        border-top: 1px solid #edf1f2;
-    }
-
-    .summary-item span {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        color: #94a3b8;
-        font-size: 10px;
-        margin-bottom: 4px;
-    }
-
-    .summary-item span i {
-        color: #176b4d;
-    }
-
-    .summary-item strong {
-        color: #334155;
-        font-size: 11px;
-        word-break: break-word;
-    }
-
-    .tracking-active {
-        color: #15803d !important;
-    }
-
-    .summary-note {
-        display: flex;
-        gap: 9px;
-        margin-top: 14px;
-        padding: 12px;
-        background: #f8fafc;
-        border-radius: 11px;
-    }
-
-    .summary-note i {
-        color: #2563eb;
-        margin-top: 2px;
-    }
-
-    .summary-note p {
-        margin: 0;
-        color: #64748b;
-        font-size: 10px;
-        line-height: 1.55;
-    }
-
-
-    /* Tip */
-
-    .tip-card {
-        margin-top: 18px;
-        background: #f0fdf4;
-        border: 1px solid #dcfce7;
-        border-radius: 15px;
-        padding: 14px;
-        display: flex;
-        gap: 10px;
-    }
-
-    .tip-icon {
-        width: 31px;
-        height: 31px;
-        border-radius: 9px;
-        background: #dcfce7;
-        color: #15803d;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .tip-card strong {
-        display: block;
-        color: #166534;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    .tip-card p {
-        margin: 3px 0 0;
-        color: #4d7c5d;
-        font-size: 9px;
-        line-height: 1.5;
-    }
-
-
-    /* Bottom */
-
-    .bottom-actions {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        margin-top: 5px;
-        padding-bottom: 10px;
-    }
-
-    .btn-back,
-    .btn-save {
-        min-height: 49px;
-        padding: 0 19px;
-        border-radius: 11px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        text-decoration: none;
-        font-size: 12px;
-        font-weight: 800;
-        transition: .2s ease;
-    }
-
-    .btn-back {
-        background: #ffffff;
-        border: 1px solid #dbe3e8;
-        color: #475569;
-    }
-
-    .btn-back:hover {
-        background: #f8fafc;
-        color: #176b4d;
-    }
-
-    .btn-save {
-        border: 0;
-        background: #176b4d;
-        color: #ffffff;
-        box-shadow: 0 7px 18px rgba(23, 107, 77, .20);
-        cursor: pointer;
-    }
-
-    .btn-save:hover {
-        background: #12583e;
-        color: #ffffff;
-        transform: translateY(-1px);
-    }
-
-
-    /* Responsive */
-
-    @media (max-width: 900px) {
-
-        .form-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .summary-card {
-            position: static;
-        }
-
-    }
-
-    @media (max-width: 600px) {
-
-        .product-header-card {
-            align-items: flex-start;
-            flex-wrap: wrap;
-            padding: 19px;
-        }
-
-        .protection-badge,
-        .maintenance-badge {
-            margin-left: 0;
-        }
-
-        .product-header-info h2 {
-            font-size: 20px;
-        }
-
-        .form-card {
-            padding: 19px;
-        }
-
-        .reminder-card {
-            align-items: flex-start;
-        }
-
-        .bottom-actions {
-            flex-direction: column-reverse;
-            align-items: stretch;
-        }
-
-        .btn-back,
-        .btn-save {
-            width: 100%;
-        }
-
-    }
+}
 
 </style>
 

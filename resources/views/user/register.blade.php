@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,778 +8,546 @@
 
     <title>Register - ProductLife</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        min-height: 100vh;
-
-        font-family: 'Inter', sans-serif;
-        color: #0b2947;
-
-        background:
-            radial-gradient(
-                circle at 10% 10%,
-                rgba(55, 210, 150, .16),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 90% 90%,
-                rgba(91, 204, 255, .16),
-                transparent 32%
-            ),
-            linear-gradient(
-                135deg,
-                #f8fffd,
-                #eef9ff
-            );
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        padding: 35px 20px;
-    }
-
-
-    /* =========================
-       MAIN CARD
-    ========================= */
-
-    .register-card {
-        width: 100%;
-        max-width: 1080px;
-
-        background: rgba(255, 255, 255, .97);
-
-        border-radius: 30px;
-        overflow: hidden;
-
-        border: 1px solid rgba(255, 255, 255, .9);
-
-        box-shadow:
-            0 35px 90px rgba(15, 54, 80, .14),
-            0 10px 30px rgba(10, 166, 109, .07);
-
-        position: relative;
-    }
-
-
-    /* =========================
-       LEFT BRAND AREA
-    ========================= */
-
-    .brand-side {
-        min-height: 650px;
-        height: 100%;
-
-        padding: 55px 50px;
-
-        color: white;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        position: relative;
-        overflow: hidden;
-
-        background:
-            radial-gradient(
-                circle at 85% 15%,
-                rgba(116, 255, 190, .20),
-                transparent 25%
-            ),
-            linear-gradient(
-                145deg,
-                #063f32,
-                #087b52 55%,
-                #09a66c
-            );
-    }
-
-
-    /* Decorative circle */
-
-    .brand-side::before {
-        content: "";
-
-        position: absolute;
-
-        width: 260px;
-        height: 260px;
-
-        border-radius: 50%;
-
-        right: -100px;
-        top: -90px;
-
-        border: 38px solid rgba(255, 255, 255, .06);
-    }
-
-
-    .brand-side::after {
-        content: "";
-
-        position: absolute;
-
-        width: 190px;
-        height: 190px;
-
-        border-radius: 50%;
-
-        left: -105px;
-        bottom: -85px;
-
-        background: rgba(255, 255, 255, .05);
-    }
-
-
-    .brand-content {
-        position: relative;
-        z-index: 2;
-    }
-
-
-    /* =========================
-       LOGO
-    ========================= */
-
-    .brand-logo {
-        display: flex;
-        align-items: center;
-
-        margin-bottom: 60px;
-    }
-
-
-    .brand-logo img {
-        width: 190px;
-        height: auto;
-
-        max-height: 62px;
-
-        object-fit: contain;
-        object-position: left center;
-
-        background: white;
-
-        padding: 8px 14px;
-
-        border-radius: 13px;
-
-        box-shadow:
-            0 10px 28px rgba(0, 0, 0, .12);
-    }
-
-
-    /* =========================
-       BRAND TITLE
-    ========================= */
-
-    .brand-side h1 {
-        font-size: 50px;
-
-        line-height: 1.08;
-
-        font-weight: 800;
-
-        letter-spacing: -1.8px;
-
-        margin: 0 0 20px;
-    }
-
-
-    .brand-side h1 span {
-        color: #79f0b2;
-    }
-
-
-    .brand-description {
-        max-width: 440px;
-
-        color: rgba(255, 255, 255, .80);
-
-        font-size: 16px;
-
-        line-height: 1.8;
-
-        margin: 0 0 36px;
-    }
-
-
-    /* =========================
-       FEATURES
-    ========================= */
-
-    .feature-list {
-        display: flex;
-        flex-direction: column;
-
-        gap: 14px;
-    }
-
-
-    .mini-feature {
-        display: flex;
-        align-items: center;
-
-        color: rgba(255, 255, 255, .96);
-
-        font-size: 15px;
-
-        font-weight: 500;
-    }
-
-
-    .mini-feature-icon {
-        width: 36px;
-        height: 36px;
-
-        flex-shrink: 0;
-
-        border-radius: 10px;
-
-        background: rgba(255, 255, 255, .12);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        margin-right: 13px;
-
-        color: #7ff2b6;
-
-        font-size: 17px;
-    }
-
-
-    /* =========================
-       RIGHT FORM AREA
-    ========================= */
-
-    .form-side {
-        min-height: 650px;
-
-        padding: 55px 55px;
-
-        background: #ffffff;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-
-    /* =========================
-       FORM TITLE
-    ========================= */
-
-    .form-title {
-        margin-bottom: 28px;
-    }
-
-
-    .form-title h2 {
-        margin: 0 0 10px;
-
-        color: #0b2947;
-
-        font-size: 37px;
-
-        line-height: 1.2;
-
-        font-weight: 800;
-
-        letter-spacing: -.9px;
-    }
-
-
-    .form-title p {
-        margin: 0;
-
-        color: #71839a;
-
-        font-size: 14px;
-
-        line-height: 1.7;
-    }
-
-
-    /* =========================
-       ALERT
-    ========================= */
-
-    .alert {
-        border: none;
-
-        border-radius: 12px;
-
-        font-size: 13px;
-
-        padding: 12px 14px;
-
-        margin-bottom: 20px;
-    }
-
-
-    /* =========================
-       FORM
-    ========================= */
-
-    .field {
-        margin-bottom: 18px;
-    }
-
-
-    .form-label {
-        display: block;
-
-        color: #50647b;
-
-        font-size: 12px;
-
-        font-weight: 800;
-
-        letter-spacing: .5px;
-
-        margin-bottom: 8px;
-    }
-
-
-    /* =========================
-       INPUT WRAPPER
-    ========================= */
-
-    .input-wrapper {
-        position: relative;
-    }
-
-
-    .input-wrapper i {
-        position: absolute;
-
-        left: 16px;
-        top: 50%;
-
-        transform: translateY(-50%);
-
-        color: #8ba0b4;
-
-        font-size: 17px;
-
-        pointer-events: none;
-
-        z-index: 2;
-    }
-
-
-    /* =========================
-       INPUT
-    ========================= */
-
-    .form-control {
-        width: 100%;
-
-        height: 50px;
-
-        border-radius: 12px;
-
-        border: 1px solid #dfe8ee;
-
-        background: #f8fbfd;
-
-        color: #193653;
-
-        font-size: 14px;
-
-        padding: 11px 14px;
-
-        transition: all .2s ease;
-    }
-
-
-    .input-wrapper .form-control {
-        padding-left: 46px;
-    }
-
-
-    .form-control::placeholder {
-        color: #a4b1bf;
-    }
-
-
-    .form-control:focus {
-        background: #ffffff;
-
-        border-color: #0eae72;
-
-        box-shadow:
-            0 0 0 4px rgba(14, 174, 114, .09);
-    }
-
-
-    /* =========================
-       TEXTAREA
-    ========================= */
-
-    textarea.form-control {
-        height: 80px;
-
-        resize: none;
-
-        padding: 13px 14px !important;
-
-        line-height: 1.5;
-    }
-
-
-    /* =========================
-       FILE INPUT
-    ========================= */
-
-    input[type="file"].form-control {
-        height: 50px;
-
-        padding: 12px 14px;
-
-        cursor: pointer;
-
-        font-size: 13px;
-    }
-
-
-    /* =========================
-       REGISTER BUTTON
-    ========================= */
-
-    .register-btn {
-        width: 100%;
-
-        height: 54px;
-
-        border: none;
-
-        border-radius: 13px;
-
-        margin-top: 5px;
-
-        background:
-            linear-gradient(
-                135deg,
-                #08a66c,
-                #07945f
-            );
-
-        color: white;
-
-        font-size: 15px;
-
-        font-weight: 800;
-
-        letter-spacing: .1px;
-
-        box-shadow:
-            0 10px 25px rgba(8, 166, 108, .20);
-
-        transition: all .25s ease;
-
-        cursor: pointer;
-    }
-
-
-    .register-btn:hover {
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 14px 30px rgba(8, 166, 108, .28);
-    }
-
-
-    /* =========================
-       LOGIN LINK
-    ========================= */
-
-    .login-text {
-        text-align: center;
-
-        margin-top: 22px;
-
-        padding-top: 20px;
-
-        border-top: 1px solid #e8eef2;
-
-        color: #8291a1;
-
-        font-size: 13px;
-    }
-
-
-    .login-text a {
-        color: #08a66c;
-
-        font-weight: 800;
-
-        text-decoration: none;
-
-        margin-left: 4px;
-    }
-
-
-    .login-text a:hover {
-        text-decoration: underline;
-    }
-
-
-    /* =========================
-       INVALID MESSAGE
-    ========================= */
-
-    .invalid-feedback {
-        font-size: 12px;
-
-        margin-top: 6px;
-    }
-
-
-    /* =========================
-       TABLET
-    ========================= */
-
-    @media (max-width: 991px) {
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            padding: 25px 16px;
+            margin: 0;
+            min-height: 100vh;
+            padding: 35px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at 8% 10%, rgba(111, 66, 193, .13), transparent 30%),
+                radial-gradient(circle at 92% 90%, rgba(14, 165, 233, .13), transparent 32%),
+                linear-gradient(135deg, #f3f5ff, #eef5ff);
+            color: #14213d;
         }
-
 
         .register-card {
-            max-width: 850px;
+            width: 100%;
+            max-width: 1120px;
+            background: #fff;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.9);
+            box-shadow: 0 30px 85px rgba(20, 33, 61, .16);
         }
 
+        /* LEFT BRAND PANEL */
 
         .brand-side {
-            min-height: 560px;
-
-            padding: 45px 38px;
+            height: 100%;
+            min-height: 760px;
+            padding: 55px 45px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            background:
+                radial-gradient(circle at 85% 15%, rgba(139, 92, 246, .35), transparent 30%),
+                radial-gradient(circle at 10% 90%, rgba(6, 182, 212, .20), transparent 30%),
+                linear-gradient(145deg, #10152f, #24205b 55%, #34318c);
         }
 
+        .brand-side::before {
+            content: "";
+            position: absolute;
+            width: 330px;
+            height: 330px;
+            top: -130px;
+            right: -130px;
+            border: 45px solid rgba(255,255,255,.055);
+            border-radius: 50%;
+        }
+
+        .brand-side::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            bottom: -125px;
+            left: -100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.045);
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
 
         .brand-logo {
-            margin-bottom: 45px;
+            margin-bottom: 55px;
         }
-
 
         .brand-logo img {
-            width: 170px;
+            width: 185px;
+            max-height: 65px;
+            object-fit: contain;
+            object-position: left center;
+            padding: 9px 14px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
         }
 
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(167,139,250,.4);
+            border-radius: 30px;
+            background: rgba(139,92,246,.17);
+            color: #d8ccff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-tag i {
+            color: #67e8f9;
+        }
 
         .brand-side h1 {
-            font-size: 42px;
+            margin: 0 0 20px;
+            font-size: 43px;
+            line-height: 1.16;
+            font-weight: 900;
+            letter-spacing: -1.8px;
         }
 
+        .brand-side h1 span {
+            display: block;
+            color: #a78bfa;
+        }
 
         .brand-description {
-            font-size: 15px;
-        }
-
-
-        .form-side {
-            min-height: 560px;
-
-            padding: 45px 38px;
-        }
-
-
-        .form-title h2 {
-            font-size: 33px;
-        }
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 767px) {
-
-        body {
-            padding: 15px;
-        }
-
-
-        .register-card {
-            border-radius: 22px;
-        }
-
-
-        .brand-side {
-            min-height: auto;
-
-            padding: 38px 28px;
-        }
-
-
-        .brand-logo {
-            margin-bottom: 38px;
-        }
-
-
-        .brand-logo img {
-            width: 160px;
-        }
-
-
-        .brand-side h1 {
-            font-size: 36px;
-
-            letter-spacing: -1px;
-        }
-
-
-        .brand-description {
+            max-width: 410px;
+            margin: 0 0 35px;
+            color: #c6c9e0;
             font-size: 14px;
-
-            line-height: 1.7;
+            line-height: 1.9;
         }
 
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
         .mini-feature {
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            color: #f1f2ff;
+            font-size: 13px;
+            font-weight: 600;
         }
-
 
         .mini-feature-icon {
-            width: 34px;
-            height: 34px;
-
-            font-size: 16px;
+            width: 39px;
+            height: 39px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 13px;
+            border: 1px solid rgba(167,139,250,.28);
+            border-radius: 11px;
+            background: rgba(139,92,246,.18);
+            color: #67e8f9;
+            font-size: 17px;
         }
 
+        .brand-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.13);
+            color: #aeb2d0;
+            font-size: 11px;
+        }
+
+        /* RIGHT FORM PANEL */
 
         .form-side {
-            min-height: auto;
-
-            padding: 38px 25px;
+            min-height: 760px;
+            padding: 48px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
         }
 
+        .form-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .form-top-label {
+            color: #7c3aed;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .secure-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #059669;
+            font-size: 11px;
+            font-weight: 700;
+        }
 
         .form-title {
             margin-bottom: 27px;
         }
 
-
         .form-title h2 {
-            font-size: 30px;
+            margin: 0 0 9px;
+            color: #172044;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1.2px;
         }
-
 
         .form-title p {
+            margin: 0;
+            color: #718096;
             font-size: 13px;
+            line-height: 1.7;
         }
 
+        /* ALERTS */
+
+        .alert {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 11px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* FORM FIELDS */
+
+        .field {
+            margin-bottom: 17px;
+        }
 
         .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34415f;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper > i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            z-index: 2;
+            transform: translateY(-50%);
+            color: #8793ad;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 48px;
+            padding: 11px 14px;
+            border: 1px solid #dce2ee;
+            border-radius: 10px;
+            background: #f8f9fd;
+            color: #172044;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all .22s ease;
+        }
+
+        .input-wrapper .form-control {
+            padding-left: 43px;
+        }
+
+        .form-control::placeholder {
+            color: #a3adc0;
+            font-size: 12px;
+        }
+
+        .form-control:focus {
+            border-color: #7c3aed;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(124,58,237,.10);
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+
+        textarea.form-control {
+            height: 78px;
+            min-height: 78px;
+            resize: vertical;
+            padding: 13px 14px !important;
+            line-height: 1.6;
+        }
+
+        input[type="file"].form-control {
+            height: 48px;
+            padding: 10px 11px;
+            cursor: pointer;
             font-size: 11px;
         }
 
-
-        .form-control {
-            height: 50px;
-
-            font-size: 14px;
+        input[type="file"]::file-selector-button {
+            margin-right: 10px;
+            padding: 5px 9px;
+            border: none;
+            border-radius: 6px;
+            background: #ede9fe;
+            color: #6d28d9;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
         }
 
-
-        textarea.form-control {
-            height: 80px;
+        .invalid-feedback {
+            margin-top: 6px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
-
-        input[type="file"].form-control {
-            font-size: 12px;
-        }
-
+        /* REGISTER BUTTON */
 
         .register-btn {
-            height: 52px;
-
-            font-size: 14px;
+            width: 100%;
+            height: 53px;
+            margin-top: 4px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(110deg, #6d28d9, #4f46e5 55%, #2563eb);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .2px;
+            box-shadow: 0 10px 24px rgba(99,102,241,.24);
+            transition: all .25s ease;
+            cursor: pointer;
         }
 
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(99,102,241,.34);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        /* LOGIN LINK */
 
         .login-text {
+            margin-top: 22px;
+            padding-top: 19px;
+            border-top: 1px solid #edf0f6;
+            color: #78849a;
             font-size: 12px;
-        }
-    }
-
-
-    /* =========================
-       SMALL MOBILE
-    ========================= */
-
-    @media (max-width: 400px) {
-
-        .brand-side {
-            padding: 32px 22px;
+            text-align: center;
         }
 
-
-        .brand-side h1 {
-            font-size: 32px;
+        .login-text a {
+            margin-left: 4px;
+            color: #6d28d9;
+            font-weight: 800;
+            text-decoration: none;
         }
 
-
-        .brand-description {
-            font-size: 13px;
+        .login-text a:hover {
+            color: #2563eb;
+            text-decoration: underline;
         }
 
+        /* TABLET */
 
-        .form-side {
-            padding: 32px 20px;
+        @media (max-width: 991px) {
+            body {
+                padding: 25px 16px;
+            }
+
+            .register-card {
+                max-width: 850px;
+            }
+
+            .brand-side {
+                min-height: 690px;
+                padding: 40px 30px;
+            }
+
+            .brand-side h1 {
+                font-size: 35px;
+            }
+
+            .brand-logo {
+                margin-bottom: 42px;
+            }
+
+            .form-side {
+                min-height: 690px;
+                padding: 38px 28px;
+            }
+
+            .form-title h2 {
+                font-size: 30px;
+            }
         }
 
+        /* MOBILE */
 
-        .form-title h2 {
-            font-size: 28px;
+        @media (max-width: 767px) {
+            body {
+                padding: 14px;
+                align-items: flex-start;
+            }
+
+            .register-card {
+                max-width: 520px;
+                border-radius: 19px;
+            }
+
+            .brand-side {
+                min-height: auto;
+                padding: 32px 27px;
+            }
+
+            .brand-logo {
+                margin-bottom: 30px;
+            }
+
+            .brand-logo img {
+                width: 155px;
+            }
+
+            .brand-tag {
+                margin-bottom: 16px;
+                font-size: 9px;
+            }
+
+            .brand-side h1 {
+                font-size: 32px;
+                letter-spacing: -1px;
+            }
+
+            .brand-description {
+                margin-bottom: 25px;
+                font-size: 12px;
+            }
+
+            .feature-list {
+                gap: 11px;
+            }
+
+            .mini-feature {
+                font-size: 12px;
+            }
+
+            .mini-feature-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 15px;
+            }
+
+            .brand-footer {
+                margin-top: 28px;
+            }
+
+            .form-side {
+                min-height: auto;
+                padding: 32px 23px;
+            }
+
+            .form-title h2 {
+                font-size: 29px;
+            }
+
+            .form-title p {
+                font-size: 12px;
+            }
+
+            .field {
+                margin-bottom: 15px;
+            }
         }
 
+        /* SMALL MOBILE */
 
-        .form-control {
-            font-size: 13px;
+        @media (max-width: 400px) {
+            body {
+                padding: 9px;
+            }
+
+            .brand-side {
+                padding: 28px 21px;
+            }
+
+            .brand-side h1 {
+                font-size: 29px;
+            }
+
+            .form-side {
+                padding: 27px 18px;
+            }
+
+            .form-title h2 {
+                font-size: 26px;
+            }
+
+            .form-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .form-control {
+                font-size: 12px;
+            }
         }
-    }
-
-</style>
-
+    </style>
 </head>
 
-
 <body>
-
 
 <div class="register-card">
 
     <div class="row g-0">
 
-
-        <!-- =========================
-             LEFT SIDE
-        ========================== -->
+        <!-- LEFT BRAND PANEL -->
 
         <div class="col-lg-5">
 
@@ -786,92 +555,64 @@
 
                 <div class="brand-content">
 
-
-                    <!-- LOGO -->
-
                     <div class="brand-logo">
-
                         <img
                             src="{{ asset('images/logo.png') }}"
                             alt="ProductLife Logo"
                         >
-
                     </div>
 
-
-                    <!-- TITLE -->
+                    <div class="brand-tag">
+                        <i class="bi bi-stars"></i>
+                        Smart Product Management
+                    </div>
 
                     <h1>
-
                         Manage Your
-
-                        <span>
-                            Product Life.
-                        </span>
-
+                        <span>Product Life.</span>
                     </h1>
 
-
-                    <!-- DESCRIPTION -->
-
                     <p class="brand-description">
-
                         One smart platform to manage your products,
                         warranty, maintenance, repairs and complete
                         product lifecycle.
-
                     </p>
-
-
-                    <!-- FEATURES -->
 
                     <div class="feature-list">
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-qr-code-scan"></i>
                             </div>
-
                             Digital Product Passport
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-shield-check"></i>
                             </div>
-
                             Warranty & Maintenance Tracking
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-tools"></i>
                             </div>
-
                             Smart Repair Management
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-recycle"></i>
                             </div>
-
                             Complete Product Lifecycle
-
                         </div>
 
+                    </div>
 
+                    <div class="brand-footer">
+                        <i class="bi bi-shield-lock me-1"></i>
+                        Secure registration · Smarter product management
                     </div>
 
                 </div>
@@ -880,32 +621,33 @@
 
         </div>
 
-
-
-        <!-- =========================
-             RIGHT SIDE
-        ========================== -->
+        <!-- RIGHT REGISTER FORM -->
 
         <div class="col-lg-7">
 
             <div class="form-side">
 
+                <div class="form-top">
+                    <span class="form-top-label">
+                        <i class="bi bi-person-plus-fill me-1"></i>
+                        New Member Registration
+                    </span>
 
-                <!-- TITLE -->
+                    <span class="secure-label">
+                        <i class="bi bi-shield-check"></i>
+                        Secure Form
+                    </span>
+                </div>
 
                 <div class="form-title">
 
-                    <h2>
-                        Create Account
-                    </h2>
+                    <h2>Create Account</h2>
 
                     <p>
                         Join ProductLife and manage everything in one place.
                     </p>
 
                 </div>
-
-
 
                 <!-- ALERTS -->
 
@@ -925,21 +667,18 @@
 
                 @endif
 
-
-
-                <!-- FORM -->
+                <!-- REGISTER FORM -->
 
                 <form
                     action="{{ route('register.store') }}"
                     method="POST"
                     enctype="multipart/form-data"
-                    novalidate>
+                    novalidate
+                >
 
                     @csrf
 
-
                     <div class="row">
-
 
                         <!-- NAME -->
 
@@ -964,16 +703,12 @@
                             </div>
 
                             @error('name')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
-
-
 
                         <!-- EMAIL -->
 
@@ -998,16 +733,12 @@
                             </div>
 
                             @error('email')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
-
-
 
                         <!-- PHONE -->
 
@@ -1032,18 +763,14 @@
                             </div>
 
                             @error('phone')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
 
-
-
-                        <!-- DOB -->
+                        <!-- DATE OF BIRTH -->
 
                         <div class="col-md-6 field">
 
@@ -1065,16 +792,12 @@
                             </div>
 
                             @error('dob')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
-
-
 
                         <!-- PROFILE IMAGE -->
 
@@ -1091,16 +814,12 @@
                             >
 
                             @error('image')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
-
-
 
                         <!-- PASSWORD -->
 
@@ -1124,16 +843,12 @@
                             </div>
 
                             @error('password')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
-
-
 
                         <!-- ADDRESS -->
 
@@ -1150,37 +865,25 @@
                             >{{ old('address') }}</textarea>
 
                             @error('address')
-
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
-
                             @enderror
 
                         </div>
 
                     </div>
 
+                    <!-- SUBMIT BUTTON -->
 
-
-                    <!-- BUTTON -->
-
-                    <button
-                        type="submit"
-                        class="register-btn"
-                    >
-
+                    <button type="submit" class="register-btn">
                         Create Account
-
                         <i class="bi bi-arrow-right ms-2"></i>
-
                     </button>
 
                 </form>
 
-
-
-                <!-- LOGIN -->
+                <!-- LOGIN LINK -->
 
                 <div class="login-text">
 
@@ -1193,7 +896,6 @@
 
                 </div>
 
-
             </div>
 
         </div>
@@ -1201,7 +903,6 @@
     </div>
 
 </div>
-
 
 </body>
 </html>

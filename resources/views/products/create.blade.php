@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('page_title', 'Add Product')
@@ -7,28 +8,28 @@
 
 <div class="add-product-page">
 
-    {{-- Page Header --}}
+    {{-- PAGE HEADER --}}
     <div class="page-heading">
-        <div>
+        <div class="heading-content">
             <div class="heading-icon">
                 <i class="bi bi-box-seam"></i>
             </div>
 
+            <div class="heading-label">PRODUCT REGISTRATION</div>
             <h1>Add New Product</h1>
-
-            <p>
-                Add your product details to create its digital lifecycle record.
-            </p>
+            <p>Register your product and create its digital lifecycle passport.</p>
         </div>
 
         <a href="{{ route('products.index') }}" class="back-btn">
             <i class="bi bi-arrow-left"></i>
             My Products
         </a>
+
+        <div class="heading-decoration heading-decoration-one"></div>
+        <div class="heading-decoration heading-decoration-two"></div>
     </div>
 
-
-    {{-- Validation Errors --}}
+    {{-- VALIDATION ERRORS --}}
     @if ($errors->any())
         <div class="error-box">
             <div class="error-title">
@@ -44,293 +45,194 @@
         </div>
     @endif
 
+    {{-- PRODUCT FORM --}}
+    <form action="{{ route('products.store') }}"
+          method="POST"
+          enctype="multipart/form-data">
 
-    {{-- Product Form --}}
-    <form
-        action="{{ route('products.store') }}"
-        method="POST"
-        enctype="multipart/form-data"
-    >
         @csrf
 
         <div class="form-layout">
 
-            {{-- LEFT SIDE --}}
-            <div>
+            {{-- LEFT COLUMN --}}
+            <div class="form-main-column">
 
-                {{-- Basic Information --}}
+                {{-- PRODUCT INFORMATION --}}
                 <div class="form-card">
 
                     <div class="card-header">
                         <div class="card-icon green">
-                            <i class="bi bi-info-circle"></i>
+                            <i class="bi bi-info-circle-fill"></i>
                         </div>
 
                         <div>
                             <h2>Product Information</h2>
-                            <p>Basic details about your product.</p>
+                            <p>Enter the basic identification details of your product.</p>
                         </div>
-                    </div>
 
+                        <span class="section-number">01</span>
+                    </div>
 
                     <div class="form-grid">
 
-                        {{-- Category --}}
                         <div class="form-group">
                             <label for="category">
-                                Product Category
-                                <span>*</span>
+                                Product Category <span>*</span>
                             </label>
 
-                            <select
-                                name="category"
-                                id="category"
-                                class="form-control"
-                                required
-                            >
+                            <select name="category" id="category" class="form-control" required>
                                 <option value="">Select category</option>
 
-                                <option value="Air Conditioner"
-                                    {{ old('category') == 'Air Conditioner' ? 'selected' : '' }}>
-                                    Air Conditioner
-                                </option>
-
-                                <option value="Refrigerator"
-                                    {{ old('category') == 'Refrigerator' ? 'selected' : '' }}>
-                                    Refrigerator
-                                </option>
-
-                                <option value="Washing Machine"
-                                    {{ old('category') == 'Washing Machine' ? 'selected' : '' }}>
-                                    Washing Machine
-                                </option>
-
-                                <option value="Laptop"
-                                    {{ old('category') == 'Laptop' ? 'selected' : '' }}>
-                                    Laptop
-                                </option>
-
-                                <option value="Television"
-                                    {{ old('category') == 'Television' ? 'selected' : '' }}>
-                                    Television
-                                </option>
-
-                                <option value="Mobile Phone"
-                                    {{ old('category') == 'Mobile Phone' ? 'selected' : '' }}>
-                                    Mobile Phone
-                                </option>
-
-                                <option value="Other"
-                                    {{ old('category') == 'Other' ? 'selected' : '' }}>
-                                    Other
-                                </option>
+                                <option value="Air Conditioner" {{ old('category') == 'Air Conditioner' ? 'selected' : '' }}>Air Conditioner</option>
+                                <option value="Refrigerator" {{ old('category') == 'Refrigerator' ? 'selected' : '' }}>Refrigerator</option>
+                                <option value="Washing Machine" {{ old('category') == 'Washing Machine' ? 'selected' : '' }}>Washing Machine</option>
+                                <option value="Laptop" {{ old('category') == 'Laptop' ? 'selected' : '' }}>Laptop</option>
+                                <option value="Television" {{ old('category') == 'Television' ? 'selected' : '' }}>Television</option>
+                                <option value="Mobile Phone" {{ old('category') == 'Mobile Phone' ? 'selected' : '' }}>Mobile Phone</option>
+                                <option value="Other" {{ old('category') == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
                         </div>
 
-
-                        {{-- Brand --}}
                         <div class="form-group">
-                            <label for="brand">
-                                Brand
-                                <span>*</span>
-                            </label>
+                            <label for="brand">Brand <span>*</span></label>
 
-                            <input
-                                type="text"
-                                name="brand"
-                                id="brand"
-                                class="form-control"
-                                value="{{ old('brand') }}"
-                                placeholder="e.g. Samsung"
-                                required
-                            >
+                            <input type="text"
+                                   name="brand"
+                                   id="brand"
+                                   class="form-control"
+                                   value="{{ old('brand') }}"
+                                   placeholder="e.g. Samsung"
+                                   required>
                         </div>
 
-
-                        {{-- Model --}}
                         <div class="form-group">
-                            <label for="model">
-                                Model
-                                <span>*</span>
-                            </label>
+                            <label for="model">Model <span>*</span></label>
 
-                            <input
-                                type="text"
-                                name="model"
-                                id="model"
-                                class="form-control"
-                                value="{{ old('model') }}"
-                                placeholder="e.g. WW80T554DAX"
-                                required
-                            >
+                            <input type="text"
+                                   name="model"
+                                   id="model"
+                                   class="form-control"
+                                   value="{{ old('model') }}"
+                                   placeholder="e.g. WW80T554DAX"
+                                   required>
                         </div>
 
-
-                        {{-- Serial Number --}}
                         <div class="form-group">
-                            <label for="serial_number">
-                                Serial Number
-                                <span>*</span>
-                            </label>
+                            <label for="serial_number">Serial Number <span>*</span></label>
 
-                            <input
-                                type="text"
-                                name="serial_number"
-                                id="serial_number"
-                                class="form-control"
-                                value="{{ old('serial_number') }}"
-                                placeholder="Enter serial number"
-                                required
-                            >
+                            <input type="text"
+                                   name="serial_number"
+                                   id="serial_number"
+                                   class="form-control"
+                                   value="{{ old('serial_number') }}"
+                                   placeholder="Enter serial number"
+                                   required>
                         </div>
 
                     </div>
-
                 </div>
 
-
-                {{-- Purchase Information --}}
+                {{-- PURCHASE INFORMATION --}}
                 <div class="form-card">
 
                     <div class="card-header">
                         <div class="card-icon blue">
-                            <i class="bi bi-calendar-check"></i>
+                            <i class="bi bi-calendar2-check-fill"></i>
                         </div>
 
                         <div>
                             <h2>Purchase Information</h2>
-                            <p>Record when and how much you paid for the product.</p>
+                            <p>Record the purchase date, price and current condition.</p>
                         </div>
-                    </div>
 
+                        <span class="section-number">02</span>
+                    </div>
 
                     <div class="form-grid">
 
-                        {{-- Purchase Date --}}
                         <div class="form-group">
                             <label for="purchase_date">
-                                Purchase Date
-                                <span>*</span>
+                                Purchase Date <span>*</span>
                             </label>
 
-                            <input
-                                type="date"
-                                name="purchase_date"
-                                id="purchase_date"
-                                class="form-control"
-                                value="{{ old('purchase_date') }}"
-                                required
-                            >
+                            <input type="date"
+                                   name="purchase_date"
+                                   id="purchase_date"
+                                   class="form-control"
+                                   value="{{ old('purchase_date') }}"
+                                   required>
                         </div>
 
-
-                        {{-- Purchase Price --}}
                         <div class="form-group">
-                            <label for="purchase_price">
-                                Purchase Price
-                            </label>
+                            <label for="purchase_price">Purchase Price</label>
 
                             <div class="price-input">
                                 <span>₹</span>
 
-                                <input
-                                    type="number"
-                                    name="purchase_price"
-                                    id="purchase_price"
-                                    class="form-control"
-                                    value="{{ old('purchase_price') }}"
-                                    placeholder="0.00"
-                                    step="0.01"
-                                    min="0"
-                                >
+                                <input type="number"
+                                       name="purchase_price"
+                                       id="purchase_price"
+                                       class="form-control"
+                                       value="{{ old('purchase_price') }}"
+                                       placeholder="0.00"
+                                       step="0.01"
+                                       min="0">
                             </div>
                         </div>
 
-
-                        {{-- Condition --}}
                         <div class="form-group full-width">
                             <label for="condition">
-                                Product Condition
-                                <span>*</span>
+                                Product Condition <span>*</span>
                             </label>
 
-                            <select
-                                name="condition"
-                                id="condition"
-                                class="form-control"
-                                required
-                            >
+                            <select name="condition" id="condition" class="form-control" required>
                                 <option value="">Select condition</option>
-
-                                <option value="new"
-                                    {{ old('condition') == 'new' ? 'selected' : '' }}>
-                                    New
-                                </option>
-
-                                <option value="good"
-                                    {{ old('condition') == 'good' ? 'selected' : '' }}>
-                                    Good
-                                </option>
-
-                                <option value="fair"
-                                    {{ old('condition') == 'fair' ? 'selected' : '' }}>
-                                    Fair
-                                </option>
-
-                                <option value="poor"
-                                    {{ old('condition') == 'poor' ? 'selected' : '' }}>
-                                    Poor
-                                </option>
+                                <option value="new" {{ old('condition') == 'new' ? 'selected' : '' }}>New</option>
+                                <option value="good" {{ old('condition') == 'good' ? 'selected' : '' }}>Good</option>
+                                <option value="fair" {{ old('condition') == 'fair' ? 'selected' : '' }}>Fair</option>
+                                <option value="poor" {{ old('condition') == 'poor' ? 'selected' : '' }}>Poor</option>
                             </select>
                         </div>
 
                     </div>
-
                 </div>
 
             </div>
 
+            {{-- RIGHT COLUMN --}}
+            <div class="form-side-column">
 
-            {{-- RIGHT SIDE --}}
-            <div>
-
-                {{-- Product Image --}}
+                {{-- PRODUCT IMAGE --}}
                 <div class="form-card">
 
                     <div class="card-header">
                         <div class="card-icon purple">
-                            <i class="bi bi-image"></i>
+                            <i class="bi bi-image-fill"></i>
                         </div>
 
                         <div>
                             <h2>Product Image</h2>
-                            <p>Upload a clear photo of your product.</p>
+                            <p>Upload a clear product photograph.</p>
                         </div>
                     </div>
-
 
                     <div class="upload-box">
 
                         <div class="upload-icon">
-                            <i class="bi bi-cloud-arrow-up"></i>
+                            <i class="bi bi-cloud-arrow-up-fill"></i>
                         </div>
 
                         <h3>Upload Product Image</h3>
+                        <p>Choose an image from your device</p>
 
-                        <p>
-                            JPG, JPEG, PNG or WEBP
-                        </p>
-
-                        <input
-                            type="file"
-                            name="image"
-                            id="image"
-                            accept=".jpg,.jpeg,.png,.webp"
-                            class="file-input"
-                        >
+                        <input type="file"
+                               name="image"
+                               id="image"
+                               accept=".jpg,.jpeg,.png,.webp"
+                               class="file-input">
 
                         <label for="image" class="upload-btn">
-                            <i class="bi bi-upload"></i>
+                            <i class="bi bi-folder2-open"></i>
                             Choose Image
                         </label>
 
@@ -338,59 +240,53 @@
                             No file selected
                         </div>
 
+                        <div class="upload-formats">
+                            <i class="bi bi-file-image"></i>
+                            JPG · JPEG · PNG · WEBP
+                        </div>
                     </div>
-
                 </div>
 
-
-                {{-- Invoice --}}
+                {{-- INVOICE --}}
                 <div class="form-card">
 
                     <div class="card-header">
                         <div class="card-icon orange">
-                            <i class="bi bi-receipt"></i>
+                            <i class="bi bi-receipt-cutoff"></i>
                         </div>
 
                         <div>
                             <h2>Purchase Invoice</h2>
-                            <p>Keep your purchase document with the product.</p>
+                            <p>Attach your purchase document.</p>
                         </div>
                     </div>
 
-
                     <div class="invoice-upload">
+                        <i class="bi bi-file-earmark-pdf"></i>
 
-                        <i class="bi bi-file-earmark-text"></i>
-
-                        <div>
+                        <div class="invoice-details">
                             <strong>Upload Invoice</strong>
-
-                            <small>
-                                PDF, JPG or PNG
-                            </small>
+                            <small>PDF, JPG or PNG</small>
                         </div>
 
-                        <input
-                            type="file"
-                            name="invoice"
-                            id="invoice"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                        >
+                        <input type="file"
+                               name="invoice"
+                               id="invoice"
+                               accept=".pdf,.jpg,.jpeg,.png">
 
                         <label for="invoice">
+                            <i class="bi bi-plus-lg"></i>
                             Choose
                         </label>
-
                     </div>
 
                     <div id="invoice-name" class="invoice-name">
+                        <i class="bi bi-paperclip"></i>
                         No invoice selected
                     </div>
-
                 </div>
 
-
-                {{-- Info Card --}}
+                {{-- PRODUCT PASSPORT INFO --}}
                 <div class="info-card">
 
                     <div class="info-icon">
@@ -398,39 +294,46 @@
                     </div>
 
                     <div>
-                        <h3>Your Product Passport</h3>
+                        <span class="info-label">DIGITAL PRODUCT PASSPORT</span>
+                        <h3>Your Product, One Complete Record</h3>
 
                         <p>
-                            After adding your product, ProductLife can maintain
-                            its digital passport, warranty, maintenance and
-                            repair journey in one place.
+                            ProductLife helps maintain your product's digital
+                            passport, warranty, maintenance and repair journey
+                            in one convenient place.
                         </p>
                     </div>
+                </div>
 
+                {{-- QUICK NOTE --}}
+                <div class="secure-note">
+                    <i class="bi bi-lock-fill"></i>
+                    <span>Your product information is submitted securely.</span>
                 </div>
 
             </div>
 
         </div>
 
-
-        {{-- Bottom Actions --}}
+        {{-- FORM ACTIONS --}}
         <div class="form-actions">
 
-            <a
-                href="{{ route('products.index') }}"
-                class="cancel-btn"
-            >
-                Cancel
-            </a>
+            <div class="action-note">
+                <i class="bi bi-info-circle-fill"></i>
+                Fields marked with * are required.
+            </div>
 
-            <button
-                type="submit"
-                class="save-btn"
-            >
-                <i class="bi bi-check2-circle"></i>
-                Add Product
-            </button>
+            <div class="action-buttons">
+                <a href="{{ route('products.index') }}" class="cancel-btn">
+                    Cancel
+                </a>
+
+                <button type="submit" class="save-btn">
+                    <i class="bi bi-check2-circle"></i>
+                    Add Product
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
 
         </div>
 
@@ -442,158 +345,186 @@
 
 
 @push('styles')
-
 <style>
+/* =========================================
+   PRODUCT CREATE PAGE - PREMIUM THEME
+========================================= */
 
-
-/* MAIN PAGE */
 .add-product-page {
-    max-width: 1180px;
+    width: 100%;
+    max-width: 1250px;
     margin: 0 auto;
-    color: #172b23;
+    color: #172033;
+    padding-bottom: 25px;
+}
+
+.add-product-page,
+.add-product-page * {
+    box-sizing: border-box;
 }
 
 /* PAGE HEADER */
 .add-product-page .page-heading {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 30px;
+    align-items: center;
+    gap: 25px;
+    padding: 32px;
     margin-bottom: 27px;
-    border-radius: 22px;
-    background: linear-gradient(120deg, #073b2b 0%, #087f5b 55%, #0ea5a0 100%);
-    box-shadow: 0 14px 30px rgba(8, 127, 91, .22);
+    min-height: 210px;
+    border-radius: 23px;
+    background: linear-gradient(115deg, #111a40 0%, #302477 48%, #2563eb 100%);
+    box-shadow: 0 15px 35px rgba(37, 52, 125, .22);
 }
 
-.add-product-page .page-heading::before {
-    content: "";
-    position: absolute;
-    width: 230px;
-    height: 230px;
-    right: 100px;
-    top: -145px;
-    border: 35px solid rgba(255,255,255,.09);
-    border-radius: 50%;
-}
-
-.add-product-page .page-heading::after {
-    content: "";
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    right: -35px;
-    bottom: -100px;
-    background: rgba(255,255,255,.09);
-    border-radius: 50%;
-}
-
-.add-product-page .page-heading > div,
-.add-product-page .back-btn {
+.add-product-page .heading-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .add-product-page .heading-icon {
-    width: 54px;
-    height: 54px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 14px;
-    background: linear-gradient(135deg, #a7f3d0, #5eead4);
-    color: #064e3b;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 15px;
     border-radius: 16px;
-    font-size: 24px;
-    box-shadow: 0 7px 18px rgba(0,0,0,.15);
+    background: linear-gradient(135deg, #a5f3fc, #67e8f9);
+    color: #164e63;
+    font-size: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+
+.add-product-page .heading-label {
+    margin-bottom: 7px;
+    color: #a5b4fc;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .add-product-page .page-heading h1 {
     margin: 0;
     color: #fff;
     font-size: 30px;
-    font-weight: 850;
+    line-height: 1.3;
+    font-weight: 900;
     letter-spacing: -.7px;
 }
 
 .add-product-page .page-heading p {
-    margin: 8px 0 0;
-    color: #d1fae5;
+    margin: 9px 0 0;
+    color: #e0e7ff;
     font-size: 13px;
     line-height: 1.7;
 }
 
+.add-product-page .heading-decoration {
+    position: absolute;
+    z-index: -1;
+    border: 30px solid rgba(255,255,255,.07);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.add-product-page .heading-decoration-one {
+    width: 300px;
+    height: 300px;
+    right: 120px;
+    top: -185px;
+}
+
+.add-product-page .heading-decoration-two {
+    width: 220px;
+    height: 220px;
+    right: -50px;
+    bottom: -155px;
+    border-width: 40px;
+    border-color: rgba(103,232,249,.13);
+}
+
 .add-product-page .back-btn {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 9px;
+    flex-shrink: 0;
     padding: 13px 19px;
-    background: #fff;
-    color: #087f5b;
-    border: none;
+    border: 1px solid rgba(255,255,255,.5);
     border-radius: 12px;
+    background: #fff;
+    color: #3730a3;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 800;
-    white-space: nowrap;
-    box-shadow: 0 6px 15px rgba(0,0,0,.13);
+    font-size: 12px;
+    font-weight: 850;
+    box-shadow: 0 7px 18px rgba(0,0,0,.16);
     transition: .25s ease;
 }
 
 .add-product-page .back-btn:hover {
-    background: #d1fae5;
-    color: #064e3b;
+    background: #cffafe;
+    color: #164e63;
     transform: translateY(-3px);
 }
 
-/* ERROR */
+/* ERROR BOX */
 .add-product-page .error-box {
+    margin-bottom: 23px;
+    padding: 19px 22px;
     background: #fff1f2;
     border: 1px solid #fda4af;
     border-left: 5px solid #e11d48;
     border-radius: 14px;
-    padding: 18px 20px;
-    margin-bottom: 22px;
     color: #9f1239;
+    box-shadow: 0 5px 15px rgba(225,29,72,.07);
 }
 
 .add-product-page .error-title {
     display: flex;
     align-items: center;
     gap: 9px;
+    margin-bottom: 9px;
     font-size: 14px;
-    font-weight: 800;
-    margin-bottom: 8px;
+    font-weight: 900;
 }
 
 .add-product-page .error-box ul {
     margin: 0;
     padding-left: 25px;
-    font-size: 13px;
-    line-height: 1.8;
+    font-size: 12px;
+    line-height: 1.9;
 }
 
-/* FORM LAYOUT */
+/* MAIN GRID */
 .add-product-page .form-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+    grid-template-columns: minmax(0, 1.65fr) minmax(290px, 1fr);
     gap: 23px;
     align-items: start;
 }
 
-/* FORM CARDS */
+.add-product-page .form-main-column,
+.add-product-page .form-side-column {
+    min-width: 0;
+}
+
+/* FORM CARD */
 .add-product-page .form-card {
     position: relative;
     overflow: hidden;
-    background: #fff;
-    border: 1px solid #e0e7ef;
-    border-radius: 19px;
-    padding: 25px;
     margin-bottom: 22px;
-    box-shadow: 0 9px 25px rgba(31, 41, 55, .07);
-    transition: .25s ease;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 19px;
+    box-shadow: 0 7px 23px rgba(15,23,42,.055);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .add-product-page .form-card::before {
@@ -603,34 +534,34 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6);
+    background: linear-gradient(90deg, #10b981, #2563eb, #8b5cf6);
 }
 
 .add-product-page .form-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 32px rgba(31, 41, 55, .11);
+    transform: translateY(-2px);
+    box-shadow: 0 13px 29px rgba(15,23,42,.09);
 }
 
-/* SECTION HEADERS */
+/* CARD HEADER */
 .add-product-page .card-header {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding-bottom: 20px;
+    gap: 13px;
+    padding-bottom: 19px;
     margin-bottom: 22px;
-    border-bottom: 1px solid #e9edf3;
+    border-bottom: 1px solid #e8edf5;
 }
 
 .add-product-page .card-icon {
     width: 47px;
     height: 47px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    font-size: 21px;
+    align-items: center;
     flex-shrink: 0;
-    box-shadow: 0 5px 12px rgba(0,0,0,.07);
+    border-radius: 14px;
+    font-size: 20px;
 }
 
 .add-product-page .card-icon.green {
@@ -655,21 +586,29 @@
 
 .add-product-page .card-header h2 {
     margin: 0;
-    color: #172b23;
-    font-size: 17px;
-    font-weight: 850;
+    color: #172033;
+    font-size: 16px;
+    font-weight: 900;
 }
 
 .add-product-page .card-header p {
     margin: 5px 0 0;
     color: #64748b;
-    font-size: 12px;
+    font-size: 11.5px;
+    line-height: 1.6;
+}
+
+.add-product-page .section-number {
+    margin-left: auto;
+    color: #cbd5e1;
+    font-size: 23px;
+    font-weight: 900;
 }
 
 /* FORM GRID */
 .add-product-page .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 21px;
 }
 
@@ -684,61 +623,66 @@
 .add-product-page .form-group label {
     display: block;
     margin-bottom: 9px;
-    color: #25374b;
-    font-size: 12.5px;
-    font-weight: 800;
+    color: #26364d;
+    font-size: 12px;
+    font-weight: 850;
 }
 
 .add-product-page .form-group label span {
-    color: #ef4444;
+    color: #e11d48;
+    font-size: 14px;
 }
 
 .add-product-page .form-control {
+    display: block;
     width: 100%;
-    min-height: 50px;
+    min-height: 49px;
     padding: 12px 14px;
-    border: 1.5px solid #d5deea;
+    border: 1.5px solid #d8e0ed;
     border-radius: 11px;
-    background: #f9fbff;
-    color: #172b43;
-    font-size: 13px;
+    background: #f8faff;
+    color: #172033;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
     outline: none;
     transition: .22s ease;
 }
 
 .add-product-page .form-control::placeholder {
     color: #94a3b8;
+    font-weight: 500;
 }
 
 .add-product-page .form-control:hover {
-    border-color: #60a5fa;
+    border-color: #93c5fd;
     background: #fff;
 }
 
 .add-product-page .form-control:focus {
-    border-color: #2563eb;
+    border-color: #4f46e5;
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+    box-shadow: 0 0 0 4px rgba(79,70,229,.11);
 }
 
 .add-product-page select.form-control {
     cursor: pointer;
 }
 
-/* PRICE */
+/* PRICE INPUT */
 .add-product-page .price-input {
     position: relative;
 }
 
 .add-product-page .price-input > span {
     position: absolute;
-    left: 14px;
     top: 50%;
-    transform: translateY(-50%);
+    left: 14px;
     z-index: 2;
+    transform: translateY(-50%);
     color: #059669;
     font-size: 16px;
-    font-weight: 850;
+    font-weight: 900;
 }
 
 .add-product-page .price-input .form-control {
@@ -747,8 +691,8 @@
 
 /* IMAGE UPLOAD */
 .add-product-page .upload-box {
+    padding: 27px 17px;
     text-align: center;
-    padding: 29px 18px;
     background: linear-gradient(145deg, #eff6ff, #f5f3ff);
     border: 2px dashed #818cf8;
     border-radius: 17px;
@@ -761,89 +705,101 @@
 }
 
 .add-product-page .upload-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 62px;
     height: 62px;
-    margin: 0 auto 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto 15px;
     border-radius: 18px;
-    background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
     color: #fff;
     font-size: 27px;
-    box-shadow: 0 8px 17px rgba(99, 102, 241, .25);
+    box-shadow: 0 8px 19px rgba(79,70,229,.25);
 }
 
 .add-product-page .upload-box h3 {
     margin: 0;
-    font-size: 15px;
-    font-weight: 850;
     color: #312e81;
+    font-size: 14px;
+    font-weight: 900;
 }
 
 .add-product-page .upload-box p {
-    margin: 7px 0 16px;
-    color: #6366a3;
-    font-size: 11.5px;
+    margin: 7px 0 17px;
+    color: #5b5c9c;
+    font-size: 11px;
 }
 
-.add-product-page .file-input {
+.add-product-page .file-input,
+.add-product-page .invoice-upload input {
     display: none;
 }
 
 .add-product-page .upload-btn {
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     gap: 8px;
     padding: 11px 19px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    color: #fff;
     border-radius: 10px;
-    font-size: 12.5px;
-    font-weight: 800;
+    background: linear-gradient(120deg, #4338ca, #7c3aed);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 850;
     cursor: pointer;
-    box-shadow: 0 6px 14px rgba(79, 70, 229, .22);
+    box-shadow: 0 6px 15px rgba(79,70,229,.22);
     transition: .2s ease;
 }
 
 .add-product-page .upload-btn:hover {
-    background: linear-gradient(135deg, #3730a3, #6d28d9);
+    background: linear-gradient(120deg, #312e81, #6d28d9);
     transform: translateY(-2px);
 }
 
 .add-product-page .file-name {
     margin-top: 13px;
     color: #4338ca;
-    font-size: 11.5px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 800;
     word-break: break-word;
 }
 
-/* INVOICE */
+.add-product-page .upload-formats {
+    margin-top: 18px;
+    padding-top: 13px;
+    border-top: 1px solid #c7d2fe;
+    color: #555a8d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+/* INVOICE UPLOAD */
 .add-product-page .invoice-upload {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 15px;
+    gap: 11px;
+    padding: 14px;
     background: #fff7ed;
     border: 1px solid #fed7aa;
-    border-radius: 14px;
+    border-radius: 13px;
 }
 
 .add-product-page .invoice-upload > i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 43px;
     height: 43px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
-    background: linear-gradient(135deg, #fb923c, #f97316);
-    color: #fff;
     border-radius: 12px;
-    font-size: 20px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    font-size: 21px;
 }
 
-.add-product-page .invoice-upload div {
+.add-product-page .invoice-details {
     flex: 1;
     min-width: 0;
 }
@@ -851,153 +807,265 @@
 .add-product-page .invoice-upload strong {
     display: block;
     color: #9a3412;
-    font-size: 12.5px;
+    font-size: 12px;
+    font-weight: 900;
 }
 
 .add-product-page .invoice-upload small {
     display: block;
     margin-top: 4px;
     color: #c2410c;
-    font-size: 10.5px;
-}
-
-.add-product-page .invoice-upload input {
-    display: none;
+    font-size: 10px;
 }
 
 .add-product-page .invoice-upload label {
-    cursor: pointer;
-    padding: 9px 13px;
-    background: #ea580c;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 11px;
     border-radius: 9px;
+    background: #ea580c;
     color: #fff;
-    font-size: 11.5px;
-    font-weight: 800;
+    font-size: 10px;
+    font-weight: 850;
+    white-space: nowrap;
+    cursor: pointer;
     transition: .2s ease;
 }
 
 .add-product-page .invoice-upload label:hover {
-    background: #c2410c;
+    background: #9a3412;
+    transform: translateY(-2px);
 }
 
 .add-product-page .invoice-name {
-    margin-top: 10px;
-    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 11px;
+    padding: 0 4px;
     color: #9a3412;
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 10.5px;
+    font-weight: 800;
     word-break: break-word;
 }
 
-/* INFO CARD */
+/* PRODUCT PASSPORT INFO */
 .add-product-page .info-card {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 13px;
     padding: 20px;
-    background: linear-gradient(125deg, #ecfdf5, #e0f2fe);
+    margin-bottom: 15px;
     border: 1px solid #a7f3d0;
     border-left: 5px solid #059669;
-    border-radius: 16px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ecfdf5, #e0f2fe);
 }
 
 .add-product-page .info-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 43px;
     height: 43px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    border-radius: 12px;
     background: linear-gradient(135deg, #059669, #0d9488);
     color: #fff;
-    border-radius: 12px;
     font-size: 20px;
 }
 
+.add-product-page .info-label {
+    color: #047857;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
 .add-product-page .info-card h3 {
-    margin: 2px 0 7px;
+    margin: 7px 0;
     color: #065f46;
-    font-size: 13.5px;
-    font-weight: 850;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.5;
 }
 
 .add-product-page .info-card p {
     margin: 0;
     color: #365b50;
-    font-size: 11.5px;
-    line-height: 1.75;
+    font-size: 11px;
+    line-height: 1.8;
 }
 
-/* ACTION BUTTONS */
-.add-product-page .form-actions {
+/* SECURITY NOTE */
+.add-product-page .secure-note {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 13px;
-    padding: 22px 0 5px;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border: 1px solid #bfdbfe;
+    border-radius: 11px;
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 10.5px;
+    font-weight: 800;
+}
+
+.add-product-page .secure-note i {
+    color: #2563eb;
+    font-size: 14px;
+}
+
+/* FORM ACTIONS */
+.add-product-page .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 21px 23px;
+    margin-top: 3px;
+    border: 1px solid #e2e8f0;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 7px 20px rgba(15,23,42,.05);
+}
+
+.add-product-page .action-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.add-product-page .action-note i {
+    color: #2563eb;
+    font-size: 15px;
+}
+
+.add-product-page .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 11px;
 }
 
 .add-product-page .cancel-btn,
 .add-product-page .save-btn {
-    min-height: 51px;
-    padding: 0 24px;
-    border-radius: 11px;
+    min-height: 47px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 9px;
-    font-size: 13px;
-    font-weight: 800;
+    padding: 0 21px;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 850;
     text-decoration: none;
     transition: .22s ease;
 }
 
 .add-product-page .cancel-btn {
-    background: #fff;
     border: 1.5px solid #cbd5e1;
+    background: #fff;
     color: #475569;
 }
 
 .add-product-page .cancel-btn:hover {
+    border-color: #94a3b8;
     background: #f1f5f9;
-    color: #1e293b;
+    color: #172033;
     transform: translateY(-2px);
 }
 
 .add-product-page .save-btn {
     border: none;
-    background: linear-gradient(120deg, #047857, #10b981);
+    background: linear-gradient(120deg, #4338ca, #6d28d9, #2563eb);
     color: #fff;
     cursor: pointer;
-    box-shadow: 0 7px 17px rgba(5, 150, 105, .25);
+    box-shadow: 0 7px 17px rgba(79,70,229,.25);
 }
 
 .add-product-page .save-btn:hover {
-    background: linear-gradient(120deg, #065f46, #059669);
+    background: linear-gradient(120deg, #312e81, #5b21b6, #1d4ed8);
     transform: translateY(-3px);
-    box-shadow: 0 11px 22px rgba(5, 150, 105, .32);
+    box-shadow: 0 11px 23px rgba(79,70,229,.32);
+}
+
+.add-product-page .save-btn:active {
+    transform: translateY(0);
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .add-product-page .form-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1.3fr) minmax(260px, 1fr);
+        gap: 17px;
+    }
+
+    .add-product-page .form-card {
+        padding: 21px;
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 800px) {
+    .add-product-page .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .add-product-page .form-side-column {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+        gap: 17px;
+    }
+
+    .add-product-page .form-side-column > * {
+        min-width: 0;
+    }
+
+    .add-product-page .form-side-column .form-card {
+        margin-bottom: 0;
+    }
+
+    .add-product-page .info-card,
+    .add-product-page .secure-note {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 600px) {
     .add-product-page .page-heading {
-        align-items: flex-start;
+        min-height: auto;
         flex-direction: column;
-        padding: 23px 20px;
+        align-items: flex-start;
+        padding: 24px 21px;
     }
 
     .add-product-page .page-heading h1 {
         font-size: 25px;
     }
 
+    .add-product-page .back-btn {
+        margin-top: 3px;
+    }
+
+    .add-product-page .form-side-column {
+        display: block;
+    }
+
+    .add-product-page .form-side-column .form-card,
+    .add-product-page .info-card {
+        margin-bottom: 17px;
+    }
+
     .add-product-page .form-grid {
         grid-template-columns: 1fr;
+        gap: 17px;
     }
 
     .add-product-page .form-group.full-width {
@@ -1009,6 +1077,13 @@
     }
 
     .add-product-page .form-actions {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .add-product-page .action-buttons {
+        width: 100%;
         flex-direction: column-reverse;
     }
 
@@ -1016,9 +1091,13 @@
     .add-product-page .save-btn {
         width: 100%;
     }
+
+    .add-product-page .action-note {
+        line-height: 1.6;
+    }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 380px) {
     .add-product-page .invoice-upload {
         flex-wrap: wrap;
     }
@@ -1026,53 +1105,61 @@
     .add-product-page .invoice-upload label {
         margin-left: auto;
     }
+
+    .add-product-page .section-number {
+        font-size: 18px;
+    }
+
+    .add-product-page .card-header h2 {
+        font-size: 14px;
+    }
 }
-
-
 </style>
-
 @endpush
 
 
 @push('scripts')
-
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
 
     const imageInput = document.getElementById('image');
     const imageName = document.getElementById('image-name');
 
-    if (imageInput) {
+    if (imageInput && imageName) {
         imageInput.addEventListener('change', function () {
-
-            if (this.files.length > 0) {
-                imageName.textContent = this.files[0].name;
-            } else {
-                imageName.textContent = 'No file selected';
-            }
-
+            imageName.textContent = this.files.length > 0
+                ? this.files[0].name
+                : 'No file selected';
         });
     }
-
 
     const invoiceInput = document.getElementById('invoice');
     const invoiceName = document.getElementById('invoice-name');
 
-    if (invoiceInput) {
+    if (invoiceInput && invoiceName) {
         invoiceInput.addEventListener('change', function () {
+            invoiceName.innerHTML = '';
 
             if (this.files.length > 0) {
-                invoiceName.textContent = this.files[0].name;
-            } else {
-                invoiceName.textContent = 'No invoice selected';
-            }
+                const icon = document.createElement('i');
+                icon.className = 'bi bi-paperclip';
 
+                invoiceName.appendChild(icon);
+                invoiceName.appendChild(
+                    document.createTextNode(' ' + this.files[0].name)
+                );
+            } else {
+                const icon = document.createElement('i');
+                icon.className = 'bi bi-paperclip';
+
+                invoiceName.appendChild(icon);
+                invoiceName.appendChild(
+                    document.createTextNode(' No invoice selected')
+                );
+            }
         });
     }
 
 });
-
 </script>
-
 @endpush

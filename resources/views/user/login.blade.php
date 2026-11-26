@@ -1,711 +1,608 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login - ProductLife</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: 'Inter', sans-serif;
-        color: #0b2947;
-
-        background:
-            radial-gradient(
-                circle at 10% 10%,
-                rgba(55, 210, 150, .16),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 90% 90%,
-                rgba(91, 204, 255, .16),
-                transparent 32%
-            ),
-            linear-gradient(
-                135deg,
-                #f8fffd,
-                #eef9ff
-            );
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        padding: 35px 20px;
-    }
-
-
-    /* =========================
-       MAIN CARD
-    ========================= */
-
-    .login-card {
-        width: 100%;
-        max-width: 1080px;
-
-        background: rgba(255, 255, 255, .97);
-
-        border-radius: 30px;
-        overflow: hidden;
-
-        border: 1px solid rgba(255, 255, 255, .9);
-
-        box-shadow:
-            0 35px 90px rgba(15, 54, 80, .14),
-            0 10px 30px rgba(10, 166, 109, .07);
-    }
-
-
-    /* =========================
-       LEFT BRAND SIDE
-    ========================= */
-
-    .brand-side {
-        min-height: 600px;
-        height: 100%;
-
-        padding: 55px 50px;
-
-        color: white;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        position: relative;
-        overflow: hidden;
-
-        background:
-            radial-gradient(
-                circle at 85% 15%,
-                rgba(116, 255, 190, .20),
-                transparent 25%
-            ),
-            linear-gradient(
-                145deg,
-                #063f32,
-                #087b52 55%,
-                #09a66c
-            );
-    }
-
-
-    /* Decorative circles */
-
-    .brand-side::before {
-        content: "";
-
-        position: absolute;
-
-        width: 260px;
-        height: 260px;
-
-        border-radius: 50%;
-
-        right: -100px;
-        top: -90px;
-
-        border: 38px solid rgba(255, 255, 255, .06);
-    }
-
-    .brand-side::after {
-        content: "";
-
-        position: absolute;
-
-        width: 190px;
-        height: 190px;
-
-        border-radius: 50%;
-
-        left: -105px;
-        bottom: -85px;
-
-        background: rgba(255, 255, 255, .05);
-    }
-
-
-    .brand-content {
-        position: relative;
-        z-index: 2;
-    }
-
-
-    /* =========================
-       LOGO
-    ========================= */
-
-    .brand-logo {
-        display: flex;
-        align-items: center;
-
-        margin-bottom: 60px;
-    }
-
-    .brand-logo img {
-        width: 190px;
-        height: auto;
-
-        max-height: 62px;
-
-        object-fit: contain;
-        object-position: left center;
-
-        background: white;
-
-        padding: 8px 14px;
-
-        border-radius: 13px;
-
-        box-shadow:
-            0 10px 28px rgba(0, 0, 0, .12);
-    }
-
-
-    /* =========================
-       BRAND TITLE
-    ========================= */
-
-    .brand-side h1 {
-        font-size: 52px;
-        line-height: 1.08;
-
-        font-weight: 800;
-
-        letter-spacing: -1.8px;
-
-        margin: 0 0 20px;
-    }
-
-    .brand-side h1 span {
-        color: #79f0b2;
-    }
-
-
-    .brand-description {
-        max-width: 440px;
-
-        color: rgba(255, 255, 255, .80);
-
-        font-size: 16px;
-        line-height: 1.8;
-
-        margin: 0 0 36px;
-    }
-
-
-    /* =========================
-       FEATURES
-    ========================= */
-
-    .feature-list {
-        display: flex;
-        flex-direction: column;
-
-        gap: 14px;
-    }
-
-    .mini-feature {
-        display: flex;
-        align-items: center;
-
-        color: rgba(255, 255, 255, .96);
-
-        font-size: 15px;
-        font-weight: 500;
-    }
-
-    .mini-feature-icon {
-        width: 36px;
-        height: 36px;
-
-        flex-shrink: 0;
-
-        border-radius: 10px;
-
-        background: rgba(255, 255, 255, .12);
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        margin-right: 13px;
-
-        color: #7ff2b6;
-
-        font-size: 17px;
-    }
-
-
-    /* =========================
-       RIGHT LOGIN SIDE
-    ========================= */
-
-    .login-side {
-        min-height: 600px;
-
-        padding: 60px 55px;
-
-        background: #ffffff;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-
-    /* =========================
-       FORM TITLE
-    ========================= */
-
-    .form-title {
-        margin-bottom: 32px;
-    }
-
-    .form-title h2 {
-        margin: 0 0 10px;
-
-        color: #0b2947;
-
-        font-size: 38px;
-        line-height: 1.2;
-
-        font-weight: 800;
-
-        letter-spacing: -.9px;
-    }
-
-    .form-title p {
-        margin: 0;
-
-        color: #71839a;
-
-        font-size: 14px;
-        line-height: 1.7;
-    }
-
-
-    /* =========================
-       ALERT
-    ========================= */
-
-    .alert {
-        border: none;
-
-        border-radius: 12px;
-
-        font-size: 13px;
-
-        padding: 12px 14px;
-
-        margin-bottom: 20px;
-    }
-
-
-    /* =========================
-       FORM
-    ========================= */
-
-    .field {
-        margin-bottom: 21px;
-    }
-
-    .form-label {
-        display: block;
-
-        color: #50647b;
-
-        font-size: 12px;
-
-        font-weight: 800;
-
-        letter-spacing: .5px;
-
-        margin-bottom: 9px;
-    }
-
-
-    /* =========================
-       INPUT
-    ========================= */
-
-    .input-wrapper {
-        position: relative;
-    }
-
-    .input-wrapper i {
-        position: absolute;
-
-        left: 16px;
-        top: 50%;
-
-        transform: translateY(-50%);
-
-        color: #8ba0b4;
-
-        font-size: 17px;
-
-        pointer-events: none;
-
-        z-index: 2;
-    }
-
-
-    .form-control {
-        width: 100%;
-
-        height: 54px;
-
-        border-radius: 12px;
-
-        border: 1px solid #dfe8ee;
-
-        background: #f8fbfd;
-
-        color: #193653;
-
-        font-size: 14px;
-
-        padding: 12px 15px 12px 46px;
-
-        transition: all .2s ease;
-    }
-
-    .form-control::placeholder {
-        color: #a4b1bf;
-    }
-
-    .form-control:focus {
-        background: #ffffff;
-
-        border-color: #0eae72;
-
-        box-shadow:
-            0 0 0 4px rgba(14, 174, 114, .09);
-    }
-
-
-    /* =========================
-       REMEMBER
-    ========================= */
-
-    .remember {
-        margin-top: 0;
-
-        margin-bottom: 25px;
-
-        font-size: 13px;
-
-        color: #71839a;
-    }
-
-    .remember input {
-        border-color: #cbd7e1;
-
-        cursor: pointer;
-    }
-
-    .remember input:checked {
-        background-color: #08a66c;
-
-        border-color: #08a66c;
-    }
-
-    .remember label {
-        cursor: pointer;
-    }
-
-
-    /* =========================
-       LOGIN BUTTON
-    ========================= */
-
-    .login-btn {
-        width: 100%;
-
-        height: 54px;
-
-        border: none;
-
-        border-radius: 13px;
-
-        background:
-            linear-gradient(
-                135deg,
-                #08a66c,
-                #07945f
-            );
-
-        color: #ffffff;
-
-        font-size: 15px;
-
-        font-weight: 800;
-
-        box-shadow:
-            0 10px 25px rgba(8, 166, 108, .20);
-
-        transition: all .25s ease;
-
-        cursor: pointer;
-    }
-
-    .login-btn:hover {
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 14px 30px rgba(8, 166, 108, .28);
-    }
-
-
-    /* =========================
-       REGISTER LINK
-    ========================= */
-
-    .register-text {
-        text-align: center;
-
-        font-size: 13px;
-
-        color: #8291a1;
-
-        margin-top: 25px;
-
-        padding-top: 22px;
-
-        border-top: 1px solid #e8eef2;
-    }
-
-    .register-text a {
-        color: #08a66c;
-
-        font-weight: 800;
-
-        text-decoration: none;
-
-        margin-left: 4px;
-    }
-
-    .register-text a:hover {
-        text-decoration: underline;
-    }
-
-
-    /* =========================
-       INVALID MESSAGE
-    ========================= */
-
-    .invalid-feedback {
-        font-size: 12px;
-
-        margin-top: 6px;
-    }
-
-
-    /* =========================
-       TABLET
-    ========================= */
-
-    @media (max-width: 991px) {
+        :root {
+            --navy: #111936;
+            --navy-light: #202c55;
+            --purple: #7138e8;
+            --blue: #2878f0;
+            --cyan: #13b8d5;
+            --green: #0eaa78;
+            --text: #17223d;
+            --muted: #758199;
+            --border: #e4e8f1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            padding: 25px 16px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at 10% 15%, rgba(113,56,232,.15), transparent 28%),
+                radial-gradient(circle at 90% 85%, rgba(19,184,213,.15), transparent 30%),
+                linear-gradient(135deg, #f4f5ff, #edf6ff);
         }
 
         .login-card {
-            max-width: 850px;
+            width: 100%;
+            max-width: 1120px;
+            background: #fff;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.9);
+            box-shadow: 0 30px 85px rgba(25,35,80,.15);
         }
 
-        .brand-side {
-            min-height: 540px;
+        /* LEFT BRAND PANEL */
 
-            padding: 45px 38px;
+        .brand-side {
+            height: 100%;
+            min-height: 680px;
+            padding: 55px 48px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(90,160,255,.28), transparent 30%),
+                radial-gradient(circle at 5% 95%, rgba(19,184,213,.2), transparent 35%),
+                linear-gradient(145deg, #10172f, #22285d 58%, #5425a9);
+        }
+
+        .brand-side::before,
+        .brand-side::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .brand-side::before {
+            width: 350px;
+            height: 350px;
+            top: -150px;
+            right: -150px;
+        }
+
+        .brand-side::after {
+            width: 270px;
+            height: 270px;
+            bottom: -130px;
+            left: -130px;
+        }
+
+        .brand-content {
+            width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .brand-logo {
-            margin-bottom: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 15px;
+            margin-bottom: 65px;
+            background: white;
+            border-radius: 13px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
         }
 
         .brand-logo img {
-            width: 170px;
+            width: 175px;
+            max-height: 55px;
+            object-fit: contain;
         }
 
-        .brand-side h1 {
-            font-size: 42px;
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border: 1px solid rgba(255,255,255,.18);
+            background: rgba(255,255,255,.10);
+            border-radius: 30px;
+            color: #d5caff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 22px;
         }
 
-        .brand-description {
-            font-size: 15px;
-        }
-
-        .login-side {
-            min-height: 540px;
-
-            padding: 45px 38px;
-        }
-
-        .form-title h2 {
-            font-size: 34px;
-        }
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 767px) {
-
-        body {
-            padding: 15px;
-        }
-
-        .login-card {
-            border-radius: 22px;
-        }
-
-        .brand-side {
-            min-height: auto;
-
-            padding: 38px 28px;
-        }
-
-        .brand-logo {
-            margin-bottom: 38px;
-        }
-
-        .brand-logo img {
-            width: 160px;
-        }
-
-        .brand-side h1 {
-            font-size: 36px;
-
-            letter-spacing: -1px;
-        }
-
-        .brand-description {
+        .brand-tag i {
+            color: #68e5b4;
             font-size: 14px;
+        }
 
-            line-height: 1.7;
+        .brand-side h1 {
+            font-size: 49px;
+            line-height: 1.12;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin: 0 0 20px;
+        }
+
+        .brand-side h1 span {
+            display: block;
+            background: linear-gradient(90deg, #a997ff, #55c9ff, #6ce4bd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .brand-description {
+            max-width: 410px;
+            color: #c2cbe0;
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 35px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .mini-feature {
-            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: #f3f4ff;
+            font-size: 13px;
+            font-weight: 700;
         }
 
         .mini-feature-icon {
-            width: 34px;
-            height: 34px;
-
-            font-size: 16px;
+            width: 39px;
+            height: 39px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #86e8d0;
+            font-size: 17px;
         }
 
-        .login-side {
-            min-height: auto;
+        .brand-bottom {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 45px;
+            color: #aebbd6;
+            font-size: 11px;
+            font-weight: 600;
+        }
 
-            padding: 38px 25px;
+        .brand-bottom i {
+            color: #6ce4bd;
+            font-size: 15px;
+        }
+
+        /* RIGHT LOGIN PANEL */
+
+        .login-side {
+            min-height: 680px;
+            padding: 55px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .top-home {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 45px;
+        }
+
+        .home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #6d7890;
+            font-size: 12px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: .25s;
+        }
+
+        .home-link:hover {
+            color: var(--purple);
         }
 
         .form-title {
-            margin-bottom: 27px;
+            margin-bottom: 30px;
+        }
+
+        .form-icon {
+            width: 53px;
+            height: 53px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #eee9ff, #e5f1ff);
+            color: var(--purple);
+            font-size: 23px;
+            margin-bottom: 22px;
         }
 
         .form-title h2 {
-            font-size: 30px;
+            color: var(--navy);
+            font-size: 36px;
+            line-height: 1.2;
+            font-weight: 900;
+            letter-spacing: -1.2px;
+            margin: 0 0 10px;
         }
 
         .form-title p {
+            color: var(--muted);
             font-size: 13px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* ALERTS */
+
+        .alert {
+            border: none;
+            border-radius: 12px;
+            padding: 13px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            color: #08734f;
+            background: #e2f8ef;
+        }
+
+        .alert-danger {
+            color: #b42335;
+            background: #fff0f1;
+        }
+
+        /* FORM */
+
+        .field {
+            margin-bottom: 22px;
         }
 
         .form-label {
+            display: block;
+            color: #35435e;
             font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .7px;
+            margin-bottom: 9px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper > i {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            color: #8290a9;
+            font-size: 17px;
+            pointer-events: none;
+            z-index: 2;
         }
 
         .form-control {
-            height: 52px;
-
-            font-size: 14px;
+            width: 100%;
+            height: 55px;
+            border-radius: 12px;
+            border: 1px solid #dfe4ef;
+            background: #f8f9fd;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px 46px;
+            transition: .25s;
         }
+
+        .form-control::placeholder {
+            color: #a3adbf;
+            font-weight: 400;
+        }
+
+        .form-control:focus {
+            background: white;
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(113,56,232,.10);
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            border: none;
+            padding: 5px;
+            background: transparent;
+            color: #8290a9;
+            font-size: 17px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .password-toggle:hover {
+            color: var(--purple);
+        }
+
+        .invalid-feedback {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 7px;
+        }
+
+        /* REMEMBER */
 
         .remember {
+            margin: 0 0 25px;
+            color: #68758d;
             font-size: 12px;
+            font-weight: 600;
         }
+
+        .remember .form-check-input {
+            width: 17px;
+            height: 17px;
+            margin-top: 1px;
+            border-color: #c8cfdf;
+            cursor: pointer;
+        }
+
+        .remember .form-check-input:checked {
+            background-color: var(--purple);
+            border-color: var(--purple);
+        }
+
+        .remember .form-check-input:focus {
+            box-shadow: 0 0 0 3px rgba(113,56,232,.12);
+        }
+
+        .remember label {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* LOGIN BUTTON */
 
         .login-btn {
-            height: 52px;
-
+            width: 100%;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(110deg, var(--purple), var(--blue));
+            color: white;
             font-size: 14px;
+            font-weight: 900;
+            box-shadow: 0 10px 23px rgba(91,65,205,.24);
+            transition: .3s;
+            cursor: pointer;
         }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(91,65,205,.34);
+        }
+
+        .login-btn i {
+            font-size: 17px;
+        }
+
+        /* REGISTER */
 
         .register-text {
+            text-align: center;
+            margin-top: 26px;
+            padding-top: 23px;
+            border-top: 1px solid #edf0f6;
+            color: #7c879d;
             font-size: 12px;
-        }
-    }
-
-
-    /* =========================
-       SMALL MOBILE
-    ========================= */
-
-    @media (max-width: 400px) {
-
-        .brand-side {
-            padding: 32px 22px;
+            font-weight: 600;
         }
 
-        .brand-side h1 {
-            font-size: 32px;
+        .register-text a {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--purple);
+            font-weight: 900;
+            text-decoration: none;
+            margin-left: 4px;
+            transition: .25s;
         }
 
-        .brand-description {
+        .register-text a:hover {
+            color: var(--blue);
+        }
+
+        .secure-note {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            margin-top: 23px;
+            color: #929db1;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .secure-note i {
+            color: var(--green);
             font-size: 13px;
         }
 
-        .login-side {
-            padding: 32px 20px;
+        /* RESPONSIVE */
+
+        @media (max-width: 991px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .login-card {
+                max-width: 820px;
+            }
+
+            .brand-side {
+                min-height: 620px;
+                padding: 40px 30px;
+            }
+
+            .brand-logo {
+                margin-bottom: 48px;
+            }
+
+            .brand-side h1 {
+                font-size: 39px;
+            }
+
+            .login-side {
+                min-height: 620px;
+                padding: 40px 32px;
+            }
+
+            .form-title h2 {
+                font-size: 32px;
+            }
         }
 
-        .form-title h2 {
-            font-size: 28px;
+        @media (max-width: 767px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+            }
+
+            .login-card {
+                border-radius: 20px;
+            }
+
+            .brand-side {
+                min-height: auto;
+                padding: 38px 28px;
+            }
+
+            .brand-logo {
+                margin-bottom: 35px;
+            }
+
+            .brand-logo img {
+                width: 145px;
+            }
+
+            .brand-side h1 {
+                font-size: 36px;
+            }
+
+            .brand-description {
+                font-size: 13px;
+                margin-bottom: 25px;
+            }
+
+            .feature-list {
+                gap: 11px;
+            }
+
+            .mini-feature {
+                font-size: 12px;
+            }
+
+            .brand-bottom {
+                margin-top: 27px;
+            }
+
+            .login-side {
+                min-height: auto;
+                padding: 35px 26px;
+            }
+
+            .top-home {
+                margin-bottom: 28px;
+            }
+
+            .form-title h2 {
+                font-size: 31px;
+            }
+
+            .form-title {
+                margin-bottom: 25px;
+            }
         }
-    }
 
-</style>
+        @media (max-width: 400px) {
+            .brand-side {
+                padding: 30px 21px;
+            }
 
+            .brand-side h1 {
+                font-size: 31px;
+            }
+
+            .login-side {
+                padding: 30px 20px;
+            }
+
+            .form-title h2 {
+                font-size: 28px;
+            }
+
+            .form-control,
+            .login-btn {
+                height: 51px;
+            }
+        }
+    </style>
 </head>
 
-
 <body>
-
 
 <div class="login-card">
 
     <div class="row g-0">
 
-
-        <!-- =========================
-             LEFT SIDE
-        ========================== -->
+        <!-- LEFT BRAND SIDE -->
 
         <div class="col-lg-5">
 
@@ -713,93 +610,61 @@
 
                 <div class="brand-content">
 
+                    <a href="{{ route('home') }}" class="brand-logo">
+                        <img src="{{ asset('images/logo.png') }}" alt="ProductLife Logo">
+                    </a>
 
-                    <!-- LOGO -->
-
-                    <div class="brand-logo">
-
-                        <img
-                            src="{{ asset('images/logo.png') }}"
-                            alt="ProductLife Logo"
-                        >
-
+                    <div class="brand-tag">
+                        <i class="bi bi-stars"></i>
+                        Smart Product Management
                     </div>
 
-
-                    <!-- TITLE -->
-
                     <h1>
-
                         Welcome
-
-                        <span>
-                            Back.
-                        </span>
-
+                        <span>Back.</span>
                     </h1>
 
-
-                    <!-- DESCRIPTION -->
-
                     <p class="brand-description">
-
-                        Continue managing your products,
-                        warranty, maintenance, repairs and
-                        complete product lifecycle with
-                        ProductLife.
-
+                        Continue managing your products, warranty,
+                        maintenance, repairs and complete product
+                        lifecycle with ProductLife.
                     </p>
-
-
-                    <!-- FEATURES -->
 
                     <div class="feature-list">
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-box-seam"></i>
                             </div>
-
                             Manage Your Products
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-shield-check"></i>
                             </div>
-
                             Track Warranty
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-tools"></i>
                             </div>
-
                             Manage Repairs
-
                         </div>
 
-
                         <div class="mini-feature">
-
                             <div class="mini-feature-icon">
                                 <i class="bi bi-qr-code-scan"></i>
                             </div>
-
                             Digital Product Passport
-
                         </div>
 
+                    </div>
 
+                    <div class="brand-bottom">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        Your product information, all in one place.
                     </div>
 
                 </div>
@@ -809,23 +674,29 @@
         </div>
 
 
-
-        <!-- =========================
-             RIGHT SIDE
-        ========================== -->
+        <!-- RIGHT LOGIN SIDE -->
 
         <div class="col-lg-7">
 
             <div class="login-side">
 
+                <div class="top-home">
+                    <a href="{{ route('home') }}" class="home-link">
+                        <i class="bi bi-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
 
-                <!-- TITLE -->
+
+                <!-- FORM TITLE -->
 
                 <div class="form-title">
 
-                    <h2>
-                        Sign In
-                    </h2>
+                    <div class="form-icon">
+                        <i class="bi bi-person-lock"></i>
+                    </div>
+
+                    <h2>Sign In</h2>
 
                     <p>
                         Enter your credentials to access your ProductLife account.
@@ -834,48 +705,32 @@
                 </div>
 
 
-
                 <!-- SESSION MESSAGES -->
 
                 @if(session('success'))
-
                     <div class="alert alert-success">
-
-                        <i class="bi bi-check-circle me-1"></i>
-
+                        <i class="bi bi-check-circle-fill me-2"></i>
                         {{ session('success') }}
-
                     </div>
-
                 @elseif(session('failed'))
-
                     <div class="alert alert-danger">
-
-                        <i class="bi bi-exclamation-circle me-1"></i>
-
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>
                         {{ session('failed') }}
-
                     </div>
-
                 @endif
-
 
 
                 <!-- LOGIN FORM -->
 
-                <form
-                    action="{{ route('login.check') }}"
-                    method="POST"
-                    novalidate>
+                <form action="{{ route('login.check') }}" method="POST" novalidate>
 
                     @csrf
-
 
                     <!-- EMAIL -->
 
                     <div class="field">
 
-                        <label class="form-label">
+                        <label class="form-label" for="email">
                             EMAIL ADDRESS *
                         </label>
 
@@ -886,30 +741,29 @@
                             <input
                                 type="email"
                                 name="email"
+                                id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email') }}"
                                 placeholder="Enter your email"
+                                autocomplete="email"
                             >
 
                         </div>
 
                         @error('email')
-
                             <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
-
                         @enderror
 
                     </div>
-
 
 
                     <!-- PASSWORD -->
 
                     <div class="field">
 
-                        <label class="form-label">
+                        <label class="form-label" for="password">
                             PASSWORD *
                         </label>
 
@@ -920,22 +774,30 @@
                             <input
                                 type="password"
                                 name="password"
+                                id="password"
                                 class="form-control @error('password') is-invalid @enderror"
                                 placeholder="Enter your password"
+                                autocomplete="current-password"
                             >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                <i class="bi bi-eye"></i>
+                            </button>
 
                         </div>
 
                         @error('password')
-
                             <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
-
                         @enderror
 
                     </div>
-
 
 
                     <!-- REMEMBER -->
@@ -945,37 +807,26 @@
                         <input
                             type="checkbox"
                             name="remember"
+                            value="1"
                             class="form-check-input"
                             id="rememberCheck"
                         >
 
-                        <label
-                            class="form-check-label"
-                            for="rememberCheck">
-
+                        <label class="form-check-label" for="rememberCheck">
                             Remember this device
-
                         </label>
 
                     </div>
 
 
-
                     <!-- LOGIN BUTTON -->
 
-                    <button
-                        type="submit"
-                        class="login-btn">
-
+                    <button type="submit" class="login-btn">
                         Sign In
-
-                        <i class="bi bi-arrow-right ms-2"></i>
-
+                        <i class="bi bi-arrow-right"></i>
                     </button>
 
-
                 </form>
-
 
 
                 <!-- REGISTER -->
@@ -985,15 +836,17 @@
                     Don't have an account?
 
                     <a href="{{ route('register') }}">
-
                         Create Account
-
-                        <i class="bi bi-arrow-right"></i>
-
+                        <i class="bi bi-arrow-up-right"></i>
                     </a>
 
                 </div>
 
+
+                <div class="secure-note">
+                    <i class="bi bi-shield-check"></i>
+                    Secure account access
+                </div>
 
             </div>
 
@@ -1003,6 +856,38 @@
 
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+
+        if (passwordInput && toggleButton) {
+
+            toggleButton.addEventListener('click', function () {
+
+                const isPassword = passwordInput.type === 'password';
+
+                passwordInput.type = isPassword ? 'text' : 'password';
+
+                toggleButton.innerHTML = isPassword
+                    ? '<i class="bi bi-eye-slash"></i>'
+                    : '<i class="bi bi-eye"></i>';
+
+                toggleButton.setAttribute(
+                    'aria-label',
+                    isPassword ? 'Hide password' : 'Show password'
+                );
+
+            });
+
+        }
+
+    });
+</script>
 
 </body>
 </html>

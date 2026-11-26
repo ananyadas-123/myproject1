@@ -1,37 +1,49 @@
+
 @extends('layouts.app')
 
 @section('page_title', 'My Warranties')
 @section('page_subtitle', 'View and manage your product warranties')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid warranty-index-page">
 
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success warranty-success-alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
             {{ session('success') }}
         </div>
     @endif
 
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+    <div class="warranty-main-card">
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                <div>
-                    <h5 class="fw-bold mb-1">Warranty Records</h5>
-                    <p class="text-muted mb-0">Your registered product warranties</p>
+        <div class="warranty-card-header">
+            <div class="warranty-heading">
+                <div class="warranty-heading-icon">
+                    <i class="bi bi-shield-check"></i>
                 </div>
+                <div>
+                    <h5>Warranty Records</h5>
+                    <p>Your registered product warranties</p>
+                </div>
+            </div>
 
-                <form method="GET" action="{{ route('warranties.index') }}" class="d-flex gap-2">
+            <form method="GET" action="{{ route('warranties.index') }}" class="warranty-search-form">
+                <div class="warranty-search-input">
+                    <i class="bi bi-search"></i>
                     <input
                         type="text"
                         name="search"
-                        class="form-control"
                         placeholder="Search brand or model..."
                         value="{{ $search }}"
                     >
-                    <button class="btn btn-primary">Search</button>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="warranty-search-btn">
+                    Search <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="warranty-card-body">
 
             @forelse($warranties as $product)
                 @php
@@ -51,74 +63,113 @@
                     }
                 @endphp
 
-                <div class="border rounded-4 p-3 mb-3">
-                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                <div class="warranty-record-card">
+                    <div class="warranty-record-accent"></div>
 
-                        <div>
-                            <h6 class="fw-bold mb-1">
-                                {{ $product->brand }} {{ $product->model }}
-                            </h6>
+                    <div class="warranty-record-content">
 
-                            <p class="text-muted small mb-2">
-                                {{ $product->category ?? 'Product' }}
-                            </p>
-
-                            <div class="small mb-1">
-                                <strong>Provider:</strong>
-                                {{ $warranty->warranty_provider ?? 'Not specified' }}
+                        <div class="warranty-product-info">
+                            <div class="warranty-product-heading">
+                                <div class="warranty-product-icon">
+                                    <i class="bi bi-box-seam"></i>
+                                </div>
+                                <div>
+                                    <h6>{{ $product->brand }} {{ $product->model }}</h6>
+                                    <span class="warranty-category">
+                                        <i class="bi bi-tag-fill me-1"></i>
+                                        {{ $product->category ?? 'Product' }}
+                                    </span>
+                                </div>
                             </div>
 
-                            <div class="small mb-1">
-                                <strong>Warranty Type:</strong>
-                                {{ $warranty->warranty_type ?? 'Not specified' }}
-                            </div>
+                            <div class="warranty-details-grid">
+                                <div class="warranty-detail-item">
+                                    <span class="detail-icon provider-icon">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                    <div>
+                                        <small>Warranty Provider</small>
+                                        <strong>{{ $warranty->warranty_provider ?? 'Not specified' }}</strong>
+                                    </div>
+                                </div>
 
-                            <div class="small">
-                                <strong>Period:</strong>
-                                {{ \Carbon\Carbon::parse($warranty->start_date)->format('d M Y') }}
-                                -
-                                {{ $endDate->format('d M Y') }}
+                                <div class="warranty-detail-item">
+                                    <span class="detail-icon type-icon">
+                                        <i class="bi bi-patch-check"></i>
+                                    </span>
+                                    <div>
+                                        <small>Warranty Type</small>
+                                        <strong>{{ $warranty->warranty_type ?? 'Not specified' }}</strong>
+                                    </div>
+                                </div>
+
+                                <div class="warranty-detail-item warranty-period-item">
+                                    <span class="detail-icon period-icon">
+                                        <i class="bi bi-calendar-range"></i>
+                                    </span>
+                                    <div>
+                                        <small>Warranty Period</small>
+                                        <strong>
+                                            {{ \Carbon\Carbon::parse($warranty->start_date)->format('d M Y') }}
+                                            <span class="period-separator">→</span>
+                                            {{ $endDate->format('d M Y') }}
+                                        </strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="text-end">
-                            <span class="badge bg-{{ $statusClass }}-subtle text-{{ $statusClass }} px-3 py-2">
+                        <div class="warranty-record-actions">
+
+                            <span class="warranty-status status-{{ $statusClass }}">
+                                <span class="status-dot"></span>
                                 {{ $status }}
                             </span>
 
-                            <div class="mt-3">
+                            <div class="warranty-action-buttons">
                                 <a href="{{ route('products.passport', $product) }}"
-                                   class="btn btn-sm btn-outline-primary">
+                                   class="passport-btn">
+                                    <i class="bi bi-person-vcard-fill"></i>
                                     View Passport
                                 </a>
-                            </div>
 
-                            @if($warranty->warranty_document)
-                                <a href="{{ asset('storage/'.$warranty->warranty_document) }}"
-                                   target="_blank"
-                                   class="btn btn-sm btn-outline-secondary mt-2">
-                                    View Document
-                                </a>
-                            @endif
+                                @if($warranty->warranty_document)
+                                    <a href="{{ asset('storage/'.$warranty->warranty_document) }}"
+                                       target="_blank"
+                                       class="document-btn">
+                                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                                        View Document
+                                    </a>
+                                @endif
+                            </div>
                         </div>
 
                     </div>
                 </div>
+
             @empty
-                <div class="text-center py-5">
-                    <h5 class="fw-semibold">No warranties found</h5>
-                    <p class="text-muted">
+                <div class="warranty-empty-state">
+                    <div class="empty-icon">
+                        <i class="bi bi-shield-exclamation"></i>
+                    </div>
+                    <h5>No Warranties Found</h5>
+                    <p>
+                        You haven't registered any warranty records yet.
                         Add warranty information from your product's lifecycle page.
                     </p>
-                    <a href="{{ route('products.index') }}" class="btn btn-primary">
+                    <a href="{{ route('products.index') }}" class="empty-products-btn">
+                        <i class="bi bi-box-seam me-2"></i>
                         View My Products
+                        <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                 </div>
             @endforelse
 
-            <div class="mt-4">
-                {{ $warranties->links('pagination::bootstrap-5') }}
-            </div>
+            @if($warranties->count() > 0)
+                <div class="warranty-pagination">
+                    {{ $warranties->links('pagination::bootstrap-5') }}
+                </div>
+            @endif
 
         </div>
     </div>
@@ -128,322 +179,605 @@
 
 @push('styles')
 <style>
-/* ================================
-   WARRANTY INDEX - PREMIUM DESIGN
-================================ */
+/* =========================================
+   WARRANTY INDEX - PREMIUM NAVY & PURPLE
+========================================= */
 
-.container-fluid {
+.warranty-index-page {
     color: #172033;
+    padding-bottom: 25px;
 }
 
-/* Main warranty container */
-.container-fluid > .card {
-    border: 1px solid #dbe5f0 !important;
-    border-radius: 20px !important;
+/* Main Card */
+
+.warranty-index-page .warranty-main-card {
     background: #ffffff;
-    box-shadow: 0 10px 35px rgba(30, 64, 120, 0.09) !important;
+    border: 1px solid #dce3f0;
+    border-radius: 22px;
     overflow: hidden;
-}
-
-.container-fluid > .card > .card-body {
-    padding: 28px !important;
+    box-shadow: 0 12px 40px rgba(30, 41, 90, 0.09);
 }
 
 /* Header */
-.container-fluid h5.fw-bold {
+
+.warranty-index-page .warranty-card-header {
+    padding: 27px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    background: linear-gradient(120deg, #f8faff, #f3f1ff, #effaff);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.warranty-index-page .warranty-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.warranty-index-page .warranty-heading-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #312e81, #6d28d9, #2563eb);
+    color: #ffffff;
+    font-size: 25px;
+    box-shadow: 0 7px 18px rgba(79, 70, 229, 0.25);
+}
+
+.warranty-index-page .warranty-heading h5 {
     color: #172554;
     font-size: 22px;
-    letter-spacing: -0.4px;
+    font-weight: 850;
+    margin: 0 0 5px;
+    letter-spacing: -0.5px;
 }
 
-.container-fluid .text-muted {
-    color: #64748b !important;
-}
-
-/* Success alert */
-.alert-success {
-    background: linear-gradient(120deg, #dcfce7, #bbf7d0);
-    border: 1px solid #86efac;
-    border-left: 5px solid #16a34a;
-    border-radius: 12px;
-    color: #14532d;
-    font-weight: 600;
-    padding: 14px 18px;
-}
-
-/* Search form */
-.container-fluid form.d-flex {
-    max-width: 430px;
-    width: 100%;
-}
-
-.container-fluid form.d-flex .form-control {
-    min-height: 44px;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 10px;
-    color: #172033;
-    background: #ffffff;
+.warranty-index-page .warranty-heading p {
+    color: #64748b;
+    font-size: 13px;
     font-weight: 500;
-    box-shadow: none;
+    margin: 0;
+}
+
+/* Search */
+
+.warranty-index-page .warranty-search-form {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.warranty-index-page .warranty-search-input {
+    position: relative;
+    flex: 1;
+}
+
+.warranty-index-page .warranty-search-input i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 15px;
+}
+
+.warranty-index-page .warranty-search-input input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px 0 40px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 11px;
+    background: #ffffff;
+    color: #172033;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
     transition: all 0.25s ease;
 }
 
-.container-fluid form.d-flex .form-control::placeholder {
+.warranty-index-page .warranty-search-input input::placeholder {
     color: #94a3b8;
 }
 
-.container-fluid form.d-flex .form-control:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.13);
+.warranty-index-page .warranty-search-input input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.13);
 }
 
-.container-fluid form.d-flex .btn-primary {
-    min-height: 44px;
-    padding: 0 22px;
+.warranty-index-page .warranty-search-btn {
+    height: 46px;
+    padding: 0 20px;
     border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    border-radius: 11px;
+    background: linear-gradient(135deg, #4338ca, #6d28d9, #2563eb);
     color: #ffffff;
-    font-weight: 700;
-    box-shadow: 0 5px 13px rgba(37, 99, 235, 0.22);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow: 0 5px 14px rgba(79, 70, 229, 0.22);
     transition: all 0.25s ease;
 }
 
-.container-fluid form.d-flex .btn-primary:hover {
-    background: linear-gradient(135deg, #1d4ed8, #4338ca);
+.warranty-index-page .warranty-search-btn:hover {
     transform: translateY(-2px);
+    box-shadow: 0 8px 19px rgba(79, 70, 229, 0.3);
 }
 
-/* Warranty record cards */
-.container-fluid .card-body > .border.rounded-4 {
+/* Body */
+
+.warranty-index-page .warranty-card-body {
+    padding: 27px 30px;
+}
+
+/* Success Alert */
+
+.warranty-index-page .warranty-success-alert {
+    border: 1px solid #86efac;
+    border-left: 5px solid #16a34a;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #dcfce7, #bbf7d0);
+    color: #14532d;
+    padding: 14px 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Warranty Record */
+
+.warranty-index-page .warranty-record-card {
     position: relative;
-    background: linear-gradient(120deg, #ffffff, #f8fbff);
-    border: 1px solid #dbe5f0 !important;
-    border-left: 5px solid #0d9488 !important;
-    border-radius: 15px !important;
-    padding: 21px !important;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #dbe4f0;
+    border-radius: 17px;
+    margin-bottom: 18px;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.045);
-    transition: all 0.25s ease;
+    transition: all 0.28s ease;
 }
 
-.container-fluid .card-body > .border.rounded-4:hover {
-    border-left-color: #2563eb !important;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.10);
+.warranty-index-page .warranty-record-card:hover {
     transform: translateY(-3px);
+    border-color: #a5b4fc;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.11);
 }
 
-/* Product name */
-.container-fluid .card-body > .border.rounded-4 h6 {
+.warranty-index-page .warranty-record-accent {
+    height: 4px;
+    background: linear-gradient(90deg, #312e81, #7c3aed, #2563eb, #06b6d4, #10b981);
+}
+
+.warranty-index-page .warranty-record-content {
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Product Heading */
+
+.warranty-index-page .warranty-product-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 21px;
+}
+
+.warranty-index-page .warranty-product-icon {
+    width: 47px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: linear-gradient(135deg, #e0e7ff, #ede9fe);
+    color: #4f46e5;
+    font-size: 22px;
+}
+
+.warranty-index-page .warranty-product-heading h6 {
     color: #172554;
     font-size: 17px;
+    font-weight: 850;
+    margin: 0 0 5px;
+    letter-spacing: -0.3px;
+}
+
+.warranty-index-page .warranty-category {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Details Grid */
+
+.warranty-index-page .warranty-details-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.warranty-index-page .warranty-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 175px;
+    padding: 11px 13px;
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+    background: #f8faff;
+}
+
+.warranty-index-page .detail-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+.warranty-index-page .provider-icon {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.warranty-index-page .type-icon {
+    color: #7c3aed;
+    background: #ede9fe;
+}
+
+.warranty-index-page .period-icon {
+    color: #047857;
+    background: #d1fae5;
+}
+
+.warranty-index-page .warranty-detail-item small {
+    display: block;
+    color: #64748b;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
-/* Product category */
-.container-fluid .card-body > .border.rounded-4 p {
-    color: #64748b !important;
-    font-weight: 600;
-}
-
-/* Warranty details */
-.container-fluid .card-body > .border.rounded-4 .small {
-    color: #334155;
-    line-height: 1.8;
-    font-size: 13px;
-}
-
-.container-fluid .card-body > .border.rounded-4 .small strong {
-    color: #0f172a;
-    font-weight: 800;
-}
-
-/* Status badges */
-.container-fluid .badge {
-    display: inline-block;
-    border-radius: 30px;
-    padding: 8px 15px !important;
+.warranty-index-page .warranty-detail-item strong {
+    display: block;
+    color: #1e293b;
     font-size: 12px;
     font-weight: 800;
-    letter-spacing: 0.3px;
-    border: 1px solid transparent;
+    line-height: 1.5;
 }
 
-.container-fluid .badge.bg-success-subtle {
-    background: #dcfce7 !important;
-    color: #166534 !important;
-    border-color: #86efac;
+.warranty-index-page .period-separator {
+    color: #6366f1;
+    margin: 0 3px;
 }
 
-.container-fluid .badge.bg-warning-subtle {
-    background: #fef3c7 !important;
-    color: #92400e !important;
-    border-color: #fcd34d;
+/* Actions */
+
+.warranty-index-page .warranty-record-actions {
+    min-width: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 19px;
 }
 
-.container-fluid .badge.bg-danger-subtle {
-    background: #fee2e2 !important;
-    color: #991b1b !important;
-    border-color: #fca5a5;
+.warranty-index-page .warranty-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
-/* Action buttons */
-.container-fluid .btn-outline-primary,
-.container-fluid .btn-outline-secondary {
+.warranty-index-page .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.warranty-index-page .status-success {
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.warranty-index-page .status-warning {
+    color: #92400e;
+    background: #fef3c7;
+    border: 1px solid #fcd34d;
+}
+
+.warranty-index-page .status-danger {
+    color: #991b1b;
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+}
+
+/* Action Buttons */
+
+.warranty-index-page .warranty-action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    width: 100%;
+}
+
+.warranty-index-page .passport-btn,
+.warranty-index-page .document-btn {
+    min-height: 39px;
+    padding: 9px 13px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     border-radius: 9px;
-    padding: 8px 14px;
-    font-weight: 700;
-    transition: all 0.25s ease;
-}
-
-.container-fluid .btn-outline-primary {
-    color: #1d4ed8;
-    border: 1.5px solid #3b82f6;
-    background: #eff6ff;
-}
-
-.container-fluid .btn-outline-primary:hover {
-    color: #ffffff;
-    background: #2563eb;
-    border-color: #2563eb;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.2);
-}
-
-.container-fluid .btn-outline-secondary {
-    color: #6d28d9;
-    border: 1.5px solid #a78bfa;
-    background: #f5f3ff;
-}
-
-.container-fluid .btn-outline-secondary:hover {
-    color: #ffffff;
-    background: #7c3aed;
-    border-color: #7c3aed;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(124, 58, 237, 0.2);
-}
-
-/* Empty state */
-.container-fluid .text-center.py-5 {
-    background: linear-gradient(135deg, #eff6ff, #f5f3ff, #ecfeff);
-    border: 1px dashed #93c5fd;
-    border-radius: 16px;
-    padding: 45px 20px !important;
-}
-
-.container-fluid .text-center.py-5 h5 {
-    color: #1e3a8a;
-    font-size: 20px;
+    text-decoration: none;
+    font-size: 12px;
     font-weight: 800;
-}
-
-.container-fluid .text-center.py-5 p {
-    color: #475569 !important;
-    margin-top: 8px;
-}
-
-.container-fluid .text-center.py-5 .btn-primary {
-    border: none;
-    border-radius: 10px;
-    padding: 11px 22px;
-    color: #ffffff;
-    font-weight: 700;
-    background: linear-gradient(135deg, #0d9488, #2563eb);
-    box-shadow: 0 5px 14px rgba(13, 148, 136, 0.2);
+    white-space: nowrap;
     transition: all 0.25s ease;
 }
 
-.container-fluid .text-center.py-5 .btn-primary:hover {
+.warranty-index-page .passport-btn {
+    color: #ffffff;
+    background: linear-gradient(135deg, #4338ca, #6d28d9);
+    box-shadow: 0 4px 11px rgba(79, 70, 229, 0.2);
+}
+
+.warranty-index-page .passport-btn:hover {
+    color: #ffffff;
+    background: linear-gradient(135deg, #312e81, #5b21b6);
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 7px 15px rgba(79, 70, 229, 0.27);
+}
+
+.warranty-index-page .document-btn {
+    color: #0369a1;
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+}
+
+.warranty-index-page .document-btn:hover {
+    color: #ffffff;
+    background: #0284c7;
+    border-color: #0284c7;
+    transform: translateY(-2px);
+}
+
+/* Empty State */
+
+.warranty-index-page .warranty-empty-state {
+    text-align: center;
+    padding: 55px 20px;
+    border: 1px dashed #a5b4fc;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #eff6ff, #f5f3ff, #ecfeff);
+}
+
+.warranty-index-page .empty-icon {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    border-radius: 23px;
+    background: linear-gradient(135deg, #312e81, #7c3aed, #2563eb);
+    color: #ffffff;
+    font-size: 34px;
+    box-shadow: 0 9px 22px rgba(79, 70, 229, 0.23);
+}
+
+.warranty-index-page .warranty-empty-state h5 {
+    color: #1e1b4b;
+    font-size: 21px;
+    font-weight: 900;
+    margin-bottom: 9px;
+}
+
+.warranty-index-page .warranty-empty-state p {
+    max-width: 480px;
+    margin: 0 auto 22px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.warranty-index-page .empty-products-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #0f766e, #2563eb, #6d28d9);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.22);
+    transition: all 0.25s ease;
+}
+
+.warranty-index-page .empty-products-btn:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 21px rgba(37, 99, 235, 0.3);
 }
 
 /* Pagination */
-.container-fluid .pagination {
+
+.warranty-index-page .warranty-pagination {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.warranty-index-page .pagination {
     gap: 5px;
     flex-wrap: wrap;
 }
 
-.container-fluid .pagination .page-link {
-    border: 1px solid #dbe5f0;
+.warranty-index-page .pagination .page-link {
+    border: 1px solid #dbe4f0;
     border-radius: 8px !important;
-    color: #1d4ed8;
-    font-weight: 700;
-    background: #ffffff;
     padding: 8px 13px;
+    color: #4338ca;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 750;
     transition: all 0.2s ease;
 }
 
-.container-fluid .pagination .page-link:hover {
-    background: #dbeafe;
-    border-color: #60a5fa;
-    color: #1e40af;
+.warranty-index-page .pagination .page-link:hover {
+    color: #312e81;
+    background: #e0e7ff;
+    border-color: #818cf8;
 }
 
-.container-fluid .pagination .page-item.active .page-link {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    border-color: #2563eb;
+.warranty-index-page .pagination .page-item.active .page-link {
     color: #ffffff;
+    background: linear-gradient(135deg, #4338ca, #7c3aed);
+    border-color: #4338ca;
 }
 
-.container-fluid .pagination .page-item.disabled .page-link {
-    background: #f1f5f9;
+.warranty-index-page .pagination .page-item.disabled .page-link {
     color: #94a3b8;
+    background: #f1f5f9;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .container-fluid > .card > .card-body {
-        padding: 17px !important;
+/* Responsive */
+
+@media (max-width: 992px) {
+    .warranty-index-page .warranty-record-content {
+        align-items: flex-start;
     }
 
-    .container-fluid form.d-flex {
+    .warranty-index-page .warranty-details-grid {
+        gap: 9px;
+    }
+
+    .warranty-index-page .warranty-detail-item {
+        min-width: 155px;
+    }
+}
+
+@media (max-width: 768px) {
+    .warranty-index-page .warranty-card-header {
+        padding: 21px;
+    }
+
+    .warranty-index-page .warranty-card-body {
+        padding: 19px;
+    }
+
+    .warranty-index-page .warranty-search-form {
         max-width: 100%;
     }
 
-    .container-fluid .card-body > .border.rounded-4 {
-        padding: 17px !important;
-    }
-
-    .container-fluid .card-body > .border.rounded-4 > .d-flex {
+    .warranty-index-page .warranty-record-content {
         flex-direction: column;
-        align-items: stretch !important;
+        align-items: stretch;
+        padding: 19px;
+        gap: 18px;
     }
 
-    .container-fluid .card-body > .border.rounded-4 .text-end {
-        text-align: left !important;
+    .warranty-index-page .warranty-record-actions {
+        width: 100%;
+        min-width: 0;
+        align-items: flex-start;
         border-top: 1px solid #e2e8f0;
-        padding-top: 14px;
+        padding-top: 17px;
     }
 
-    .container-fluid .card-body > .border.rounded-4 .text-end .mt-3 {
-        margin-top: 10px !important;
+    .warranty-index-page .warranty-action-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .warranty-index-page .warranty-action-buttons a {
+        flex: 1;
+    }
+
+    .warranty-index-page .warranty-details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .warranty-index-page .warranty-detail-item {
+        min-width: 0;
     }
 }
 
 @media (max-width: 480px) {
-    .container-fluid h5.fw-bold {
+    .warranty-index-page .warranty-card-header {
+        padding: 17px;
+    }
+
+    .warranty-index-page .warranty-heading-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+    }
+
+    .warranty-index-page .warranty-heading h5 {
         font-size: 19px;
     }
 
-    .container-fluid form.d-flex {
+    .warranty-index-page .warranty-search-form {
         flex-direction: column;
+        align-items: stretch;
     }
 
-    .container-fluid form.d-flex .btn-primary {
+    .warranty-index-page .warranty-search-btn {
         width: 100%;
     }
 
-    .container-fluid .btn-outline-primary,
-    .container-fluid .btn-outline-secondary {
-        font-size: 12px;
-        padding: 7px 10px;
+    .warranty-index-page .warranty-card-body {
+        padding: 13px;
+    }
+
+    .warranty-index-page .warranty-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .warranty-index-page .warranty-detail-item {
+        width: 100%;
+    }
+
+    .warranty-index-page .warranty-action-buttons {
+        flex-direction: column;
+    }
+
+    .warranty-index-page .warranty-action-buttons a {
+        width: 100%;
+    }
+
+    .warranty-index-page .warranty-empty-state {
+        padding: 38px 15px;
     }
 }
 </style>
 @endpush
-
